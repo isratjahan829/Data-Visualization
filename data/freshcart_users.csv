@@ -1,0 +1,9 @@
+ShopperID,Age,Plan_Tier,Months_Active,Total_Orders,Churn
+F-301,38,Family,18,72,0
+F-302,,Solo,2,3,1
+F-303,50,Family,26,104,0
+F-301,38,Family,18,72,0
+F-304,27,Solo,6,-1,1
+F-305,33,Duo,0,2,0
+F-306,45,Family,14,56,0
+F-307,,Solo,3,4,1

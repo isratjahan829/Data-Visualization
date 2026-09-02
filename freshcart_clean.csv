@@ -1,0 +1,8 @@
+ShopperID,Age,Plan_Tier,Months_Active,Total_Orders,Churn,Monthly_Order_Rate,Tenure_Cohort,Missing_Items_Reported
+F-301,38.0,Family,18,72,0,4.0,13+ Mos,0
+F-302,38.0,Solo,2,3,1,1.5,0-6 Mos,4
+F-303,50.0,Family,26,104,0,4.0,13+ Mos,0
+F-304,27.0,Solo,6,0,1,0.0,0-6 Mos,6
+F-305,33.0,Duo,1,2,0,2.0,0-6 Mos,0
+F-306,45.0,Family,14,56,0,4.0,13+ Mos,0
+F-307,38.0,Solo,3,4,1,1.33,0-6 Mos,3
