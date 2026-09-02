@@ -7,6 +7,7 @@ PGDDS 103: Data Analysis & Data Visualizations — FreshCart Grocers churn case.
 - `data/freshcart_users.csv` — shopper demographics, plan tier, tenure, total orders, churn status
 - `data/freshcart_refunds.csv` — logs of orders with missing/damaged items
 - `freshcart_clean.csv` — the cleaned, merged dataset produced by the notebook
+- `chart_1_churn_averages.png` … `chart_4_items_vs_order_rate.png` — the charts the notebook renders
 
 ## Running in Google Colab
 1. Open the notebook in Colab (File → Upload notebook, or open it from GitHub).
@@ -22,3 +23,4 @@ PGDDS 103: Data Analysis & Data Visualizations — FreshCart Grocers churn case.
 4. Integration — left join the refunds log on `ShopperID`, fill `Missing_Items_Reported` NaN with 0
 5. Exploration — averages by `Churn`, cross-tabulation of `Tenure_Cohort` vs `Churn`
 6. Validation — assertions for zero missing values and zero duplicate `ShopperID` entries
+7. Visualizations — churn averages, tenure cohort vs churn, per-shopper order rate, missing items vs order rate
