@@ -24,3 +24,42 @@ PGDDS 103: Data Analysis & Data Visualizations — FreshCart Grocers churn case.
 5. Exploration — averages by `Churn`, cross-tabulation of `Tenure_Cohort` vs `Churn`
 6. Validation — assertions for zero missing values and zero duplicate `ShopperID` entries
 7. Visualizations — churn averages, tenure cohort vs churn, per-shopper order rate, missing items vs order rate
+
+---
+
+# Ecommerce Purchases Exercise (Cust_Purch_FakeData)
+
+A 30,000-row fake customer-purchase dataset with 20 columns. The exercise asks 20
+questions about the customers; the notebook answers each one with pandas.
+
+## Files
+- `Cust_Purch_Data_Exercise_Solutions.ipynb` — solution notebook, already executed (all outputs saved)
+- `data/Cust_Purch_FakeData.csv` — the dataset
+- `chart_customers_per_weekday.png`, `chart_spending_distribution.png` — the two bonus charts
+
+## Running
+Run the notebook from the repository root, or open it in Colab and upload
+`Cust_Purch_FakeData.csv` next to it — the first cell looks in `data/`, the
+working directory, and `/content/`.
+
+## Answers at a glance
+| # | Question | Answer |
+|---|---|---|
+| 3 | Entries / columns | 30,000 rows × 20 columns |
+| 4 | Age max / min / mean | 65 / 18 / 41.55 |
+| 5 | Three most common first names | Willie (130), Francis (124), Eula (86) |
+| 6 | Shared phone number | (263) 382-8004 — Lilly Tyler & Peter Cain |
+| 7 | Structural Engineers | 87 |
+| 8 | Male Structural Engineers | 43 |
+| 9 | Female Structural Engineers in AB | 4 |
+| 10 | Spending max / min / mean | 100.00 / 0.00 / 49.99 CAD |
+| 11 | Spent nothing | 2 customers (Bruce Bryan, Flora Clark) |
+| 12 | Spent 100 CAD or more | 3 customers |
+| 13 | Emails on card 5020000000000230 | 2 |
+| 14 | Cards expiring in 2019 | 2,684 |
+| 15 | Visa users | 1,721 |
+| 16 | Spent 100 CAD on Visa | Gregory Brown |
+| 17 | Two most common professions | Preschool Teacher (112), Distribution Manager (107) |
+| 18 | Top 5 email providers | gmail.com, me.com, outlook.com, live.com, hotmail.com |
+| 19 | "am.edu" email | Yes — Loretta Fletcher |
+| 20 | Busiest weekday | Saturday (4,376 customers) |
