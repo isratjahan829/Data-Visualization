@@ -1,0 +1,7 @@
+species,drug,model,prevalence_pct,sensitivity_pct,specificity_pct,reported_ppv_pct,implied_ppv_pct,ppv_error_pp,reported_npv_pct,implied_npv_pct,npv_error_pp,consistent,ppv_equals_specificity
+K. pneumoniae,ciprofloxacin,random forest,78.7,94.2,73.3,68.2,92.87531710983745,-24.675317109837447,94.6,77.37777227109405,17.22222772890595,False,False
+K. pneumoniae,ciprofloxacin,gradient boosting,78.7,93.8,72.1,67.8,92.54958107299974,-24.74958107299975,93.2,75.88836124466931,17.311638755330694,False,False
+K. pneumoniae,gentamicin,random forest,56.1,88.5,71.4,72.1,79.81573502626043,-7.715735026260429,86.4,82.9307785723924,3.469221427607616,False,False
+C. jejuni,gentamicin,random forest,0.8,98.2,99.6,99.6,66.44113667117723,33.15886332882276,99.9,99.98542769709039,-0.0854276970903789,False,True
+C. jejuni,gentamicin,gradient boosting,0.8,97.9,99.5,99.5,61.22576610381486,38.27423389618514,99.9,99.98298230970576,-0.08298230970574805,False,True
+C. jejuni,erythromycin,random forest,2.1,97.5,99.1,99.1,69.91395205900429,29.186047940995707,99.8,99.94591609887155,-0.14591609887155688,False,True

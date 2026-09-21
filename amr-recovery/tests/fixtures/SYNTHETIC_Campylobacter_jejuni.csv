@@ -1,0 +1,601 @@
+#Organism group,Isolate,BioSample,Assembly,SNP cluster,Isolation type,Location,Create date,AMR genotypes,AST phenotypes
+Campylobacter jejuni,SYN00000,SAMNSYN00000,GCA_SYN00000,PDS00000003.1,clinical,USA,2016-06-01,"ermB,tetO","ciprofloxacin=S,tetracycline=R,oxytetracycline=S"
+Campylobacter jejuni,SYN00001,SAMNSYN00001,GCA_SYN00001,PDS00000046.1,environmental/other,USA,2016-03-01,"aph(3')-IIIa,gyrA=T86I,tetO",ciprofloxacin=R
+Campylobacter jejuni,SYN00002,SAMNSYN00002,GCA_SYN00002,PDS00000035.1,environmental/other,USA,2021-03-01,,"ciprofloxacin=S,tetracycline=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00003,SAMNSYN00003,GCA_SYN00003,PDS00000015.1,environmental/other,Australia,2017-05-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00004,SAMNSYN00004,GCA_SYN00004,PDS00000021.1,clinical,USA,2023-01-01,tetO,"ciprofloxacin=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00005,SAMNSYN00005,GCA_SYN00005,PDS00000028.1,clinical,United Kingdom,2018-08-01,ermB,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00006,SAMNSYN00006,GCA_SYN00006,PDS00000012.1,clinical,USA,2024-06-01,"aadE,cmeA","ciprofloxacin=S,tetracycline=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00007,SAMNSYN00007,GCA_SYN00007,PDS00000018.1,environmental/other,USA,2016-01-01,ermB,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00008,SAMNSYN00008,GCA_SYN00008,PDS00000050.1,environmental/other,USA,2021-04-01,"gyrA=T86I,tetO","ciprofloxacin=R,tetracycline=R"
+Campylobacter jejuni,SYN00009,SAMNSYN00009,GCA_SYN00009,PDS00000034.1,environmental/other,USA,2019-08-01,"aadE,cmeB,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00010,SAMNSYN00010,GCA_SYN00010,PDS00000025.1,clinical,USA,2021-04-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00011,SAMNSYN00011,GCA_SYN00011,PDS00000059.1,clinical,Australia,2022-02-01,"aadE,blaOXA-61,tetO",ciprofloxacin=R
+Campylobacter jejuni,SYN00012,SAMNSYN00012,GCA_SYN00012,PDS00000006.1,environmental/other,United Kingdom,2017-05-01,"blaOXA-61,cmeA","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00013,SAMNSYN00013,GCA_SYN00013,PDS00000055.1,environmental/other,United Kingdom,2024-08-01,"aadE,ermB,tetO",ciprofloxacin=S
+Campylobacter jejuni,SYN00014,SAMNSYN00014,GCA_SYN00014,PDS00000026.1,clinical,United Kingdom,2023-09-01,"blaOXA-61,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00015,SAMNSYN00015,GCA_SYN00015,PDS00000027.1,environmental/other,United Kingdom,2017-03-01,"aadE,cmeB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00016,SAMNSYN00016,GCA_SYN00016,PDS00000041.1,environmental/other,Australia,2017-07-01,"aadE,aph(3')-IIIa,cmeA","ciprofloxacin=S,tetracycline=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00017,SAMNSYN00017,GCA_SYN00017,PDS00000031.1,environmental/other,United Kingdom,2020-05-01,aadE,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00018,SAMNSYN00018,GCA_SYN00018,PDS00000054.1,environmental/other,USA,2023-09-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00019,SAMNSYN00019,GCA_SYN00019,PDS00000012.1,clinical,United Kingdom,2016-03-01,"aadE,blaOXA-61",ciprofloxacin=S
+Campylobacter jejuni,SYN00020,SAMNSYN00020,GCA_SYN00020,PDS00000014.1,environmental/other,Australia,2016-02-01,ermB,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00021,SAMNSYN00021,GCA_SYN00021,PDS00000022.1,clinical,USA,2021-04-01,"cmeB,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00022,SAMNSYN00022,GCA_SYN00022,PDS00000035.1,environmental/other,United Kingdom,2017-07-01,"aph(3')-IIIa,blaOXA-61,cmeB",ciprofloxacin=S
+Campylobacter jejuni,SYN00023,SAMNSYN00023,GCA_SYN00023,PDS00000040.1,clinical,Australia,2018-05-01,"aadE,aph(3')-IIIa,ermB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00024,SAMNSYN00024,GCA_SYN00024,PDS00000010.1,clinical,United Kingdom,2021-07-01,gyrA=T86I,ciprofloxacin=R
+Campylobacter jejuni,SYN00025,SAMNSYN00025,GCA_SYN00025,PDS00000022.1,environmental/other,Australia,2022-06-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00026,SAMNSYN00026,GCA_SYN00026,PDS00000030.1,environmental/other,United Kingdom,2021-07-01,gyrA=T86I,ciprofloxacin=R
+Campylobacter jejuni,SYN00027,SAMNSYN00027,GCA_SYN00027,PDS00000008.1,environmental/other,United Kingdom,2016-08-01,"aph(3')-IIIa,blaOXA-61,cmeB",ciprofloxacin=S
+Campylobacter jejuni,SYN00028,SAMNSYN00028,GCA_SYN00028,PDS00000040.1,environmental/other,United Kingdom,2017-07-01,"aadE,cmeA",ciprofloxacin=S
+Campylobacter jejuni,SYN00029,SAMNSYN00029,GCA_SYN00029,PDS00000037.1,clinical,United Kingdom,2021-03-01,"aph(3')-IIIa,cmeB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00030,SAMNSYN00030,GCA_SYN00030,PDS00000018.1,environmental/other,USA,2015-01-01,cmeB,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00031,SAMNSYN00031,GCA_SYN00031,PDS00000015.1,clinical,United Kingdom,2015-05-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00032,SAMNSYN00032,GCA_SYN00032,PDS00000059.1,clinical,Australia,2023-05-01,blaOXA-61,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00033,SAMNSYN00033,GCA_SYN00033,PDS00000044.1,clinical,Australia,2021-09-01,gyrA=T86I,ciprofloxacin=R
+Campylobacter jejuni,SYN00034,SAMNSYN00034,GCA_SYN00034,PDS00000033.1,environmental/other,USA,2024-09-01,"aph(3')-IIIa,cmeB,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00035,SAMNSYN00035,GCA_SYN00035,PDS00000053.1,clinical,Australia,2022-05-01,ermB,ciprofloxacin=S
+Campylobacter jejuni,SYN00036,SAMNSYN00036,GCA_SYN00036,PDS00000010.1,environmental/other,Australia,2024-07-01,"aph(3')-IIIa,ermB,tetO","ciprofloxacin=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00037,SAMNSYN00037,GCA_SYN00037,PDS00000026.1,environmental/other,United Kingdom,2024-01-01,"aadE,cmeA,tetO",ciprofloxacin=S
+Campylobacter jejuni,SYN00038,SAMNSYN00038,GCA_SYN00038,PDS00000017.1,clinical,USA,2024-05-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00039,SAMNSYN00039,GCA_SYN00039,PDS00000053.1,environmental/other,USA,2015-09-01,"aadE,aph(3')-IIIa,blaOXA-61","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00040,SAMNSYN00040,GCA_SYN00040,PDS00000001.1,environmental/other,United Kingdom,2022-06-01,"aadE,ermB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00041,SAMNSYN00041,GCA_SYN00041,PDS00000033.1,environmental/other,Australia,2021-07-01,"blaOXA-61,ermB",ciprofloxacin=S
+Campylobacter jejuni,SYN00042,SAMNSYN00042,GCA_SYN00042,PDS00000037.1,clinical,Australia,2022-08-01,"aadE,cmeB,ermB,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00043,SAMNSYN00043,GCA_SYN00043,PDS00000053.1,clinical,United Kingdom,2015-01-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00044,SAMNSYN00044,GCA_SYN00044,PDS00000059.1,environmental/other,USA,2018-07-01,"aadE,cmeA,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00045,SAMNSYN00045,GCA_SYN00045,PDS00000050.1,environmental/other,United Kingdom,2018-04-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00046,SAMNSYN00046,GCA_SYN00046,PDS00000053.1,environmental/other,United Kingdom,2020-07-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00047,SAMNSYN00047,GCA_SYN00047,PDS00000022.1,clinical,USA,2023-07-01,"aph(3')-IIIa,blaOXA-61,ermB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00048,SAMNSYN00048,GCA_SYN00048,PDS00000013.1,environmental/other,United Kingdom,2024-07-01,"blaOXA-61,cmeA",ciprofloxacin=S
+Campylobacter jejuni,SYN00049,SAMNSYN00049,GCA_SYN00049,PDS00000058.1,environmental/other,Australia,2019-07-01,"aph(3')-IIIa,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00050,SAMNSYN00050,GCA_SYN00050,PDS00000000.1,environmental/other,USA,2020-01-01,"ermB,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00051,SAMNSYN00051,GCA_SYN00051,PDS00000044.1,environmental/other,Australia,2023-01-01,"ermB,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00052,SAMNSYN00052,GCA_SYN00052,PDS00000007.1,clinical,USA,2015-04-01,"aadE,cmeA,ermB,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00053,SAMNSYN00053,GCA_SYN00053,PDS00000010.1,clinical,United Kingdom,2015-09-01,"cmeB,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00054,SAMNSYN00054,GCA_SYN00054,PDS00000011.1,environmental/other,United Kingdom,2020-07-01,"aph(3')-IIIa,ermB,gyrA=T86I","ciprofloxacin=R,oxytetracycline=S"
+Campylobacter jejuni,SYN00055,SAMNSYN00055,GCA_SYN00055,PDS00000027.1,clinical,United Kingdom,2023-07-01,"aadE,aph(3')-IIIa,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00056,SAMNSYN00056,GCA_SYN00056,PDS00000051.1,environmental/other,Australia,2023-09-01,"aadE,aph(3')-IIIa,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00057,SAMNSYN00057,GCA_SYN00057,PDS00000026.1,environmental/other,United Kingdom,2022-07-01,"aadE,cmeB,tetO",ciprofloxacin=S
+Campylobacter jejuni,SYN00058,SAMNSYN00058,GCA_SYN00058,PDS00000014.1,clinical,Australia,2024-04-01,"aph(3')-IIIa,ermB,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00059,SAMNSYN00059,GCA_SYN00059,PDS00000006.1,clinical,Australia,2019-06-01,"aadE,blaOXA-61,cmeB",ciprofloxacin=S
+Campylobacter jejuni,SYN00060,SAMNSYN00060,GCA_SYN00060,PDS00000023.1,clinical,USA,2024-06-01,"cmeB,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00061,SAMNSYN00061,GCA_SYN00061,PDS00000000.1,environmental/other,USA,2017-07-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00062,SAMNSYN00062,GCA_SYN00062,PDS00000016.1,clinical,United Kingdom,2023-06-01,"blaOXA-61,cmeB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00063,SAMNSYN00063,GCA_SYN00063,PDS00000052.1,environmental/other,USA,2019-08-01,"aph(3')-IIIa,cmeB,tetO",ciprofloxacin=S
+Campylobacter jejuni,SYN00064,SAMNSYN00064,GCA_SYN00064,PDS00000047.1,environmental/other,United Kingdom,2016-05-01,"aph(3')-IIIa,cmeB",ciprofloxacin=S
+Campylobacter jejuni,SYN00065,SAMNSYN00065,GCA_SYN00065,PDS00000029.1,environmental/other,United Kingdom,2024-02-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00066,SAMNSYN00066,GCA_SYN00066,PDS00000028.1,clinical,Australia,2016-05-01,"cmeA,ermB","ciprofloxacin=S,tetracycline=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00067,SAMNSYN00067,GCA_SYN00067,PDS00000045.1,environmental/other,Australia,2019-03-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00068,SAMNSYN00068,GCA_SYN00068,PDS00000017.1,clinical,Australia,2023-01-01,"aadE,aph(3')-IIIa,tetO","ciprofloxacin=S,tetracycline=R,oxytetracycline=S"
+Campylobacter jejuni,SYN00069,SAMNSYN00069,GCA_SYN00069,PDS00000052.1,environmental/other,USA,2016-02-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00070,SAMNSYN00070,GCA_SYN00070,PDS00000022.1,clinical,United Kingdom,2019-09-01,tetO,ciprofloxacin=S
+Campylobacter jejuni,SYN00071,SAMNSYN00071,GCA_SYN00071,PDS00000011.1,clinical,USA,2019-03-01,"aadE,blaOXA-61,cmeB,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00072,SAMNSYN00072,GCA_SYN00072,PDS00000035.1,environmental/other,United Kingdom,2020-03-01,"blaOXA-61,cmeA,ermB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00073,SAMNSYN00073,GCA_SYN00073,PDS00000026.1,environmental/other,United Kingdom,2017-09-01,"cmeA,cmeB,ermB",ciprofloxacin=S
+Campylobacter jejuni,SYN00074,SAMNSYN00074,GCA_SYN00074,PDS00000011.1,clinical,USA,2015-07-01,"aph(3')-IIIa,cmeA,ermB,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00075,SAMNSYN00075,GCA_SYN00075,PDS00000002.1,clinical,USA,2019-03-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00076,SAMNSYN00076,GCA_SYN00076,PDS00000032.1,environmental/other,Australia,2017-09-01,"aph(3')-IIIa,cmeB,gyrA=T86I,tetO",ciprofloxacin=R
+Campylobacter jejuni,SYN00077,SAMNSYN00077,GCA_SYN00077,PDS00000032.1,clinical,United Kingdom,2015-05-01,ermB,"ciprofloxacin=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00078,SAMNSYN00078,GCA_SYN00078,PDS00000028.1,environmental/other,Australia,2024-07-01,"blaOXA-61,cmeB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00079,SAMNSYN00079,GCA_SYN00079,PDS00000045.1,environmental/other,Australia,2016-06-01,tetO,ciprofloxacin=S
+Campylobacter jejuni,SYN00080,SAMNSYN00080,GCA_SYN00080,PDS00000058.1,clinical,Australia,2015-04-01,"blaOXA-61,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00081,SAMNSYN00081,GCA_SYN00081,PDS00000013.1,clinical,Australia,2017-08-01,"aadE,cmeA","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00082,SAMNSYN00082,GCA_SYN00082,PDS00000025.1,environmental/other,Australia,2019-07-01,cmeB,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00083,SAMNSYN00083,GCA_SYN00083,PDS00000054.1,clinical,United Kingdom,2018-07-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00084,SAMNSYN00084,GCA_SYN00084,PDS00000001.1,environmental/other,USA,2018-02-01,tetO,"ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00085,SAMNSYN00085,GCA_SYN00085,PDS00000022.1,environmental/other,Australia,2021-03-01,"blaOXA-61,ermB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00086,SAMNSYN00086,GCA_SYN00086,PDS00000015.1,environmental/other,United Kingdom,2017-02-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00087,SAMNSYN00087,GCA_SYN00087,PDS00000010.1,clinical,United Kingdom,2018-09-01,"blaOXA-61,cmeB,gyrA=T86I",ciprofloxacin=S
+Campylobacter jejuni,SYN00088,SAMNSYN00088,GCA_SYN00088,PDS00000053.1,environmental/other,USA,2016-07-01,"aph(3')-IIIa,gyrA=T86I,tetO","ciprofloxacin=R,oxytetracycline=S"
+Campylobacter jejuni,SYN00089,SAMNSYN00089,GCA_SYN00089,PDS00000039.1,environmental/other,United Kingdom,2020-03-01,ermB,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00090,SAMNSYN00090,GCA_SYN00090,PDS00000052.1,clinical,USA,2015-03-01,gyrA=T86I,ciprofloxacin=R
+Campylobacter jejuni,SYN00091,SAMNSYN00091,GCA_SYN00091,PDS00000045.1,clinical,USA,2017-08-01,"aadE,aph(3')-IIIa,ermB",ciprofloxacin=S
+Campylobacter jejuni,SYN00092,SAMNSYN00092,GCA_SYN00092,PDS00000006.1,clinical,USA,2017-06-01,"aadE,cmeB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00093,SAMNSYN00093,GCA_SYN00093,PDS00000037.1,clinical,United Kingdom,2021-07-01,"gyrA=T86I,tetO","ciprofloxacin=R,tetracycline=R"
+Campylobacter jejuni,SYN00094,SAMNSYN00094,GCA_SYN00094,PDS00000055.1,clinical,United Kingdom,2019-08-01,cmeA,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00095,SAMNSYN00095,GCA_SYN00095,PDS00000023.1,environmental/other,USA,2024-02-01,aph(3')-IIIa,ciprofloxacin=S
+Campylobacter jejuni,SYN00096,SAMNSYN00096,GCA_SYN00096,PDS00000034.1,clinical,United Kingdom,2019-08-01,"aadE,tetO","ciprofloxacin=S,tetracycline=R,oxytetracycline=S"
+Campylobacter jejuni,SYN00097,SAMNSYN00097,GCA_SYN00097,PDS00000037.1,environmental/other,United Kingdom,2021-01-01,gyrA=T86I,ciprofloxacin=R
+Campylobacter jejuni,SYN00098,SAMNSYN00098,GCA_SYN00098,PDS00000039.1,clinical,USA,2023-05-01,"blaOXA-61,cmeA,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00099,SAMNSYN00099,GCA_SYN00099,PDS00000051.1,clinical,United Kingdom,2024-09-01,"aph(3')-IIIa,cmeB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00100,SAMNSYN00100,GCA_SYN00100,PDS00000038.1,environmental/other,USA,2024-03-01,"aadE,cmeA,tetO",ciprofloxacin=S
+Campylobacter jejuni,SYN00101,SAMNSYN00101,GCA_SYN00101,PDS00000013.1,clinical,USA,2019-04-01,"cmeA,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00102,SAMNSYN00102,GCA_SYN00102,PDS00000027.1,clinical,Australia,2015-06-01,"aph(3')-IIIa,cmeB,ermB,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00103,SAMNSYN00103,GCA_SYN00103,PDS00000052.1,clinical,Australia,2019-06-01,,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00104,SAMNSYN00104,GCA_SYN00104,PDS00000020.1,environmental/other,United Kingdom,2016-01-01,"aadE,tetO","ciprofloxacin=S,tetracycline=R,oxytetracycline=S"
+Campylobacter jejuni,SYN00105,SAMNSYN00105,GCA_SYN00105,PDS00000003.1,environmental/other,USA,2017-01-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00106,SAMNSYN00106,GCA_SYN00106,PDS00000044.1,environmental/other,Australia,2015-02-01,"blaOXA-61,cmeB,ermB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00107,SAMNSYN00107,GCA_SYN00107,PDS00000031.1,environmental/other,United Kingdom,2023-09-01,tetO,ciprofloxacin=S
+Campylobacter jejuni,SYN00108,SAMNSYN00108,GCA_SYN00108,PDS00000003.1,clinical,USA,2019-04-01,"aph(3')-IIIa,cmeA,gyrA=T86I,tetO","ciprofloxacin=R,tetracycline=R"
+Campylobacter jejuni,SYN00109,SAMNSYN00109,GCA_SYN00109,PDS00000000.1,clinical,USA,2021-02-01,"aph(3')-IIIa,blaOXA-61","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00110,SAMNSYN00110,GCA_SYN00110,PDS00000043.1,environmental/other,USA,2024-04-01,"aadE,ermB,gyrA=T86I","ciprofloxacin=S,tetracycline=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00111,SAMNSYN00111,GCA_SYN00111,PDS00000015.1,clinical,United Kingdom,2019-03-01,aph(3')-IIIa,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00112,SAMNSYN00112,GCA_SYN00112,PDS00000029.1,environmental/other,Australia,2015-08-01,"cmeA,ermB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00113,SAMNSYN00113,GCA_SYN00113,PDS00000022.1,clinical,United Kingdom,2023-03-01,"blaOXA-61,cmeB",ciprofloxacin=S
+Campylobacter jejuni,SYN00114,SAMNSYN00114,GCA_SYN00114,PDS00000051.1,environmental/other,Australia,2023-03-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00115,SAMNSYN00115,GCA_SYN00115,PDS00000037.1,clinical,Australia,2019-03-01,"aadE,cmeA,tetO",ciprofloxacin=S
+Campylobacter jejuni,SYN00116,SAMNSYN00116,GCA_SYN00116,PDS00000025.1,environmental/other,Australia,2017-01-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00117,SAMNSYN00117,GCA_SYN00117,PDS00000043.1,clinical,USA,2015-06-01,"blaOXA-61,ermB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00118,SAMNSYN00118,GCA_SYN00118,PDS00000013.1,environmental/other,USA,2021-04-01,cmeB,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00119,SAMNSYN00119,GCA_SYN00119,PDS00000011.1,clinical,USA,2017-07-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00120,SAMNSYN00120,GCA_SYN00120,PDS00000029.1,environmental/other,Australia,2016-06-01,"cmeA,ermB,tetO",ciprofloxacin=S
+Campylobacter jejuni,SYN00121,SAMNSYN00121,GCA_SYN00121,PDS00000002.1,environmental/other,Australia,2023-03-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00122,SAMNSYN00122,GCA_SYN00122,PDS00000039.1,environmental/other,Australia,2022-09-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00123,SAMNSYN00123,GCA_SYN00123,PDS00000051.1,clinical,United Kingdom,2016-07-01,,"ciprofloxacin=S,tetracycline=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00124,SAMNSYN00124,GCA_SYN00124,PDS00000036.1,environmental/other,Australia,2016-02-01,"aph(3')-IIIa,blaOXA-61",ciprofloxacin=S
+Campylobacter jejuni,SYN00125,SAMNSYN00125,GCA_SYN00125,PDS00000039.1,clinical,Australia,2017-06-01,"aph(3')-IIIa,ermB,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00126,SAMNSYN00126,GCA_SYN00126,PDS00000025.1,clinical,Australia,2018-04-01,"aadE,aph(3')-IIIa",ciprofloxacin=S
+Campylobacter jejuni,SYN00127,SAMNSYN00127,GCA_SYN00127,PDS00000053.1,clinical,United Kingdom,2018-04-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00128,SAMNSYN00128,GCA_SYN00128,PDS00000001.1,clinical,USA,2019-05-01,"aph(3')-IIIa,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00129,SAMNSYN00129,GCA_SYN00129,PDS00000013.1,clinical,USA,2015-05-01,"cmeA,ermB,tetO","ciprofloxacin=S,tetracycline=R,oxytetracycline=S"
+Campylobacter jejuni,SYN00130,SAMNSYN00130,GCA_SYN00130,PDS00000013.1,environmental/other,United Kingdom,2017-07-01,"aadE,aph(3')-IIIa",ciprofloxacin=R
+Campylobacter jejuni,SYN00131,SAMNSYN00131,GCA_SYN00131,PDS00000036.1,clinical,United Kingdom,2016-09-01,"blaOXA-61,cmeB",ciprofloxacin=S
+Campylobacter jejuni,SYN00132,SAMNSYN00132,GCA_SYN00132,PDS00000011.1,clinical,United Kingdom,2021-08-01,"blaOXA-61,ermB,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00133,SAMNSYN00133,GCA_SYN00133,PDS00000057.1,clinical,USA,2019-06-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00134,SAMNSYN00134,GCA_SYN00134,PDS00000051.1,environmental/other,Australia,2015-09-01,aadE,ciprofloxacin=S
+Campylobacter jejuni,SYN00135,SAMNSYN00135,GCA_SYN00135,PDS00000038.1,environmental/other,USA,2017-08-01,"aadE,blaOXA-61,cmeA","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00136,SAMNSYN00136,GCA_SYN00136,PDS00000050.1,clinical,United Kingdom,2016-01-01,"cmeA,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00137,SAMNSYN00137,GCA_SYN00137,PDS00000057.1,clinical,Australia,2017-06-01,aph(3')-IIIa,ciprofloxacin=S
+Campylobacter jejuni,SYN00138,SAMNSYN00138,GCA_SYN00138,PDS00000009.1,clinical,USA,2023-08-01,"aadE,cmeA","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00139,SAMNSYN00139,GCA_SYN00139,PDS00000015.1,clinical,Australia,2022-03-01,"aph(3')-IIIa,cmeA,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00140,SAMNSYN00140,GCA_SYN00140,PDS00000040.1,environmental/other,USA,2024-05-01,blaOXA-61,ciprofloxacin=S
+Campylobacter jejuni,SYN00141,SAMNSYN00141,GCA_SYN00141,PDS00000046.1,environmental/other,United Kingdom,2021-05-01,"blaOXA-61,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00142,SAMNSYN00142,GCA_SYN00142,PDS00000025.1,environmental/other,USA,2017-05-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00143,SAMNSYN00143,GCA_SYN00143,PDS00000028.1,environmental/other,USA,2017-05-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00144,SAMNSYN00144,GCA_SYN00144,PDS00000026.1,clinical,USA,2024-04-01,aph(3')-IIIa,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00145,SAMNSYN00145,GCA_SYN00145,PDS00000014.1,environmental/other,Australia,2016-04-01,"aph(3')-IIIa,blaOXA-61,ermB,gyrA=T86I","ciprofloxacin=R,tetracycline=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00146,SAMNSYN00146,GCA_SYN00146,PDS00000038.1,clinical,USA,2015-05-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00147,SAMNSYN00147,GCA_SYN00147,PDS00000008.1,environmental/other,Australia,2017-07-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00148,SAMNSYN00148,GCA_SYN00148,PDS00000004.1,environmental/other,Australia,2018-03-01,"cmeA,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00149,SAMNSYN00149,GCA_SYN00149,PDS00000013.1,environmental/other,USA,2017-03-01,"aadE,aph(3')-IIIa,ermB,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00150,SAMNSYN00150,GCA_SYN00150,PDS00000054.1,environmental/other,United Kingdom,2023-01-01,"ermB,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00151,SAMNSYN00151,GCA_SYN00151,PDS00000044.1,clinical,USA,2022-08-01,"aadE,cmeA,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00152,SAMNSYN00152,GCA_SYN00152,PDS00000013.1,clinical,USA,2017-03-01,cmeA,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00153,SAMNSYN00153,GCA_SYN00153,PDS00000026.1,clinical,United Kingdom,2017-06-01,cmeA,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00154,SAMNSYN00154,GCA_SYN00154,PDS00000016.1,clinical,USA,2023-08-01,"cmeB,tetO","ciprofloxacin=S,tetracycline=R,oxytetracycline=S"
+Campylobacter jejuni,SYN00155,SAMNSYN00155,GCA_SYN00155,PDS00000042.1,clinical,USA,2019-08-01,"aph(3')-IIIa,blaOXA-61,cmeA","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00156,SAMNSYN00156,GCA_SYN00156,PDS00000020.1,clinical,USA,2019-07-01,blaOXA-61,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00157,SAMNSYN00157,GCA_SYN00157,PDS00000057.1,clinical,USA,2016-02-01,,"ciprofloxacin=S,tetracycline=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00158,SAMNSYN00158,GCA_SYN00158,PDS00000044.1,environmental/other,USA,2024-03-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00159,SAMNSYN00159,GCA_SYN00159,PDS00000008.1,environmental/other,Australia,2018-07-01,"blaOXA-61,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00160,SAMNSYN00160,GCA_SYN00160,PDS00000020.1,environmental/other,USA,2018-06-01,aph(3')-IIIa,ciprofloxacin=S
+Campylobacter jejuni,SYN00161,SAMNSYN00161,GCA_SYN00161,PDS00000049.1,clinical,United Kingdom,2016-06-01,"aph(3')-IIIa,blaOXA-61","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00162,SAMNSYN00162,GCA_SYN00162,PDS00000020.1,environmental/other,USA,2016-07-01,"cmeA,ermB,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00163,SAMNSYN00163,GCA_SYN00163,PDS00000012.1,environmental/other,Australia,2019-03-01,"aph(3')-IIIa,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00164,SAMNSYN00164,GCA_SYN00164,PDS00000035.1,clinical,Australia,2024-05-01,"cmeB,ermB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00165,SAMNSYN00165,GCA_SYN00165,PDS00000001.1,clinical,USA,2015-05-01,cmeA,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00166,SAMNSYN00166,GCA_SYN00166,PDS00000008.1,environmental/other,Australia,2018-08-01,gyrA=T86I,ciprofloxacin=R
+Campylobacter jejuni,SYN00167,SAMNSYN00167,GCA_SYN00167,PDS00000044.1,clinical,USA,2015-01-01,,ciprofloxacin=R
+Campylobacter jejuni,SYN00168,SAMNSYN00168,GCA_SYN00168,PDS00000003.1,clinical,United Kingdom,2019-09-01,"cmeB,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00169,SAMNSYN00169,GCA_SYN00169,PDS00000019.1,environmental/other,United Kingdom,2019-02-01,"cmeA,cmeB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00170,SAMNSYN00170,GCA_SYN00170,PDS00000021.1,environmental/other,Australia,2018-07-01,aph(3')-IIIa,ciprofloxacin=S
+Campylobacter jejuni,SYN00171,SAMNSYN00171,GCA_SYN00171,PDS00000037.1,clinical,USA,2017-04-01,"aph(3')-IIIa,blaOXA-61",ciprofloxacin=S
+Campylobacter jejuni,SYN00172,SAMNSYN00172,GCA_SYN00172,PDS00000002.1,environmental/other,USA,2024-06-01,aadE,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00173,SAMNSYN00173,GCA_SYN00173,PDS00000029.1,environmental/other,United Kingdom,2021-01-01,cmeB,ciprofloxacin=S
+Campylobacter jejuni,SYN00174,SAMNSYN00174,GCA_SYN00174,PDS00000021.1,environmental/other,Australia,2017-08-01,cmeB,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00175,SAMNSYN00175,GCA_SYN00175,PDS00000001.1,clinical,USA,2020-09-01,blaOXA-61,ciprofloxacin=S
+Campylobacter jejuni,SYN00176,SAMNSYN00176,GCA_SYN00176,PDS00000008.1,environmental/other,Australia,2021-08-01,"aph(3')-IIIa,tetO",ciprofloxacin=S
+Campylobacter jejuni,SYN00177,SAMNSYN00177,GCA_SYN00177,PDS00000022.1,environmental/other,Australia,2023-09-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00178,SAMNSYN00178,GCA_SYN00178,PDS00000026.1,clinical,United Kingdom,2019-09-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00179,SAMNSYN00179,GCA_SYN00179,PDS00000021.1,clinical,Australia,2019-09-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00180,SAMNSYN00180,GCA_SYN00180,PDS00000049.1,clinical,Australia,2017-05-01,cmeA,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00181,SAMNSYN00181,GCA_SYN00181,PDS00000046.1,clinical,USA,2016-04-01,"blaOXA-61,ermB,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00182,SAMNSYN00182,GCA_SYN00182,PDS00000023.1,clinical,USA,2022-09-01,cmeB,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00183,SAMNSYN00183,GCA_SYN00183,PDS00000032.1,clinical,Australia,2024-04-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00184,SAMNSYN00184,GCA_SYN00184,PDS00000058.1,clinical,United Kingdom,2019-09-01,"blaOXA-61,cmeB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00185,SAMNSYN00185,GCA_SYN00185,PDS00000022.1,environmental/other,Australia,2015-05-01,blaOXA-61,"ciprofloxacin=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00186,SAMNSYN00186,GCA_SYN00186,PDS00000023.1,environmental/other,USA,2022-06-01,,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00187,SAMNSYN00187,GCA_SYN00187,PDS00000019.1,clinical,United Kingdom,2020-05-01,"aph(3')-IIIa,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00188,SAMNSYN00188,GCA_SYN00188,PDS00000027.1,clinical,Australia,2015-06-01,"ermB,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00189,SAMNSYN00189,GCA_SYN00189,PDS00000015.1,environmental/other,Australia,2018-01-01,,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00190,SAMNSYN00190,GCA_SYN00190,PDS00000032.1,clinical,United Kingdom,2021-08-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00191,SAMNSYN00191,GCA_SYN00191,PDS00000006.1,clinical,United Kingdom,2021-02-01,"aph(3')-IIIa,cmeB,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00192,SAMNSYN00192,GCA_SYN00192,PDS00000017.1,environmental/other,Australia,2022-04-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00193,SAMNSYN00193,GCA_SYN00193,PDS00000033.1,clinical,USA,2016-07-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00194,SAMNSYN00194,GCA_SYN00194,PDS00000001.1,clinical,Australia,2024-05-01,cmeA,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00195,SAMNSYN00195,GCA_SYN00195,PDS00000051.1,environmental/other,United Kingdom,2019-07-01,"aadE,cmeB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00196,SAMNSYN00196,GCA_SYN00196,PDS00000009.1,environmental/other,USA,2021-04-01,"aph(3')-IIIa,cmeB,ermB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00197,SAMNSYN00197,GCA_SYN00197,PDS00000008.1,environmental/other,USA,2017-03-01,"aadE,aph(3')-IIIa",ciprofloxacin=S
+Campylobacter jejuni,SYN00198,SAMNSYN00198,GCA_SYN00198,PDS00000054.1,clinical,United Kingdom,2022-07-01,"cmeB,ermB,tetO",ciprofloxacin=S
+Campylobacter jejuni,SYN00199,SAMNSYN00199,GCA_SYN00199,PDS00000055.1,environmental/other,USA,2020-09-01,"aph(3')-IIIa,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00200,SAMNSYN00200,GCA_SYN00200,PDS00000006.1,clinical,Australia,2017-02-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00201,SAMNSYN00201,GCA_SYN00201,PDS00000041.1,clinical,Australia,2019-08-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00202,SAMNSYN00202,GCA_SYN00202,PDS00000055.1,clinical,United Kingdom,2018-06-01,"blaOXA-61,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00203,SAMNSYN00203,GCA_SYN00203,PDS00000040.1,environmental/other,Australia,2021-07-01,"cmeA,cmeB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00204,SAMNSYN00204,GCA_SYN00204,PDS00000054.1,environmental/other,Australia,2022-08-01,"cmeA,cmeB,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00205,SAMNSYN00205,GCA_SYN00205,PDS00000040.1,environmental/other,Australia,2017-07-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00206,SAMNSYN00206,GCA_SYN00206,PDS00000036.1,environmental/other,USA,2015-09-01,gyrA=T86I,ciprofloxacin=R
+Campylobacter jejuni,SYN00207,SAMNSYN00207,GCA_SYN00207,PDS00000048.1,environmental/other,United Kingdom,2024-08-01,"cmeA,cmeB,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00208,SAMNSYN00208,GCA_SYN00208,PDS00000044.1,environmental/other,United Kingdom,2015-08-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00209,SAMNSYN00209,GCA_SYN00209,PDS00000021.1,environmental/other,USA,2022-07-01,"aadE,gyrA=T86I,tetO","ciprofloxacin=R,tetracycline=R"
+Campylobacter jejuni,SYN00210,SAMNSYN00210,GCA_SYN00210,PDS00000040.1,environmental/other,USA,2017-08-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00211,SAMNSYN00211,GCA_SYN00211,PDS00000023.1,clinical,Australia,2021-08-01,tetO,"ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00212,SAMNSYN00212,GCA_SYN00212,PDS00000030.1,environmental/other,United Kingdom,2022-03-01,"ermB,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00213,SAMNSYN00213,GCA_SYN00213,PDS00000030.1,clinical,United Kingdom,2015-09-01,"aph(3')-IIIa,blaOXA-61",ciprofloxacin=S
+Campylobacter jejuni,SYN00214,SAMNSYN00214,GCA_SYN00214,PDS00000022.1,environmental/other,USA,2017-02-01,cmeB,"ciprofloxacin=S,tetracycline=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00215,SAMNSYN00215,GCA_SYN00215,PDS00000048.1,clinical,Australia,2021-07-01,"aadE,aph(3')-IIIa","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00216,SAMNSYN00216,GCA_SYN00216,PDS00000013.1,clinical,United Kingdom,2021-08-01,"aph(3')-IIIa,cmeB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00217,SAMNSYN00217,GCA_SYN00217,PDS00000027.1,environmental/other,USA,2022-06-01,"blaOXA-61,cmeA,cmeB","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00218,SAMNSYN00218,GCA_SYN00218,PDS00000046.1,clinical,Australia,2016-05-01,cmeB,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00219,SAMNSYN00219,GCA_SYN00219,PDS00000019.1,environmental/other,Australia,2018-05-01,"aph(3')-IIIa,blaOXA-61,ermB",ciprofloxacin=S
+Campylobacter jejuni,SYN00220,SAMNSYN00220,GCA_SYN00220,PDS00000016.1,environmental/other,USA,2016-06-01,"aadE,aph(3')-IIIa,tetO",ciprofloxacin=S
+Campylobacter jejuni,SYN00221,SAMNSYN00221,GCA_SYN00221,PDS00000043.1,environmental/other,Australia,2019-08-01,"cmeA,cmeB,gyrA=T86I,tetO","ciprofloxacin=R,tetracycline=R,oxytetracycline=S"
+Campylobacter jejuni,SYN00222,SAMNSYN00222,GCA_SYN00222,PDS00000005.1,environmental/other,USA,2019-05-01,"aadE,aph(3')-IIIa,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00223,SAMNSYN00223,GCA_SYN00223,PDS00000052.1,environmental/other,USA,2020-07-01,aph(3')-IIIa,ciprofloxacin=S
+Campylobacter jejuni,SYN00224,SAMNSYN00224,GCA_SYN00224,PDS00000024.1,clinical,USA,2017-01-01,cmeB,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00225,SAMNSYN00225,GCA_SYN00225,PDS00000033.1,environmental/other,USA,2023-08-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00226,SAMNSYN00226,GCA_SYN00226,PDS00000042.1,environmental/other,United Kingdom,2019-05-01,"aph(3')-IIIa,cmeB,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00227,SAMNSYN00227,GCA_SYN00227,PDS00000008.1,environmental/other,USA,2018-09-01,gyrA=T86I,ciprofloxacin=R
+Campylobacter jejuni,SYN00228,SAMNSYN00228,GCA_SYN00228,PDS00000030.1,environmental/other,USA,2020-02-01,"aadE,aph(3')-IIIa,cmeB,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00229,SAMNSYN00229,GCA_SYN00229,PDS00000010.1,environmental/other,Australia,2020-07-01,"blaOXA-61,ermB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00230,SAMNSYN00230,GCA_SYN00230,PDS00000032.1,environmental/other,USA,2020-08-01,"aadE,aph(3')-IIIa,cmeA","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00231,SAMNSYN00231,GCA_SYN00231,PDS00000059.1,environmental/other,Australia,2023-03-01,"aph(3')-IIIa,cmeA,ermB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00232,SAMNSYN00232,GCA_SYN00232,PDS00000046.1,clinical,USA,2021-07-01,"blaOXA-61,cmeB,gyrA=T86I,tetO",ciprofloxacin=R
+Campylobacter jejuni,SYN00233,SAMNSYN00233,GCA_SYN00233,PDS00000029.1,clinical,Australia,2017-01-01,"blaOXA-61,cmeA,tetO",ciprofloxacin=S
+Campylobacter jejuni,SYN00234,SAMNSYN00234,GCA_SYN00234,PDS00000053.1,environmental/other,USA,2024-09-01,aph(3')-IIIa,ciprofloxacin=S
+Campylobacter jejuni,SYN00235,SAMNSYN00235,GCA_SYN00235,PDS00000004.1,environmental/other,USA,2021-09-01,gyrA=T86I,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00236,SAMNSYN00236,GCA_SYN00236,PDS00000001.1,clinical,USA,2018-02-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00237,SAMNSYN00237,GCA_SYN00237,PDS00000039.1,clinical,Australia,2020-04-01,"aadE,cmeB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00238,SAMNSYN00238,GCA_SYN00238,PDS00000051.1,environmental/other,USA,2019-06-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00239,SAMNSYN00239,GCA_SYN00239,PDS00000023.1,environmental/other,Australia,2021-05-01,"cmeA,ermB,gyrA=T86I,tetO",ciprofloxacin=R
+Campylobacter jejuni,SYN00240,SAMNSYN00240,GCA_SYN00240,PDS00000046.1,clinical,USA,2015-04-01,"blaOXA-61,ermB,tetO",ciprofloxacin=S
+Campylobacter jejuni,SYN00241,SAMNSYN00241,GCA_SYN00241,PDS00000042.1,clinical,Australia,2022-07-01,cmeB,ciprofloxacin=S
+Campylobacter jejuni,SYN00242,SAMNSYN00242,GCA_SYN00242,PDS00000039.1,clinical,United Kingdom,2017-03-01,cmeA,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00243,SAMNSYN00243,GCA_SYN00243,PDS00000026.1,environmental/other,Australia,2019-06-01,"aph(3')-IIIa,blaOXA-61","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00244,SAMNSYN00244,GCA_SYN00244,PDS00000025.1,environmental/other,United Kingdom,2022-08-01,"blaOXA-61,cmeB,ermB,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00245,SAMNSYN00245,GCA_SYN00245,PDS00000047.1,clinical,Australia,2019-02-01,"aph(3')-IIIa,blaOXA-61,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00246,SAMNSYN00246,GCA_SYN00246,PDS00000003.1,clinical,Australia,2018-08-01,ermB,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00247,SAMNSYN00247,GCA_SYN00247,PDS00000027.1,clinical,Australia,2015-06-01,"blaOXA-61,cmeA,ermB,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00248,SAMNSYN00248,GCA_SYN00248,PDS00000024.1,clinical,Australia,2022-02-01,"aph(3')-IIIa,ermB,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00249,SAMNSYN00249,GCA_SYN00249,PDS00000055.1,environmental/other,Australia,2020-06-01,gyrA=T86I,ciprofloxacin=R
+Campylobacter jejuni,SYN00250,SAMNSYN00250,GCA_SYN00250,PDS00000053.1,clinical,USA,2017-06-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00251,SAMNSYN00251,GCA_SYN00251,PDS00000050.1,environmental/other,USA,2017-06-01,"aadE,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00252,SAMNSYN00252,GCA_SYN00252,PDS00000036.1,environmental/other,Australia,2024-01-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00253,SAMNSYN00253,GCA_SYN00253,PDS00000029.1,environmental/other,Australia,2021-01-01,,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00254,SAMNSYN00254,GCA_SYN00254,PDS00000008.1,clinical,United Kingdom,2020-03-01,"cmeB,gyrA=T86I,tetO","ciprofloxacin=R,tetracycline=R,oxytetracycline=S"
+Campylobacter jejuni,SYN00255,SAMNSYN00255,GCA_SYN00255,PDS00000008.1,clinical,United Kingdom,2022-09-01,"aph(3')-IIIa,ermB,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00256,SAMNSYN00256,GCA_SYN00256,PDS00000013.1,clinical,United Kingdom,2017-03-01,"aph(3')-IIIa,cmeB",ciprofloxacin=S
+Campylobacter jejuni,SYN00257,SAMNSYN00257,GCA_SYN00257,PDS00000050.1,clinical,United Kingdom,2016-01-01,"cmeA,cmeB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00258,SAMNSYN00258,GCA_SYN00258,PDS00000029.1,clinical,United Kingdom,2020-08-01,"aadE,blaOXA-61,cmeA",ciprofloxacin=S
+Campylobacter jejuni,SYN00259,SAMNSYN00259,GCA_SYN00259,PDS00000020.1,environmental/other,United Kingdom,2024-02-01,aadE,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00260,SAMNSYN00260,GCA_SYN00260,PDS00000058.1,clinical,United Kingdom,2016-09-01,"aadE,ermB,tetO",ciprofloxacin=R
+Campylobacter jejuni,SYN00261,SAMNSYN00261,GCA_SYN00261,PDS00000008.1,environmental/other,Australia,2019-09-01,aadE,ciprofloxacin=S
+Campylobacter jejuni,SYN00262,SAMNSYN00262,GCA_SYN00262,PDS00000058.1,environmental/other,Australia,2016-05-01,cmeA,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00263,SAMNSYN00263,GCA_SYN00263,PDS00000000.1,clinical,Australia,2020-07-01,"aadE,cmeB,tetO","ciprofloxacin=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00264,SAMNSYN00264,GCA_SYN00264,PDS00000030.1,environmental/other,United Kingdom,2016-09-01,"aadE,aph(3')-IIIa,gyrA=T86I,tetO",ciprofloxacin=R
+Campylobacter jejuni,SYN00265,SAMNSYN00265,GCA_SYN00265,PDS00000052.1,environmental/other,Australia,2019-06-01,"cmeA,cmeB,ermB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00266,SAMNSYN00266,GCA_SYN00266,PDS00000034.1,environmental/other,USA,2021-03-01,"aph(3')-IIIa,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00267,SAMNSYN00267,GCA_SYN00267,PDS00000009.1,clinical,United Kingdom,2021-02-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00268,SAMNSYN00268,GCA_SYN00268,PDS00000024.1,environmental/other,Australia,2022-06-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00269,SAMNSYN00269,GCA_SYN00269,PDS00000050.1,environmental/other,United Kingdom,2015-06-01,"aph(3')-IIIa,ermB,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00270,SAMNSYN00270,GCA_SYN00270,PDS00000028.1,environmental/other,United Kingdom,2019-05-01,,"ciprofloxacin=S,tetracycline=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00271,SAMNSYN00271,GCA_SYN00271,PDS00000027.1,environmental/other,Australia,2015-04-01,"aph(3')-IIIa,blaOXA-61,cmeB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00272,SAMNSYN00272,GCA_SYN00272,PDS00000030.1,clinical,Australia,2020-06-01,"aph(3')-IIIa,gyrA=T86I,tetO","ciprofloxacin=R,tetracycline=R"
+Campylobacter jejuni,SYN00273,SAMNSYN00273,GCA_SYN00273,PDS00000028.1,clinical,Australia,2023-01-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00274,SAMNSYN00274,GCA_SYN00274,PDS00000014.1,environmental/other,USA,2015-09-01,"aph(3')-IIIa,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00275,SAMNSYN00275,GCA_SYN00275,PDS00000031.1,environmental/other,United Kingdom,2020-06-01,"cmeA,tetO",ciprofloxacin=S
+Campylobacter jejuni,SYN00276,SAMNSYN00276,GCA_SYN00276,PDS00000026.1,environmental/other,USA,2017-05-01,"aadE,cmeA,ermB,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00277,SAMNSYN00277,GCA_SYN00277,PDS00000005.1,environmental/other,Australia,2024-03-01,blaOXA-61,ciprofloxacin=S
+Campylobacter jejuni,SYN00278,SAMNSYN00278,GCA_SYN00278,PDS00000043.1,clinical,United Kingdom,2020-08-01,"aadE,ermB,gyrA=T86I","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00279,SAMNSYN00279,GCA_SYN00279,PDS00000029.1,environmental/other,USA,2020-05-01,"cmeA,gyrA=T86I,tetO",ciprofloxacin=R
+Campylobacter jejuni,SYN00280,SAMNSYN00280,GCA_SYN00280,PDS00000001.1,environmental/other,USA,2017-08-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00281,SAMNSYN00281,GCA_SYN00281,PDS00000053.1,environmental/other,Australia,2015-09-01,"aadE,aph(3')-IIIa,blaOXA-61","ciprofloxacin=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00282,SAMNSYN00282,GCA_SYN00282,PDS00000030.1,clinical,United Kingdom,2016-06-01,"aph(3')-IIIa,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00283,SAMNSYN00283,GCA_SYN00283,PDS00000008.1,environmental/other,Australia,2021-04-01,gyrA=T86I,"ciprofloxacin=R,oxytetracycline=S"
+Campylobacter jejuni,SYN00284,SAMNSYN00284,GCA_SYN00284,PDS00000039.1,clinical,Australia,2016-09-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00285,SAMNSYN00285,GCA_SYN00285,PDS00000009.1,environmental/other,United Kingdom,2019-04-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00286,SAMNSYN00286,GCA_SYN00286,PDS00000014.1,environmental/other,United Kingdom,2015-03-01,tetO,"ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00287,SAMNSYN00287,GCA_SYN00287,PDS00000028.1,environmental/other,Australia,2022-01-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00288,SAMNSYN00288,GCA_SYN00288,PDS00000001.1,environmental/other,Australia,2018-03-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00289,SAMNSYN00289,GCA_SYN00289,PDS00000049.1,clinical,Australia,2023-09-01,aph(3')-IIIa,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00290,SAMNSYN00290,GCA_SYN00290,PDS00000051.1,environmental/other,USA,2020-01-01,cmeA,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00291,SAMNSYN00291,GCA_SYN00291,PDS00000045.1,clinical,Australia,2021-09-01,"blaOXA-61,cmeA,cmeB","ciprofloxacin=R,oxytetracycline=S"
+Campylobacter jejuni,SYN00292,SAMNSYN00292,GCA_SYN00292,PDS00000005.1,environmental/other,United Kingdom,2018-07-01,tetO,"ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00293,SAMNSYN00293,GCA_SYN00293,PDS00000046.1,clinical,USA,2015-04-01,"cmeA,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00294,SAMNSYN00294,GCA_SYN00294,PDS00000004.1,environmental/other,USA,2015-04-01,"gyrA=T86I,tetO",ciprofloxacin=R
+Campylobacter jejuni,SYN00295,SAMNSYN00295,GCA_SYN00295,PDS00000030.1,clinical,United Kingdom,2023-08-01,blaOXA-61,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00296,SAMNSYN00296,GCA_SYN00296,PDS00000026.1,clinical,USA,2019-06-01,aadE,ciprofloxacin=S
+Campylobacter jejuni,SYN00297,SAMNSYN00297,GCA_SYN00297,PDS00000021.1,environmental/other,United Kingdom,2019-09-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00298,SAMNSYN00298,GCA_SYN00298,PDS00000032.1,clinical,United Kingdom,2022-07-01,cmeA,ciprofloxacin=S
+Campylobacter jejuni,SYN00299,SAMNSYN00299,GCA_SYN00299,PDS00000007.1,clinical,United Kingdom,2019-09-01,"cmeA,ermB",ciprofloxacin=S
+Campylobacter jejuni,SYN00300,SAMNSYN00300,GCA_SYN00300,PDS00000014.1,environmental/other,United Kingdom,2022-03-01,,"ciprofloxacin=S,tetracycline=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00301,SAMNSYN00301,GCA_SYN00301,PDS00000035.1,clinical,USA,2016-01-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00302,SAMNSYN00302,GCA_SYN00302,PDS00000044.1,environmental/other,United Kingdom,2018-02-01,gyrA=T86I,ciprofloxacin=R
+Campylobacter jejuni,SYN00303,SAMNSYN00303,GCA_SYN00303,PDS00000049.1,clinical,Australia,2017-06-01,"aadE,aph(3')-IIIa","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00304,SAMNSYN00304,GCA_SYN00304,PDS00000058.1,environmental/other,United Kingdom,2019-03-01,aadE,"ciprofloxacin=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00305,SAMNSYN00305,GCA_SYN00305,PDS00000048.1,environmental/other,Australia,2018-04-01,"cmeA,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00306,SAMNSYN00306,GCA_SYN00306,PDS00000015.1,environmental/other,United Kingdom,2022-06-01,"cmeB,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00307,SAMNSYN00307,GCA_SYN00307,PDS00000021.1,environmental/other,USA,2015-02-01,"aph(3')-IIIa,blaOXA-61,cmeB","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00308,SAMNSYN00308,GCA_SYN00308,PDS00000002.1,clinical,United Kingdom,2023-05-01,cmeB,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00309,SAMNSYN00309,GCA_SYN00309,PDS00000016.1,clinical,USA,2016-05-01,"ermB,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00310,SAMNSYN00310,GCA_SYN00310,PDS00000046.1,environmental/other,United Kingdom,2018-06-01,"cmeB,ermB","ciprofloxacin=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00311,SAMNSYN00311,GCA_SYN00311,PDS00000059.1,environmental/other,United Kingdom,2023-06-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00312,SAMNSYN00312,GCA_SYN00312,PDS00000057.1,clinical,Australia,2024-09-01,"aadE,cmeB,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00313,SAMNSYN00313,GCA_SYN00313,PDS00000035.1,environmental/other,United Kingdom,2024-03-01,"aph(3')-IIIa,tetO",ciprofloxacin=S
+Campylobacter jejuni,SYN00314,SAMNSYN00314,GCA_SYN00314,PDS00000012.1,clinical,United Kingdom,2022-02-01,tetO,"ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00315,SAMNSYN00315,GCA_SYN00315,PDS00000052.1,environmental/other,United Kingdom,2017-07-01,blaOXA-61,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00316,SAMNSYN00316,GCA_SYN00316,PDS00000056.1,environmental/other,Australia,2016-04-01,"aadE,aph(3')-IIIa,blaOXA-61,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00317,SAMNSYN00317,GCA_SYN00317,PDS00000038.1,environmental/other,USA,2015-05-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00318,SAMNSYN00318,GCA_SYN00318,PDS00000003.1,clinical,Australia,2018-02-01,"aadE,cmeA",ciprofloxacin=S
+Campylobacter jejuni,SYN00319,SAMNSYN00319,GCA_SYN00319,PDS00000026.1,environmental/other,Australia,2019-05-01,"aadE,blaOXA-61,cmeA","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00320,SAMNSYN00320,GCA_SYN00320,PDS00000012.1,environmental/other,United Kingdom,2020-07-01,gyrA=T86I,ciprofloxacin=R
+Campylobacter jejuni,SYN00321,SAMNSYN00321,GCA_SYN00321,PDS00000057.1,environmental/other,Australia,2021-04-01,aadE,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00322,SAMNSYN00322,GCA_SYN00322,PDS00000009.1,clinical,Australia,2016-01-01,"blaOXA-61,cmeA","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00323,SAMNSYN00323,GCA_SYN00323,PDS00000043.1,environmental/other,Australia,2016-05-01,"aadE,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00324,SAMNSYN00324,GCA_SYN00324,PDS00000048.1,environmental/other,United Kingdom,2016-07-01,"blaOXA-61,cmeA",ciprofloxacin=S
+Campylobacter jejuni,SYN00325,SAMNSYN00325,GCA_SYN00325,PDS00000031.1,clinical,USA,2024-09-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00326,SAMNSYN00326,GCA_SYN00326,PDS00000047.1,environmental/other,Australia,2016-03-01,"aph(3')-IIIa,ermB,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00327,SAMNSYN00327,GCA_SYN00327,PDS00000023.1,environmental/other,USA,2020-08-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00328,SAMNSYN00328,GCA_SYN00328,PDS00000021.1,environmental/other,United Kingdom,2022-04-01,aph(3')-IIIa,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00329,SAMNSYN00329,GCA_SYN00329,PDS00000012.1,clinical,Australia,2024-04-01,"aadE,aph(3')-IIIa,ermB,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00330,SAMNSYN00330,GCA_SYN00330,PDS00000047.1,clinical,Australia,2023-07-01,,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00331,SAMNSYN00331,GCA_SYN00331,PDS00000019.1,environmental/other,Australia,2018-02-01,aadE,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00332,SAMNSYN00332,GCA_SYN00332,PDS00000001.1,environmental/other,USA,2019-02-01,"cmeA,cmeB,ermB",ciprofloxacin=S
+Campylobacter jejuni,SYN00333,SAMNSYN00333,GCA_SYN00333,PDS00000029.1,environmental/other,USA,2016-07-01,cmeA,ciprofloxacin=S
+Campylobacter jejuni,SYN00334,SAMNSYN00334,GCA_SYN00334,PDS00000028.1,clinical,USA,2020-02-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00335,SAMNSYN00335,GCA_SYN00335,PDS00000002.1,environmental/other,United Kingdom,2021-04-01,tetO,"ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00336,SAMNSYN00336,GCA_SYN00336,PDS00000004.1,environmental/other,Australia,2022-04-01,"aph(3')-IIIa,ermB,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00337,SAMNSYN00337,GCA_SYN00337,PDS00000029.1,environmental/other,USA,2016-07-01,"cmeB,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00338,SAMNSYN00338,GCA_SYN00338,PDS00000022.1,environmental/other,United Kingdom,2017-03-01,ermB,"ciprofloxacin=S,tetracycline=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00339,SAMNSYN00339,GCA_SYN00339,PDS00000013.1,clinical,USA,2017-04-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00340,SAMNSYN00340,GCA_SYN00340,PDS00000025.1,clinical,Australia,2016-09-01,"aph(3')-IIIa,gyrA=T86I,tetO","ciprofloxacin=R,oxytetracycline=S"
+Campylobacter jejuni,SYN00341,SAMNSYN00341,GCA_SYN00341,PDS00000055.1,environmental/other,Australia,2015-03-01,aph(3')-IIIa,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00342,SAMNSYN00342,GCA_SYN00342,PDS00000015.1,clinical,United Kingdom,2022-01-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00343,SAMNSYN00343,GCA_SYN00343,PDS00000010.1,environmental/other,United Kingdom,2015-02-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00344,SAMNSYN00344,GCA_SYN00344,PDS00000010.1,clinical,Australia,2020-09-01,,"ciprofloxacin=R,tetracycline=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00345,SAMNSYN00345,GCA_SYN00345,PDS00000039.1,environmental/other,United Kingdom,2016-04-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00346,SAMNSYN00346,GCA_SYN00346,PDS00000014.1,environmental/other,Australia,2021-01-01,"cmeB,ermB,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00347,SAMNSYN00347,GCA_SYN00347,PDS00000014.1,environmental/other,USA,2024-01-01,"aadE,blaOXA-61,cmeB","ciprofloxacin=S,tetracycline=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00348,SAMNSYN00348,GCA_SYN00348,PDS00000054.1,environmental/other,USA,2022-03-01,"aph(3')-IIIa,blaOXA-61,cmeA","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00349,SAMNSYN00349,GCA_SYN00349,PDS00000038.1,clinical,Australia,2019-04-01,"gyrA=T86I,tetO","ciprofloxacin=R,oxytetracycline=S"
+Campylobacter jejuni,SYN00350,SAMNSYN00350,GCA_SYN00350,PDS00000016.1,clinical,United Kingdom,2021-05-01,"aph(3')-IIIa,cmeA,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00351,SAMNSYN00351,GCA_SYN00351,PDS00000011.1,environmental/other,USA,2019-01-01,"aph(3')-IIIa,cmeB,gyrA=T86I,tetO",ciprofloxacin=R
+Campylobacter jejuni,SYN00352,SAMNSYN00352,GCA_SYN00352,PDS00000046.1,clinical,USA,2024-05-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00353,SAMNSYN00353,GCA_SYN00353,PDS00000029.1,clinical,Australia,2021-04-01,"aph(3')-IIIa,ermB,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00354,SAMNSYN00354,GCA_SYN00354,PDS00000013.1,environmental/other,Australia,2016-06-01,"blaOXA-61,cmeB,gyrA=T86I,tetO",ciprofloxacin=S
+Campylobacter jejuni,SYN00355,SAMNSYN00355,GCA_SYN00355,PDS00000031.1,clinical,Australia,2015-08-01,,"ciprofloxacin=S,tetracycline=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00356,SAMNSYN00356,GCA_SYN00356,PDS00000053.1,clinical,USA,2019-01-01,,ciprofloxacin=R
+Campylobacter jejuni,SYN00357,SAMNSYN00357,GCA_SYN00357,PDS00000026.1,clinical,USA,2017-08-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00358,SAMNSYN00358,GCA_SYN00358,PDS00000022.1,environmental/other,Australia,2023-02-01,aadE,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00359,SAMNSYN00359,GCA_SYN00359,PDS00000054.1,clinical,USA,2015-05-01,,"ciprofloxacin=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00360,SAMNSYN00360,GCA_SYN00360,PDS00000031.1,clinical,United Kingdom,2019-09-01,"aadE,blaOXA-61,cmeA","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00361,SAMNSYN00361,GCA_SYN00361,PDS00000039.1,clinical,USA,2022-02-01,"cmeB,ermB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00362,SAMNSYN00362,GCA_SYN00362,PDS00000027.1,clinical,Australia,2015-06-01,"gyrA=T86I,tetO","ciprofloxacin=R,tetracycline=R"
+Campylobacter jejuni,SYN00363,SAMNSYN00363,GCA_SYN00363,PDS00000042.1,clinical,United Kingdom,2018-05-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00364,SAMNSYN00364,GCA_SYN00364,PDS00000009.1,clinical,United Kingdom,2022-09-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00365,SAMNSYN00365,GCA_SYN00365,PDS00000018.1,clinical,USA,2019-01-01,"aph(3')-IIIa,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00366,SAMNSYN00366,GCA_SYN00366,PDS00000013.1,environmental/other,United Kingdom,2018-09-01,"aph(3')-IIIa,cmeB,gyrA=T86I,tetO","ciprofloxacin=R,tetracycline=R"
+Campylobacter jejuni,SYN00367,SAMNSYN00367,GCA_SYN00367,PDS00000053.1,environmental/other,USA,2019-03-01,ermB,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00368,SAMNSYN00368,GCA_SYN00368,PDS00000003.1,clinical,Australia,2023-07-01,"cmeB,ermB,tetO",ciprofloxacin=S
+Campylobacter jejuni,SYN00369,SAMNSYN00369,GCA_SYN00369,PDS00000024.1,environmental/other,USA,2017-09-01,cmeB,ciprofloxacin=S
+Campylobacter jejuni,SYN00370,SAMNSYN00370,GCA_SYN00370,PDS00000046.1,environmental/other,Australia,2020-02-01,"aadE,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00371,SAMNSYN00371,GCA_SYN00371,PDS00000046.1,clinical,United Kingdom,2016-07-01,ermB,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00372,SAMNSYN00372,GCA_SYN00372,PDS00000037.1,environmental/other,United Kingdom,2018-05-01,"aph(3')-IIIa,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00373,SAMNSYN00373,GCA_SYN00373,PDS00000024.1,clinical,USA,2017-04-01,"aph(3')-IIIa,cmeA","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00374,SAMNSYN00374,GCA_SYN00374,PDS00000003.1,environmental/other,USA,2022-03-01,tetO,"ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00375,SAMNSYN00375,GCA_SYN00375,PDS00000002.1,clinical,United Kingdom,2017-01-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00376,SAMNSYN00376,GCA_SYN00376,PDS00000010.1,clinical,Australia,2024-02-01,"aadE,aph(3')-IIIa,cmeB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00377,SAMNSYN00377,GCA_SYN00377,PDS00000013.1,clinical,United Kingdom,2015-05-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00378,SAMNSYN00378,GCA_SYN00378,PDS00000027.1,clinical,United Kingdom,2022-08-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00379,SAMNSYN00379,GCA_SYN00379,PDS00000013.1,clinical,United Kingdom,2015-01-01,"blaOXA-61,ermB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00380,SAMNSYN00380,GCA_SYN00380,PDS00000040.1,clinical,United Kingdom,2018-03-01,"aph(3')-IIIa,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00381,SAMNSYN00381,GCA_SYN00381,PDS00000014.1,environmental/other,USA,2021-06-01,"blaOXA-61,cmeA","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00382,SAMNSYN00382,GCA_SYN00382,PDS00000015.1,environmental/other,United Kingdom,2018-01-01,"aadE,cmeA","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00383,SAMNSYN00383,GCA_SYN00383,PDS00000012.1,environmental/other,Australia,2019-08-01,"aph(3')-IIIa,cmeA,cmeB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00384,SAMNSYN00384,GCA_SYN00384,PDS00000057.1,clinical,United Kingdom,2018-02-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00385,SAMNSYN00385,GCA_SYN00385,PDS00000056.1,clinical,USA,2018-06-01,aadE,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00386,SAMNSYN00386,GCA_SYN00386,PDS00000009.1,clinical,United Kingdom,2020-09-01,tetO,"ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00387,SAMNSYN00387,GCA_SYN00387,PDS00000033.1,clinical,United Kingdom,2015-05-01,"aadE,aph(3')-IIIa,ermB","ciprofloxacin=S,tetracycline=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00388,SAMNSYN00388,GCA_SYN00388,PDS00000002.1,clinical,United Kingdom,2019-01-01,"aph(3')-IIIa,blaOXA-61,cmeA","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00389,SAMNSYN00389,GCA_SYN00389,PDS00000050.1,environmental/other,United Kingdom,2021-02-01,aph(3')-IIIa,ciprofloxacin=S
+Campylobacter jejuni,SYN00390,SAMNSYN00390,GCA_SYN00390,PDS00000029.1,clinical,USA,2018-02-01,"blaOXA-61,ermB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00391,SAMNSYN00391,GCA_SYN00391,PDS00000044.1,environmental/other,USA,2021-02-01,ermB,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00392,SAMNSYN00392,GCA_SYN00392,PDS00000047.1,clinical,USA,2017-01-01,"aadE,tetO",ciprofloxacin=S
+Campylobacter jejuni,SYN00393,SAMNSYN00393,GCA_SYN00393,PDS00000035.1,clinical,USA,2023-06-01,"aadE,cmeA,cmeB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00394,SAMNSYN00394,GCA_SYN00394,PDS00000014.1,clinical,Australia,2016-07-01,"blaOXA-61,cmeA","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00395,SAMNSYN00395,GCA_SYN00395,PDS00000004.1,clinical,Australia,2023-02-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00396,SAMNSYN00396,GCA_SYN00396,PDS00000037.1,clinical,Australia,2015-07-01,"cmeB,ermB","ciprofloxacin=S,tetracycline=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00397,SAMNSYN00397,GCA_SYN00397,PDS00000042.1,environmental/other,USA,2016-05-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00398,SAMNSYN00398,GCA_SYN00398,PDS00000035.1,environmental/other,United Kingdom,2024-09-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00399,SAMNSYN00399,GCA_SYN00399,PDS00000047.1,environmental/other,United Kingdom,2022-03-01,"cmeA,cmeB",ciprofloxacin=S
+Campylobacter jejuni,SYN00400,SAMNSYN00400,GCA_SYN00400,PDS00000015.1,clinical,United Kingdom,2015-08-01,"aph(3')-IIIa,cmeA,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00401,SAMNSYN00401,GCA_SYN00401,PDS00000019.1,clinical,USA,2020-06-01,"blaOXA-61,cmeB,gyrA=T86I,tetO",ciprofloxacin=R
+Campylobacter jejuni,SYN00402,SAMNSYN00402,GCA_SYN00402,PDS00000013.1,environmental/other,USA,2020-06-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00403,SAMNSYN00403,GCA_SYN00403,PDS00000006.1,clinical,United Kingdom,2019-02-01,ermB,"ciprofloxacin=S,tetracycline=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00404,SAMNSYN00404,GCA_SYN00404,PDS00000015.1,clinical,United Kingdom,2022-08-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00405,SAMNSYN00405,GCA_SYN00405,PDS00000023.1,clinical,Australia,2018-01-01,"aph(3')-IIIa,tetO","ciprofloxacin=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00406,SAMNSYN00406,GCA_SYN00406,PDS00000033.1,environmental/other,United Kingdom,2024-01-01,"aadE,cmeA,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00407,SAMNSYN00407,GCA_SYN00407,PDS00000048.1,environmental/other,Australia,2021-09-01,"aph(3')-IIIa,cmeA,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00408,SAMNSYN00408,GCA_SYN00408,PDS00000039.1,environmental/other,USA,2024-02-01,cmeB,"ciprofloxacin=S,tetracycline=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00409,SAMNSYN00409,GCA_SYN00409,PDS00000009.1,clinical,United Kingdom,2024-02-01,ermB,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00410,SAMNSYN00410,GCA_SYN00410,PDS00000038.1,environmental/other,United Kingdom,2020-07-01,"aadE,aph(3')-IIIa,blaOXA-61,gyrA=T86I","ciprofloxacin=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00411,SAMNSYN00411,GCA_SYN00411,PDS00000052.1,clinical,Australia,2020-07-01,"cmeA,cmeB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00412,SAMNSYN00412,GCA_SYN00412,PDS00000028.1,environmental/other,USA,2022-06-01,"aadE,blaOXA-61","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00413,SAMNSYN00413,GCA_SYN00413,PDS00000011.1,clinical,USA,2022-04-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00414,SAMNSYN00414,GCA_SYN00414,PDS00000029.1,clinical,USA,2023-05-01,"cmeA,cmeB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00415,SAMNSYN00415,GCA_SYN00415,PDS00000023.1,clinical,Australia,2018-01-01,"cmeA,ermB,tetO",ciprofloxacin=S
+Campylobacter jejuni,SYN00416,SAMNSYN00416,GCA_SYN00416,PDS00000005.1,environmental/other,USA,2021-03-01,cmeA,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00417,SAMNSYN00417,GCA_SYN00417,PDS00000022.1,clinical,Australia,2016-09-01,"aadE,aph(3')-IIIa","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00418,SAMNSYN00418,GCA_SYN00418,PDS00000002.1,environmental/other,USA,2021-09-01,"aadE,blaOXA-61,ermB",ciprofloxacin=S
+Campylobacter jejuni,SYN00419,SAMNSYN00419,GCA_SYN00419,PDS00000012.1,environmental/other,Australia,2016-03-01,"ermB,gyrA=T86I,tetO","ciprofloxacin=R,tetracycline=R"
+Campylobacter jejuni,SYN00420,SAMNSYN00420,GCA_SYN00420,PDS00000029.1,environmental/other,USA,2016-07-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00421,SAMNSYN00421,GCA_SYN00421,PDS00000031.1,clinical,USA,2024-05-01,"cmeB,ermB,tetO",ciprofloxacin=S
+Campylobacter jejuni,SYN00422,SAMNSYN00422,GCA_SYN00422,PDS00000058.1,clinical,USA,2016-04-01,"aadE,ermB,gyrA=T86I","ciprofloxacin=S,tetracycline=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00423,SAMNSYN00423,GCA_SYN00423,PDS00000017.1,clinical,United Kingdom,2023-07-01,"blaOXA-61,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00424,SAMNSYN00424,GCA_SYN00424,PDS00000037.1,environmental/other,United Kingdom,2022-02-01,"cmeB,ermB,tetO",ciprofloxacin=S
+Campylobacter jejuni,SYN00425,SAMNSYN00425,GCA_SYN00425,PDS00000025.1,clinical,United Kingdom,2017-04-01,"blaOXA-61,tetO",ciprofloxacin=S
+Campylobacter jejuni,SYN00426,SAMNSYN00426,GCA_SYN00426,PDS00000051.1,clinical,United Kingdom,2016-01-01,"aadE,aph(3')-IIIa,cmeB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00427,SAMNSYN00427,GCA_SYN00427,PDS00000014.1,clinical,Australia,2021-06-01,"aadE,aph(3')-IIIa,tetO","ciprofloxacin=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00428,SAMNSYN00428,GCA_SYN00428,PDS00000053.1,environmental/other,Australia,2021-02-01,"ermB,tetO",ciprofloxacin=S
+Campylobacter jejuni,SYN00429,SAMNSYN00429,GCA_SYN00429,PDS00000034.1,clinical,USA,2018-05-01,"aadE,aph(3')-IIIa",ciprofloxacin=S
+Campylobacter jejuni,SYN00430,SAMNSYN00430,GCA_SYN00430,PDS00000056.1,clinical,Australia,2019-03-01,blaOXA-61,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00431,SAMNSYN00431,GCA_SYN00431,PDS00000001.1,clinical,Australia,2016-07-01,"aadE,cmeB,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00432,SAMNSYN00432,GCA_SYN00432,PDS00000015.1,environmental/other,Australia,2018-01-01,gyrA=T86I,ciprofloxacin=R
+Campylobacter jejuni,SYN00433,SAMNSYN00433,GCA_SYN00433,PDS00000018.1,environmental/other,Australia,2018-02-01,"aadE,ermB",ciprofloxacin=S
+Campylobacter jejuni,SYN00434,SAMNSYN00434,GCA_SYN00434,PDS00000041.1,clinical,Australia,2018-06-01,"blaOXA-61,cmeA",ciprofloxacin=S
+Campylobacter jejuni,SYN00435,SAMNSYN00435,GCA_SYN00435,PDS00000043.1,environmental/other,United Kingdom,2023-01-01,"cmeB,ermB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00436,SAMNSYN00436,GCA_SYN00436,PDS00000019.1,clinical,Australia,2015-06-01,"aadE,cmeB",ciprofloxacin=S
+Campylobacter jejuni,SYN00437,SAMNSYN00437,GCA_SYN00437,PDS00000020.1,clinical,USA,2017-08-01,"aadE,cmeB,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00438,SAMNSYN00438,GCA_SYN00438,PDS00000014.1,clinical,United Kingdom,2024-05-01,"aadE,cmeA,gyrA=T86I","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00439,SAMNSYN00439,GCA_SYN00439,PDS00000026.1,environmental/other,Australia,2015-06-01,"aph(3')-IIIa,ermB,gyrA=T86I,tetO",ciprofloxacin=R
+Campylobacter jejuni,SYN00440,SAMNSYN00440,GCA_SYN00440,PDS00000046.1,clinical,United Kingdom,2023-08-01,"aph(3')-IIIa,gyrA=T86I,tetO",ciprofloxacin=R
+Campylobacter jejuni,SYN00441,SAMNSYN00441,GCA_SYN00441,PDS00000032.1,clinical,United Kingdom,2017-05-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00442,SAMNSYN00442,GCA_SYN00442,PDS00000011.1,environmental/other,United Kingdom,2022-01-01,"aph(3')-IIIa,ermB,gyrA=T86I,tetO","ciprofloxacin=R,tetracycline=R,oxytetracycline=S"
+Campylobacter jejuni,SYN00443,SAMNSYN00443,GCA_SYN00443,PDS00000043.1,clinical,United Kingdom,2020-03-01,"cmeA,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00444,SAMNSYN00444,GCA_SYN00444,PDS00000026.1,clinical,USA,2017-07-01,"aph(3')-IIIa,blaOXA-61,cmeA","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00445,SAMNSYN00445,GCA_SYN00445,PDS00000042.1,clinical,United Kingdom,2024-04-01,"aph(3')-IIIa,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00446,SAMNSYN00446,GCA_SYN00446,PDS00000017.1,environmental/other,United Kingdom,2016-02-01,"aadE,ermB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00447,SAMNSYN00447,GCA_SYN00447,PDS00000055.1,environmental/other,USA,2020-01-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00448,SAMNSYN00448,GCA_SYN00448,PDS00000040.1,clinical,Australia,2023-08-01,"ermB,tetO","ciprofloxacin=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00449,SAMNSYN00449,GCA_SYN00449,PDS00000052.1,clinical,Australia,2021-05-01,cmeA,ciprofloxacin=S
+Campylobacter jejuni,SYN00450,SAMNSYN00450,GCA_SYN00450,PDS00000014.1,clinical,United Kingdom,2020-06-01,"aadE,cmeA,cmeB",ciprofloxacin=S
+Campylobacter jejuni,SYN00451,SAMNSYN00451,GCA_SYN00451,PDS00000047.1,clinical,USA,2021-02-01,"aadE,aph(3')-IIIa",ciprofloxacin=S
+Campylobacter jejuni,SYN00452,SAMNSYN00452,GCA_SYN00452,PDS00000030.1,clinical,United Kingdom,2021-02-01,"ermB,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00453,SAMNSYN00453,GCA_SYN00453,PDS00000000.1,clinical,USA,2024-05-01,,"ciprofloxacin=S,tetracycline=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00454,SAMNSYN00454,GCA_SYN00454,PDS00000043.1,clinical,USA,2023-05-01,"aadE,blaOXA-61,gyrA=T86I,tetO","ciprofloxacin=R,tetracycline=R"
+Campylobacter jejuni,SYN00455,SAMNSYN00455,GCA_SYN00455,PDS00000047.1,environmental/other,United Kingdom,2023-03-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00456,SAMNSYN00456,GCA_SYN00456,PDS00000011.1,environmental/other,Australia,2024-02-01,gyrA=T86I,ciprofloxacin=R
+Campylobacter jejuni,SYN00457,SAMNSYN00457,GCA_SYN00457,PDS00000037.1,environmental/other,USA,2017-04-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00458,SAMNSYN00458,GCA_SYN00458,PDS00000050.1,clinical,USA,2022-03-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00459,SAMNSYN00459,GCA_SYN00459,PDS00000040.1,clinical,Australia,2023-01-01,"blaOXA-61,gyrA=T86I","ciprofloxacin=R,tetracycline=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00460,SAMNSYN00460,GCA_SYN00460,PDS00000015.1,environmental/other,USA,2020-07-01,"cmeB,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00461,SAMNSYN00461,GCA_SYN00461,PDS00000029.1,environmental/other,USA,2023-01-01,"blaOXA-61,cmeA","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00462,SAMNSYN00462,GCA_SYN00462,PDS00000004.1,clinical,Australia,2018-09-01,"aph(3')-IIIa,cmeB,ermB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00463,SAMNSYN00463,GCA_SYN00463,PDS00000025.1,clinical,Australia,2023-08-01,"cmeB,ermB,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00464,SAMNSYN00464,GCA_SYN00464,PDS00000010.1,clinical,USA,2016-01-01,"aph(3')-IIIa,blaOXA-61,cmeA,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00465,SAMNSYN00465,GCA_SYN00465,PDS00000028.1,environmental/other,United Kingdom,2015-05-01,gyrA=T86I,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00466,SAMNSYN00466,GCA_SYN00466,PDS00000032.1,clinical,Australia,2017-08-01,ermB,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00467,SAMNSYN00467,GCA_SYN00467,PDS00000011.1,clinical,United Kingdom,2018-05-01,cmeB,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00468,SAMNSYN00468,GCA_SYN00468,PDS00000057.1,clinical,Australia,2018-03-01,"ermB,tetO",ciprofloxacin=S
+Campylobacter jejuni,SYN00469,SAMNSYN00469,GCA_SYN00469,PDS00000008.1,clinical,USA,2021-08-01,aadE,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00470,SAMNSYN00470,GCA_SYN00470,PDS00000030.1,clinical,USA,2021-05-01,"aadE,blaOXA-61","ciprofloxacin=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00471,SAMNSYN00471,GCA_SYN00471,PDS00000036.1,environmental/other,USA,2016-02-01,"aph(3')-IIIa,cmeA,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00472,SAMNSYN00472,GCA_SYN00472,PDS00000010.1,clinical,USA,2024-04-01,"blaOXA-61,gyrA=T86I,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00473,SAMNSYN00473,GCA_SYN00473,PDS00000011.1,clinical,Australia,2019-05-01,"ermB,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00474,SAMNSYN00474,GCA_SYN00474,PDS00000057.1,clinical,Australia,2023-01-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00475,SAMNSYN00475,GCA_SYN00475,PDS00000021.1,environmental/other,USA,2018-01-01,"blaOXA-61,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00476,SAMNSYN00476,GCA_SYN00476,PDS00000005.1,clinical,Australia,2021-03-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00477,SAMNSYN00477,GCA_SYN00477,PDS00000038.1,clinical,United Kingdom,2021-03-01,aadE,ciprofloxacin=S
+Campylobacter jejuni,SYN00478,SAMNSYN00478,GCA_SYN00478,PDS00000012.1,clinical,Australia,2021-07-01,gyrA=T86I,ciprofloxacin=R
+Campylobacter jejuni,SYN00479,SAMNSYN00479,GCA_SYN00479,PDS00000015.1,environmental/other,USA,2022-08-01,"aph(3')-IIIa,cmeB,gyrA=T86I,tetO","ciprofloxacin=R,tetracycline=R"
+Campylobacter jejuni,SYN00480,SAMNSYN00480,GCA_SYN00480,PDS00000034.1,clinical,United Kingdom,2016-08-01,"aadE,aph(3')-IIIa,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00481,SAMNSYN00481,GCA_SYN00481,PDS00000049.1,environmental/other,Australia,2019-05-01,"aadE,cmeB,ermB",ciprofloxacin=S
+Campylobacter jejuni,SYN00482,SAMNSYN00482,GCA_SYN00482,PDS00000048.1,environmental/other,United Kingdom,2022-06-01,tetO,"ciprofloxacin=R,tetracycline=R"
+Campylobacter jejuni,SYN00483,SAMNSYN00483,GCA_SYN00483,PDS00000017.1,clinical,Australia,2017-08-01,aph(3')-IIIa,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00484,SAMNSYN00484,GCA_SYN00484,PDS00000049.1,environmental/other,United Kingdom,2019-08-01,cmeA,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00485,SAMNSYN00485,GCA_SYN00485,PDS00000046.1,environmental/other,United Kingdom,2021-01-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00486,SAMNSYN00486,GCA_SYN00486,PDS00000010.1,clinical,USA,2023-02-01,aph(3')-IIIa,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00487,SAMNSYN00487,GCA_SYN00487,PDS00000042.1,environmental/other,Australia,2017-01-01,"aadE,cmeB",ciprofloxacin=S
+Campylobacter jejuni,SYN00488,SAMNSYN00488,GCA_SYN00488,PDS00000032.1,environmental/other,United Kingdom,2023-09-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00489,SAMNSYN00489,GCA_SYN00489,PDS00000055.1,environmental/other,Australia,2019-07-01,"cmeA,cmeB,ermB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00490,SAMNSYN00490,GCA_SYN00490,PDS00000020.1,environmental/other,United Kingdom,2015-09-01,"aph(3')-IIIa,cmeB,ermB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00491,SAMNSYN00491,GCA_SYN00491,PDS00000034.1,environmental/other,Australia,2023-05-01,ermB,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00492,SAMNSYN00492,GCA_SYN00492,PDS00000055.1,environmental/other,USA,2024-06-01,aph(3')-IIIa,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00493,SAMNSYN00493,GCA_SYN00493,PDS00000030.1,environmental/other,United Kingdom,2024-06-01,"aph(3')-IIIa,cmeB,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00494,SAMNSYN00494,GCA_SYN00494,PDS00000002.1,environmental/other,Australia,2023-06-01,tetO,"ciprofloxacin=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00495,SAMNSYN00495,GCA_SYN00495,PDS00000009.1,clinical,Australia,2015-08-01,"cmeB,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00496,SAMNSYN00496,GCA_SYN00496,PDS00000012.1,environmental/other,Australia,2021-02-01,"ermB,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00497,SAMNSYN00497,GCA_SYN00497,PDS00000036.1,clinical,USA,2024-03-01,"blaOXA-61,gyrA=T86I,tetO",ciprofloxacin=R
+Campylobacter jejuni,SYN00498,SAMNSYN00498,GCA_SYN00498,PDS00000024.1,clinical,Australia,2024-01-01,,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00499,SAMNSYN00499,GCA_SYN00499,PDS00000046.1,clinical,United Kingdom,2022-08-01,"ermB,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00500,SAMNSYN00500,GCA_SYN00500,PDS00000032.1,environmental/other,United Kingdom,2021-02-01,"aph(3')-IIIa,gyrA=T86I,tetO","ciprofloxacin=R,tetracycline=R"
+Campylobacter jejuni,SYN00501,SAMNSYN00501,GCA_SYN00501,PDS00000043.1,environmental/other,United Kingdom,2017-05-01,cmeA,ciprofloxacin=S
+Campylobacter jejuni,SYN00502,SAMNSYN00502,GCA_SYN00502,PDS00000059.1,environmental/other,USA,2016-05-01,gyrA=T86I,ciprofloxacin=R
+Campylobacter jejuni,SYN00503,SAMNSYN00503,GCA_SYN00503,PDS00000016.1,environmental/other,Australia,2020-08-01,,ciprofloxacin=R
+Campylobacter jejuni,SYN00504,SAMNSYN00504,GCA_SYN00504,PDS00000019.1,clinical,Australia,2016-03-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00505,SAMNSYN00505,GCA_SYN00505,PDS00000046.1,clinical,United Kingdom,2023-02-01,"aph(3')-IIIa,blaOXA-61,cmeB","ciprofloxacin=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00506,SAMNSYN00506,GCA_SYN00506,PDS00000037.1,environmental/other,USA,2016-07-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00507,SAMNSYN00507,GCA_SYN00507,PDS00000052.1,clinical,United Kingdom,2018-06-01,cmeA,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00508,SAMNSYN00508,GCA_SYN00508,PDS00000035.1,clinical,USA,2020-08-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00509,SAMNSYN00509,GCA_SYN00509,PDS00000044.1,environmental/other,Australia,2016-01-01,"aph(3')-IIIa,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00510,SAMNSYN00510,GCA_SYN00510,PDS00000012.1,environmental/other,United Kingdom,2022-01-01,"aph(3')-IIIa,cmeB,gyrA=T86I","ciprofloxacin=R,oxytetracycline=S"
+Campylobacter jejuni,SYN00511,SAMNSYN00511,GCA_SYN00511,PDS00000045.1,environmental/other,Australia,2021-03-01,cmeB,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00512,SAMNSYN00512,GCA_SYN00512,PDS00000003.1,environmental/other,USA,2023-05-01,blaOXA-61,ciprofloxacin=S
+Campylobacter jejuni,SYN00513,SAMNSYN00513,GCA_SYN00513,PDS00000014.1,clinical,United Kingdom,2015-05-01,"cmeB,ermB,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00514,SAMNSYN00514,GCA_SYN00514,PDS00000015.1,environmental/other,United Kingdom,2019-08-01,"blaOXA-61,cmeA,cmeB,gyrA=T86I","ciprofloxacin=R,tetracycline=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00515,SAMNSYN00515,GCA_SYN00515,PDS00000028.1,clinical,Australia,2023-02-01,"aadE,aph(3')-IIIa,tetO",ciprofloxacin=S
+Campylobacter jejuni,SYN00516,SAMNSYN00516,GCA_SYN00516,PDS00000052.1,environmental/other,USA,2021-05-01,aph(3')-IIIa,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00517,SAMNSYN00517,GCA_SYN00517,PDS00000052.1,environmental/other,United Kingdom,2018-01-01,"aadE,aph(3')-IIIa,cmeA",ciprofloxacin=S
+Campylobacter jejuni,SYN00518,SAMNSYN00518,GCA_SYN00518,PDS00000045.1,clinical,United Kingdom,2022-02-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00519,SAMNSYN00519,GCA_SYN00519,PDS00000024.1,environmental/other,USA,2016-06-01,"aph(3')-IIIa,blaOXA-61,cmeA",ciprofloxacin=S
+Campylobacter jejuni,SYN00520,SAMNSYN00520,GCA_SYN00520,PDS00000021.1,clinical,USA,2015-07-01,gyrA=T86I,ciprofloxacin=R
+Campylobacter jejuni,SYN00521,SAMNSYN00521,GCA_SYN00521,PDS00000043.1,clinical,United Kingdom,2017-03-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00522,SAMNSYN00522,GCA_SYN00522,PDS00000045.1,clinical,Australia,2016-04-01,"aph(3')-IIIa,blaOXA-61","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00523,SAMNSYN00523,GCA_SYN00523,PDS00000021.1,environmental/other,United Kingdom,2022-02-01,"aph(3')-IIIa,cmeA,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00524,SAMNSYN00524,GCA_SYN00524,PDS00000008.1,environmental/other,USA,2018-08-01,"blaOXA-61,cmeA,gyrA=T86I,tetO","ciprofloxacin=R,tetracycline=R"
+Campylobacter jejuni,SYN00525,SAMNSYN00525,GCA_SYN00525,PDS00000056.1,clinical,Australia,2018-04-01,blaOXA-61,ciprofloxacin=S
+Campylobacter jejuni,SYN00526,SAMNSYN00526,GCA_SYN00526,PDS00000031.1,clinical,United Kingdom,2019-08-01,"aadE,cmeA,cmeB",ciprofloxacin=S
+Campylobacter jejuni,SYN00527,SAMNSYN00527,GCA_SYN00527,PDS00000037.1,environmental/other,USA,2017-07-01,"aadE,cmeB,tetO","ciprofloxacin=R,oxytetracycline=S"
+Campylobacter jejuni,SYN00528,SAMNSYN00528,GCA_SYN00528,PDS00000002.1,environmental/other,Australia,2024-05-01,"aadE,gyrA=T86I,tetO","ciprofloxacin=R,tetracycline=R"
+Campylobacter jejuni,SYN00529,SAMNSYN00529,GCA_SYN00529,PDS00000028.1,clinical,Australia,2018-07-01,aadE,ciprofloxacin=S
+Campylobacter jejuni,SYN00530,SAMNSYN00530,GCA_SYN00530,PDS00000026.1,clinical,USA,2016-03-01,"aph(3')-IIIa,cmeA,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00531,SAMNSYN00531,GCA_SYN00531,PDS00000008.1,environmental/other,USA,2020-07-01,"cmeB,ermB,gyrA=T86I","ciprofloxacin=S,tetracycline=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00532,SAMNSYN00532,GCA_SYN00532,PDS00000059.1,clinical,Australia,2016-06-01,blaOXA-61,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00533,SAMNSYN00533,GCA_SYN00533,PDS00000027.1,environmental/other,Australia,2022-04-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00534,SAMNSYN00534,GCA_SYN00534,PDS00000007.1,environmental/other,United Kingdom,2018-05-01,"cmeA,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00535,SAMNSYN00535,GCA_SYN00535,PDS00000018.1,clinical,United Kingdom,2018-01-01,"cmeB,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00536,SAMNSYN00536,GCA_SYN00536,PDS00000001.1,clinical,Australia,2022-04-01,ermB,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00537,SAMNSYN00537,GCA_SYN00537,PDS00000030.1,clinical,Australia,2017-09-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00538,SAMNSYN00538,GCA_SYN00538,PDS00000001.1,environmental/other,Australia,2017-03-01,"blaOXA-61,ermB",ciprofloxacin=R
+Campylobacter jejuni,SYN00539,SAMNSYN00539,GCA_SYN00539,PDS00000008.1,environmental/other,United Kingdom,2022-09-01,"aadE,blaOXA-61,gyrA=T86I","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00540,SAMNSYN00540,GCA_SYN00540,PDS00000037.1,clinical,Australia,2020-03-01,"cmeA,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00541,SAMNSYN00541,GCA_SYN00541,PDS00000005.1,clinical,United Kingdom,2018-02-01,"blaOXA-61,cmeA,ermB,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00542,SAMNSYN00542,GCA_SYN00542,PDS00000042.1,clinical,USA,2019-07-01,"aadE,blaOXA-61,cmeA","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00543,SAMNSYN00543,GCA_SYN00543,PDS00000029.1,clinical,Australia,2015-06-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00544,SAMNSYN00544,GCA_SYN00544,PDS00000040.1,clinical,United Kingdom,2021-03-01,"aph(3')-IIIa,cmeB,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00545,SAMNSYN00545,GCA_SYN00545,PDS00000011.1,environmental/other,USA,2019-07-01,"ermB,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00546,SAMNSYN00546,GCA_SYN00546,PDS00000049.1,environmental/other,United Kingdom,2016-06-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00547,SAMNSYN00547,GCA_SYN00547,PDS00000038.1,clinical,USA,2017-01-01,"aadE,blaOXA-61,cmeB",ciprofloxacin=S
+Campylobacter jejuni,SYN00548,SAMNSYN00548,GCA_SYN00548,PDS00000047.1,clinical,Australia,2021-09-01,"aadE,aph(3')-IIIa","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00549,SAMNSYN00549,GCA_SYN00549,PDS00000029.1,environmental/other,USA,2019-02-01,"blaOXA-61,cmeB,gyrA=T86I,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00550,SAMNSYN00550,GCA_SYN00550,PDS00000043.1,environmental/other,Australia,2016-09-01,"aph(3')-IIIa,cmeA,gyrA=T86I,tetO","ciprofloxacin=R,tetracycline=R"
+Campylobacter jejuni,SYN00551,SAMNSYN00551,GCA_SYN00551,PDS00000016.1,environmental/other,United Kingdom,2018-06-01,"aadE,blaOXA-61,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00552,SAMNSYN00552,GCA_SYN00552,PDS00000019.1,environmental/other,USA,2024-02-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00553,SAMNSYN00553,GCA_SYN00553,PDS00000033.1,environmental/other,United Kingdom,2021-08-01,"aph(3')-IIIa,cmeA,cmeB",ciprofloxacin=S
+Campylobacter jejuni,SYN00554,SAMNSYN00554,GCA_SYN00554,PDS00000048.1,clinical,United Kingdom,2015-09-01,"aadE,cmeA,cmeB",ciprofloxacin=S
+Campylobacter jejuni,SYN00555,SAMNSYN00555,GCA_SYN00555,PDS00000018.1,environmental/other,Australia,2022-03-01,,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00556,SAMNSYN00556,GCA_SYN00556,PDS00000005.1,clinical,Australia,2017-03-01,gyrA=T86I,ciprofloxacin=R
+Campylobacter jejuni,SYN00557,SAMNSYN00557,GCA_SYN00557,PDS00000034.1,clinical,USA,2015-06-01,"aph(3')-IIIa,blaOXA-61,ermB,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00558,SAMNSYN00558,GCA_SYN00558,PDS00000004.1,clinical,United Kingdom,2021-07-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00559,SAMNSYN00559,GCA_SYN00559,PDS00000042.1,clinical,Australia,2021-03-01,"aadE,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00560,SAMNSYN00560,GCA_SYN00560,PDS00000051.1,clinical,United Kingdom,2015-02-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00561,SAMNSYN00561,GCA_SYN00561,PDS00000027.1,environmental/other,USA,2017-04-01,"aadE,aph(3')-IIIa,gyrA=T86I,tetO","ciprofloxacin=R,tetracycline=R"
+Campylobacter jejuni,SYN00562,SAMNSYN00562,GCA_SYN00562,PDS00000047.1,clinical,United Kingdom,2020-03-01,"aph(3')-IIIa,tetO","ciprofloxacin=S,tetracycline=R"
+Campylobacter jejuni,SYN00563,SAMNSYN00563,GCA_SYN00563,PDS00000024.1,environmental/other,Australia,2018-04-01,"aadE,aph(3')-IIIa,blaOXA-61","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00564,SAMNSYN00564,GCA_SYN00564,PDS00000033.1,environmental/other,USA,2016-08-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00565,SAMNSYN00565,GCA_SYN00565,PDS00000026.1,clinical,Australia,2018-04-01,"aph(3')-IIIa,cmeB,tetO","ciprofloxacin=S,tetracycline=R,oxytetracycline=S"
+Campylobacter jejuni,SYN00566,SAMNSYN00566,GCA_SYN00566,PDS00000059.1,clinical,United Kingdom,2024-09-01,cmeB,ciprofloxacin=S
+Campylobacter jejuni,SYN00567,SAMNSYN00567,GCA_SYN00567,PDS00000015.1,clinical,USA,2024-01-01,"blaOXA-61,cmeA",ciprofloxacin=S
+Campylobacter jejuni,SYN00568,SAMNSYN00568,GCA_SYN00568,PDS00000006.1,clinical,USA,2022-02-01,"aadE,aph(3')-IIIa","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00569,SAMNSYN00569,GCA_SYN00569,PDS00000025.1,clinical,USA,2024-09-01,gyrA=T86I,"ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00570,SAMNSYN00570,GCA_SYN00570,PDS00000004.1,environmental/other,United Kingdom,2015-06-01,"aph(3')-IIIa,cmeA","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00571,SAMNSYN00571,GCA_SYN00571,PDS00000047.1,environmental/other,United Kingdom,2021-07-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00572,SAMNSYN00572,GCA_SYN00572,PDS00000052.1,clinical,Australia,2017-03-01,cmeA,ciprofloxacin=S
+Campylobacter jejuni,SYN00573,SAMNSYN00573,GCA_SYN00573,PDS00000054.1,environmental/other,USA,2020-08-01,"aadE,blaOXA-61,ermB,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00574,SAMNSYN00574,GCA_SYN00574,PDS00000041.1,environmental/other,United Kingdom,2017-03-01,"aadE,cmeB",ciprofloxacin=S
+Campylobacter jejuni,SYN00575,SAMNSYN00575,GCA_SYN00575,PDS00000051.1,clinical,USA,2021-06-01,"aadE,cmeB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00576,SAMNSYN00576,GCA_SYN00576,PDS00000051.1,clinical,USA,2021-03-01,aadE,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00577,SAMNSYN00577,GCA_SYN00577,PDS00000003.1,clinical,USA,2015-01-01,gyrA=T86I,ciprofloxacin=R
+Campylobacter jejuni,SYN00578,SAMNSYN00578,GCA_SYN00578,PDS00000042.1,clinical,USA,2018-03-01,,"ciprofloxacin=S,tetracycline=S,oxytetracycline=S"
+Campylobacter jejuni,SYN00579,SAMNSYN00579,GCA_SYN00579,PDS00000047.1,clinical,USA,2022-02-01,"aadE,ermB,tetO",ciprofloxacin=S
+Campylobacter jejuni,SYN00580,SAMNSYN00580,GCA_SYN00580,PDS00000036.1,environmental/other,United Kingdom,2022-09-01,"cmeA,ermB,gyrA=T86I,tetO","ciprofloxacin=R,tetracycline=R,oxytetracycline=S"
+Campylobacter jejuni,SYN00581,SAMNSYN00581,GCA_SYN00581,PDS00000007.1,environmental/other,Australia,2021-06-01,"aadE,aph(3')-IIIa,gyrA=T86I,tetO",ciprofloxacin=S
+Campylobacter jejuni,SYN00582,SAMNSYN00582,GCA_SYN00582,PDS00000005.1,clinical,Australia,2019-02-01,"aph(3')-IIIa,blaOXA-61,ermB",ciprofloxacin=S
+Campylobacter jejuni,SYN00583,SAMNSYN00583,GCA_SYN00583,PDS00000040.1,environmental/other,Australia,2023-06-01,"blaOXA-61,cmeB,ermB",ciprofloxacin=S
+Campylobacter jejuni,SYN00584,SAMNSYN00584,GCA_SYN00584,PDS00000005.1,environmental/other,USA,2021-09-01,"aadE,aph(3')-IIIa,gyrA=T86I,tetO",ciprofloxacin=R
+Campylobacter jejuni,SYN00585,SAMNSYN00585,GCA_SYN00585,PDS00000004.1,environmental/other,Australia,2017-04-01,"ermB,tetO",ciprofloxacin=S
+Campylobacter jejuni,SYN00586,SAMNSYN00586,GCA_SYN00586,PDS00000032.1,environmental/other,United Kingdom,2023-06-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00587,SAMNSYN00587,GCA_SYN00587,PDS00000018.1,environmental/other,USA,2021-04-01,"aadE,cmeA,cmeB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00588,SAMNSYN00588,GCA_SYN00588,PDS00000021.1,clinical,USA,2019-01-01,"cmeB,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00589,SAMNSYN00589,GCA_SYN00589,PDS00000028.1,clinical,Australia,2022-02-01,"blaOXA-61,cmeA,ermB","ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00590,SAMNSYN00590,GCA_SYN00590,PDS00000002.1,clinical,United Kingdom,2024-08-01,"aadE,aph(3')-IIIa",ciprofloxacin=S
+Campylobacter jejuni,SYN00591,SAMNSYN00591,GCA_SYN00591,PDS00000047.1,clinical,USA,2021-05-01,aadE,ciprofloxacin=S
+Campylobacter jejuni,SYN00592,SAMNSYN00592,GCA_SYN00592,PDS00000031.1,clinical,Australia,2024-04-01,ermB,ciprofloxacin=R
+Campylobacter jejuni,SYN00593,SAMNSYN00593,GCA_SYN00593,PDS00000017.1,environmental/other,United Kingdom,2018-09-01,,"ciprofloxacin=S,tetracycline=S"
+Campylobacter jejuni,SYN00594,SAMNSYN00594,GCA_SYN00594,PDS00000020.1,environmental/other,United Kingdom,2018-04-01,,ciprofloxacin=S
+Campylobacter jejuni,SYN00595,SAMNSYN00595,GCA_SYN00595,PDS00000033.1,clinical,United Kingdom,2015-04-01,"blaOXA-61,cmeA,gyrA=T86I",ciprofloxacin=R
+Campylobacter jejuni,SYN00596,SAMNSYN00596,GCA_SYN00596,PDS00000046.1,clinical,United Kingdom,2017-07-01,"gyrA=T86I,tetO","ciprofloxacin=R,tetracycline=R"
+Campylobacter jejuni,SYN00597,SAMNSYN00597,GCA_SYN00597,PDS00000013.1,environmental/other,Australia,2016-03-01,"cmeB,gyrA=T86I","ciprofloxacin=R,tetracycline=S"
+Campylobacter jejuni,SYN00598,SAMNSYN00598,GCA_SYN00598,PDS00000055.1,clinical,United Kingdom,2021-02-01,"blaOXA-61,cmeB,ermB",ciprofloxacin=S
+Campylobacter jejuni,SYN00599,SAMNSYN00599,GCA_SYN00599,PDS00000024.1,clinical,USA,2019-06-01,"aph(3')-IIIa,blaOXA-61,cmeB","ciprofloxacin=S,tetracycline=S"

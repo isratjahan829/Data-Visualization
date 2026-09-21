@@ -1,0 +1,5 @@
+species,drug,notebook_sensitivity_pct,table3_sensitivity_pct,sensitivity_matches,notebook_specificity_pct,table3_specificity_pct,specificity_matches
+Klebsiella pneumoniae,ciprofloxacin,94.1667,94.2,True,73.3333,73.3,True
+Klebsiella pneumoniae,gentamicin,76.6558,88.5,False,81.1111,71.4,False
+Campylobacter jejuni,gentamicin,98.0,98.2,False,99.9245,99.6,False
+Campylobacter jejuni,erythromycin,92.7066,97.5,False,99.9237,99.1,False
