@@ -115,7 +115,8 @@ seed_everything()
 # %%
 # ---------------------------------------------------------------- 1. locate the dataset
 IMG_EXT = {".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff", ".webp"}
-RAW = WORK / "raw"
+RAW = Path("/tmp/agrihgt_raw") if ON_KAGGLE else WORK / "raw"  # /tmp has more space than /kaggle/working
+RAW.mkdir(parents=True, exist_ok=True)
 
 
 def list_images(roots):
@@ -187,10 +188,10 @@ def parse_path(p):
     if norm(folder) in CROPS:  # image sits directly in a crop folder: no class
         return None
     name, key = clean_class(folder, crop)
-    joined = "/".join(parts)
-    if "augment" in joined:
+    # Mendeley folders are "Orginal_Dataset" (sic) and "Update_Aug_Dataset"; match loosely.
+    if any("aug" in x for x in parts):
         aug = True
-    elif "original" in joined:
+    elif any("orig" in x or "orgin" in x for x in parts):
         aug = False
     else:
         aug = "aug" in p.stem.lower()
@@ -220,6 +221,9 @@ if len(bad):
 CLASSES = sorted(df.label_name.unique())
 N_CLASSES = len(CLASSES)
 print("classes:", N_CLASSES, "(expected 28)")
+print("original images:", int((~df.is_aug).sum()), "| augmented images:", int(df.is_aug.sum()))
+if df.is_aug.sum() == 0 or (~df.is_aug).sum() == 0:
+    print("WARNING: original or augmented images missing - attach BOTH Orginal_Dataset.zip and Update_Aug_Dataset.zip")
 NUM.update(files_found=len(df), originals_found=int((~df.is_aug).sum()),
            classes=N_CLASSES, original_per_class={f"{c} | {k}": int(v) for (c, k), v in summary.original.items()})
 save_numbers()
