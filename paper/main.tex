@@ -2,6 +2,7 @@
 
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{graphicx}
+\usepackage[caption=false,font=scriptsize,farskip=0pt,nearskip=0pt,captionskip=1pt,topadjust=0pt]{subfig}
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{url}
@@ -47,16 +48,16 @@ Antimicrobial resistance, \textit{Klebsiella pneumoniae}, graph neural networks,
 \section{Introduction}
 Bacterial resistance was linked to 4.95 million deaths in 204 countries in one year, 1.27 million directly caused by it \cite{ref1}, with 8.22 million yearly deaths projected by 2050 \cite{ref2}. The WHO ranked carbapenem-resistant \textit{K. pneumoniae} first of 24 pathogens (score 84\%) \cite{ref3}. It acquires resistance on plasmids, spreads through hospitals, and concentrates resistance in a few clonal lineages \cite{ref9, ref12}, some traceable across continents, such as ST15 carrying blaOXA-232 \cite{ref11}. Forecasting prevalence a year ahead turns reactive surveillance into early warning.
 
-We ask (i) whether country-level gene prevalence can be forecast one year ahead and (ii) whether relations between country and gene pairs help: shared lineage, geographic proximity, and gene co-occurrence, each a separate edge type. Lineage matters because high-risk clones carry plasmids as they spread: ST258 holds the largest share of acquired resistance genes and is the main vehicle of carbapenemase spread \cite{ref9, ref12}, and ST15 with blaOXA-232 spread across continents as one clone \cite{ref11}. Nodes sharing a lineage are thus plausibly linked by one clone moving between health systems, so lineage is a signal, not noise to remove as in \cite{ref18}.
+We ask (i) whether country-level gene prevalence can be forecast one year ahead and (ii) whether relations between country and gene pairs help: shared lineage, geographic proximity, and gene co-occurrence, each a separate edge type. High-risk clones such as ST258 (the main carbapenemase vehicle \cite{ref9, ref12}) and ST15 with blaOXA-232 \cite{ref11} carry plasmids as they spread, so nodes sharing a lineage are plausibly linked by one clone moving between health systems: a signal, not noise to remove as in \cite{ref18}.
 
 \textbf{Gap.} Vihta et al.\ (138 English trusts, gradient boosting) \cite{ref17} and Kim et al.\ (600+ US swine farms, seasonal models) \cite{ref19} model series independently. Baker et al.\ combined 45,616 genomes from 127 countries with 1,112 indicators and projected 210 traits to 2050, but used networks only for display, forecast each trait alone, and controlled lineage away \cite{ref18}. GCNs \cite{ref20} and relational GCNs \cite{ref21} have served epidemic forecasting \cite{ref22} and genome-level phenotype prediction \cite{ref23}, but not cross-country prevalence. Yu et al.\ showed genomic models can succeed on lineage markers alone, unfixed by more data \cite{ref24}. No study treats the three relations as separate channels or tests them against a density-matched shuffled control.
 
-\textbf{Contributions.} (1) A \textit{corrected panel}: checking each node against every usable country year recovers 858 rows, including 454 absence-to-presence emergence events previously invisible. (2) A \textit{separable architecture} with one learned gate per edge type, read directly from parameters. (3) A \textit{permutation control} against 50 graphs matching edge count, degree sequence, and weights. (4) An \textit{honest comparison} against persistence in twelve strata. (5) \textit{Evidence on the limits} of genomic prevalence against clinical data in 43 countries. (6) A \textit{fully reported negative result} with effect sizes, CIs, and sample sizes.
+\textbf{Contributions.} (1) A corrected panel recovering 858 rows, including 454 previously invisible emergence events; (2) one interpretable learned gate per edge type; (3) a permutation control against 50 graphs matching edge count, degrees, and weights; (4) a persistence comparison in twelve strata; (5) evidence on the limits of genomic prevalence in 43 countries; and (6) a fully reported negative result with effect sizes, CIs, and sample sizes.
 
 \section{Related Work}
-\textbf{Evolution and co-selection.} In 103 pairwise \textit{E.\ coli} mutant combinations, Trindade et al.\ found positive epistasis common (42\% of significant interactions cost less than predicted, 12\% raised fitness, six costless), explaining multidrug-resistance persistence \cite{ref15}. Porse et al.\ tested 121 gene--background combinations on eight drugs and found negative epistasis between \textit{tetA} and \textit{nuo} mutations, which co-occur below chance in about 13,500 genomes \cite{ref14}. ReGAIN infers directional co-selection with Bayesian networks in ESKAPEE pathogens \cite{ref16}, and Pal et al.\ found in 2,522 genomes and 4,582 plasmids that biocide and metal resistance genes co-occur with antibiotic resistance genes (17\% of genomes, 31\% of human isolates), mostly on conjugative plasmids \cite{ref13}. Resistance concentrates in few lineages, highest in clonal group 258 among 1,092 isolates in 28 groups \cite{ref9}, with ST258 the main carbapenemase vehicle \cite{ref12}; over half of carbapenemase-positive clinics among 244 European hospitals showed within-hospital transmission \cite{ref10}; and EURGen-Net tracks clones such as ST39 with blaKPC-2 and blaVIM-1 across borders \cite{ref5}.
+\textbf{Evolution and co-selection.} Among 103 \textit{E.\ coli} mutant pairs, positive epistasis was common (42\% of significant interactions cheaper than predicted, 12\% raising fitness, six costless) \cite{ref15}. Porse et al.\ (121 combinations, eight drugs) found negative \textit{tetA}--\textit{nuo} epistasis, with co-occurrence below chance in about 13,500 genomes \cite{ref14}. ReGAIN infers directional co-selection with Bayesian networks \cite{ref16}; in 2,522 genomes and 4,582 plasmids, biocide and metal genes co-occur with antibiotic genes (17\% of genomes, 31\% of human isolates), mostly on conjugative plasmids \cite{ref13}. Resistance concentrates in few lineages, highest in clonal group 258 among 1,092 isolates in 28 groups \cite{ref9}, with ST258 the main carbapenemase vehicle \cite{ref12}; over half of carbapenemase-positive clinics among 244 European hospitals showed within-hospital transmission \cite{ref10}; and EURGen-Net tracks clones such as ST39 with blaKPC-2 and blaVIM-1 across borders \cite{ref5}.
 
-\textbf{Forecasting.} In Vihta et al., yearly change was typically under one point, persistence was strong, XGBoost won clearly only in volatile trusts, and last year's value and other pathogens' resistance were top features \cite{ref17}. SARIMA beat ARMA, ARIMA, and naive benchmarks over 11 years of farm data \cite{ref19}. Baker et al.\ found 1,797 resistance-linked features and 32 critical threats tied to socioeconomic disparity, density, and malnutrition \cite{ref18}.
+\textbf{Forecasting.} XGBoost won only in volatile trusts, with last year's value and other pathogens' resistance as top features \cite{ref17}; SARIMA beat ARMA, ARIMA, and naive models over 11 years \cite{ref19}; and 1,797 resistance-linked features and 32 critical threats tied to socioeconomic disparity, density, and malnutrition were found in \cite{ref18}.
 
 \textbf{Graph learning and its limits.} R-GCNs apply one transform per edge type \cite{ref20, ref21}; CausalGNN couples a dynamic GNN with a compartmental model for COVID-19 at three scales \cite{ref22}; AMR-GNN fuses unitigs, SNPs, and chaos game representations for \textit{P.\ aeruginosa}, removes same-sequence-type edges, and recovers \textit{gyrA}, \textit{parC}, and \textit{fusA1} \cite{ref23}. Of 275 genomic surveillance articles, most served outbreak investigation (164 showed better resolution than typing) \cite{ref6}. AMRFinderPlus agrees with phenotype per assembly \cite{ref7}, not necessarily for national aggregates, and clade-exclusion training shows models learn clade-specific markers \cite{ref24}.
 
@@ -64,38 +65,28 @@ We ask (i) whether country-level gene prevalence can be forecast one year ahead 
 \subsection{Framework and Data}
 A node year (country and gene pair in a year) is predicted from earlier years only. Six stages (cleaning, graph and features, baselines, training and ablation, controls, external validation) each write files the next reads (Fig.~\ref{fig:pipeline}). No test year is ever trained on, and every graph claim is checked against a structure-destroying, size-preserving control.
 
-\begin{figure}[!t]
+\begin{figure*}[!t]
 \centering
-\includegraphics[width=\linewidth,height=0.12\textheight,keepaspectratio]{Figure1_pipeline.png}
-\caption{Pipeline from raw data to external validation.}
-\label{fig:pipeline}
-\end{figure}
+\subfloat[Pipeline]{\includegraphics[width=0.24\textwidth,height=0.08\textheight,keepaspectratio]{Figure1_pipeline.png}\label{fig:pipeline}}
+\hfil
+\subfloat[Zero-fill completeness]{\includegraphics[width=0.24\textwidth,height=0.08\textheight,keepaspectratio]{Figure2_zerofill_completeness.png}\label{fig:zerofill}}
+\hfil
+\subfloat[Graph structure]{\includegraphics[width=0.24\textwidth,height=0.08\textheight,keepaspectratio]{Figure3_graph_structure.png}\label{fig:graph}}
+\hfil
+\subfloat[Architecture]{\includegraphics[width=0.24\textwidth,height=0.08\textheight,keepaspectratio]{Figure4_architecture.png}\label{fig:arch}}
+\caption{Framework: pipeline, absence correction, graph structure, and architecture.}
+\label{fig:methods}
+\end{figure*}
 
-From NCBI Pathogen Detection we used the \textit{Isolates} table (date, origin, isolation source, and SNP cluster erd\_group, defining lineage), \textit{MicroBIGG-E} (elements called by AMRFinderPlus \cite{ref7}), and \textit{AST}. Only about 1.43\% of isolates had AST data, for three antibiotics, so it was replaced by an isolation-source feature; the target is gene prevalence, not phenotype. WHO GLASS \cite{ref4} is used only for validation. Table~\ref{tab:dataset} gives the scale: 2 isolates with impossible dates (2029, 2922) were dropped, 61,617 (93.52\%) joined to MicroBIGG-E on \texttt{target\_acc}, and cells with $\ge$30 isolates yielded 1,739 series with $\ge$5 usable years.
+From NCBI Pathogen Detection we used the \textit{Isolates} table (date, origin, isolation source, and SNP cluster erd\_group, defining lineage), \textit{MicroBIGG-E} (elements called by AMRFinderPlus \cite{ref7}), and \textit{AST}. Only about 1.43\% of isolates had AST data, for three antibiotics, so it was replaced by an isolation-source feature; the target is gene prevalence, not phenotype. WHO GLASS \cite{ref4} is used only for validation. Of 65,885 raw isolates, 2 with impossible dates (2029, 2922) were dropped (65,883 kept); 61,617 (93.52\%) joined to MicroBIGG-E on \texttt{target\_acc}, and 65,628 were geolocated. The 220 country-year cells with $\ge$30 isolates (63,060 isolates, 2019--2026) yield 1,739 series with $\ge$5 usable years in 17 countries and 11,463 node years; lineage, geographic, and co-occurrence edges number 4,218, 2,512, and 5,138, covering 1,053 (61\%), 1,355 (78\%), and 1,152 (66\%) nodes.
 
-\begin{table}[!t]
-\centering\footnotesize
-\caption{Dataset, panel, and graph scale after cleaning.}
-\label{tab:dataset}
-\begin{tabular}{@{}lr|lr@{}}
-\toprule
-Raw isolates & 65,885 & Countries / cells & 17 / 220 \\
-After date filter & 65,883 & Nodes / node years & 1,739 / 11,463 \\
-MicroBIGG-E join & 93.52\% & Recovered / emergence & 858 / 454 \\
-Geolocated & 65,628 & Lineage edges (cov.) & 4,218 (61\%) \\
-In usable cells & 63,060 & Geographic edges (cov.) & 2,512 (78\%) \\
-Years & 2019--2026 & Co-occurr.\ edges (cov.) & 5,138 (66\%) \\
-Features & 7 & Test years & 2023, 2024 \\
-\bottomrule
-\end{tabular}
-\end{table}
 
 \subsection{Panel Construction}
 The year is the first four characters of the date; years outside 2019--2026 or unparseable were removed. Countries were split on the colon (``China: Zhejiang'') and aliased (``Czech Republic''$\to$``Czechia'', ``Viet Nam''$\to$``Vietnam''). Intrinsic genes fosA, oqxA, and oqxB (prevalence near 1.0) were removed. Prevalence is $P_{c,g,y} = n_{c,g,y}/N_{c,y}$, where $n$ counts isolates carrying $g$ and $N$ counts \textit{all} geolocated isolates of the country year, including those with no element. Cells need $\ge$30 isolates (otherwise one isolate moves prevalence over three points), and nodes need detection in $\ge$5 usable years.
 
-\textbf{True absences.} Aggregation writes rows only for detections, so a real zero looks like no sequencing. Reindexing each node over every year with a usable denominator adds 858 explicit zeros (+8.1\%, 10,605$\to$11,463 rows), including 454 emergence transitions; before, the missing prior year was filled with the current value, so emergence looked flat.
+\textbf{True absences.} Aggregation writes rows only for detections, so a real zero looks like no sequencing. Reindexing each node over every year with a usable denominator adds 858 explicit zeros (+8.1\%, 10,605$\to$11,463 rows), including 454 emergence transitions; before, the missing prior year was filled with the current value, so emergence looked flat (Fig.~\ref{fig:zerofill}).
 
-\textbf{Temporal split.} One model per test year (targets to 2022 for 2023, to 2023 for 2024); 2025--2026 are incomplete from submission lag.
+\textbf{Split.} One model per test year (targets to 2022 for 2023, to 2023 for 2024); 2025--2026 suffer submission lag.
 
 \subsection{Graph Construction}
 \textbf{Lineage} edges join the same gene in two countries sharing SNP clusters, $w_{\text{lin}} = |S(c,g) \cap S(c',g)|$, directed from the country that saw the cluster first (undirected on ties), giving 4,218 edges; the clustering pipeline lacks a peer-reviewed description \cite{ref8}. \textbf{Geography} originally used shared borders, which starved island and continental countries (the USA had two neighbours; Japan, Taiwan, and Australia almost none), so each country instead links to its four nearest neighbours by haversine centroid distance ($R=6371$~km, all distances in km),
@@ -103,12 +94,12 @@ The year is the first four characters of the date; years outside 2019--2026 or u
 d_{ij} = 2R \arcsin\!\sqrt{ \sin^2\!\tfrac{\Delta\phi}{2} + \cos\phi_i \cos\phi_j \sin^2\!\tfrac{\Delta\lambda}{2} },
 \label{eq:geo}
 \end{equation}
-weighted $w_{\text{geo}} = 1 - d_{ij}/(1.05\, d_{\max})$, where 1.05 keeps the farthest weight positive. \textbf{Co-occurrence} joins two genes in a country when the Jaccard index $J = |I_g \cap I_{g'}|/|I_g \cup I_{g'}| \ge 0.30$ (weight $J$), a threshold fixed once and never tuned on test years. Each adjacency is row-normalised, $\tilde{A}_{ij} = A_{ij}/\sum_k A_{ik}$ (zero rows kept), so degree does not dominate.
+weighted $w_{\text{geo}} = 1 - d_{ij}/(1.05\, d_{\max})$, where 1.05 keeps the farthest weight positive. \textbf{Co-occurrence} joins two genes in a country when the Jaccard index $J = |I_g \cap I_{g'}|/|I_g \cup I_{g'}| \ge 0.30$ (weight $J$), a threshold fixed once and never tuned on test years. Each adjacency is row-normalised, $\tilde{A}_{ij} = A_{ij}/\sum_k A_{ik}$ (zero rows kept), so degree does not dominate (Fig.~\ref{fig:graph}).
 
 \subsection{Features and Model}
 Seven features use only years before the target: prevalence at $y-1$ and $y-2$, their difference $\Delta$, $\log(1+N)$ (a deliberate risk tested by a placebo), lineage diversity (distinct SNP clusters), clinical fraction $n_{\text{clinical}}/n_{\text{known}}$ from keyword classification of isolation source (clinical, animal, food, environmental, unknown), and presence of any non-clinical isolate. Over 470 cells with source data the clinical fraction has mean 0.844 and median 0.984 (half entirely clinical); every usable cell had $n_{\text{known}}>0$, so nothing was imputed.
 
-The model is a residual GCN (two layers, width 32) with global gates; per-node attention and gated routing learned nothing useful. With $H^{(0)} = \text{ReLU}(XW_{\text{in}} + b_{\text{in}})$,
+The model (Fig.~\ref{fig:arch}) is a residual GCN (two layers, width 32) with global gates; per-node attention and gated routing learned nothing useful. With $H^{(0)} = \text{ReLU}(XW_{\text{in}} + b_{\text{in}})$,
 \begin{equation}
 H^{(l+1)} = \text{ReLU}\big( ( H^{(l)} + \textstyle\sum_{r} \alpha_{r}^{(l)}\tilde{A}_{r}H^{(l)} ) W^{(l)} + b^{(l)} \big),
 \label{eq:gcnlayer}
@@ -116,15 +107,39 @@ H^{(l+1)} = \text{ReLU}\big( ( H^{(l)} + \textstyle\sum_{r} \alpha_{r}^{(l)}\til
 $r \in \{\text{lin}, \text{geo}, \text{coo}\}$, gates initialised at 0.1; a zero gate reduces a layer to a feedforward transform. Dropout is 0.2; the output $\hat{y} = \sigma(H^{(L)} w_{\text{out}} + b_{\text{out}})$ has $b_{\text{out}}$ set to the logit of mean training prevalence. The loss is $\mathcal{L} = \sum_i w_i(\hat{y}_i - y_i)^2 / \sum_i w_i$ with $w_i = m_i N_i/\text{mean}(N)$ and mask $m_i$ for valid features and targets.
 
 \subsection{Baselines, Controls, and Evaluation}
-Baselines are persistence ($P_{y-1}$), the node's historical mean, and drift $\text{clip}(2P_{y-1} - P_{y-2}, 0, 1)$, which before the absence fix silently collapsed into persistence. A \textbf{placebo} uses only $\log N$ and its change; its prediction spread checks it is not constant. \textbf{LOCO} removes each country from the loss (not from its own features) and compares with in-distribution error on the same countries. The \textbf{permutation test} draws $K=50$ shuffles per channel that permute edge destinations, preserving edge count, out-degree, and weights, with self-loops removed and the shuffle seed independent of initialisation; each is trained with four seeds on both years, and $p = (\#\{\text{MAE}_{\text{shuf}} \le \text{MAE}_{\text{real}}\}+1)/(K+1)$. The pre-set rule: structure carries signal only if the real graph is in the lowest 5\%.
+Baselines are persistence ($P_{y-1}$), the node's historical mean, and drift $\text{clip}(2P_{y-1} - P_{y-2}, 0, 1)$, which before the absence fix silently collapsed into persistence. A \textbf{placebo} uses only $\log N$ and its change. \textbf{LOCO} drops each country from the loss (not its features), compared on matched countries. The \textbf{permutation test} draws $K=50$ destination shuffles per channel (edge count, out-degree, and weights kept; self-loops removed; independent seed), each trained with four seeds, and $p = (\#\{\text{MAE}_{\text{shuf}} \le \text{MAE}_{\text{real}}\}+1)/(K+1)$. The pre-set rule: structure carries signal only if the real graph is in the lowest 5\%.
 
-MAE is primary, with RMSE. Nodes are split into volatility terciles (SD of prevalence history) and denominator terciles (median isolates), giving twelve strata with the ``All'' rows, and by gene class. Per-seed errors are compared with paired $t$ and Wilcoxon tests, 95\% CIs, and Cohen's $d = \text{mean}(D)/\text{sd}(D)$; seed counts were fixed in advance. For validation, 2023 genomic carbapenemase prevalence is compared with GLASS meropenem resistance by Spearman correlation.
+We report MAE and RMSE over volatility terciles (SD of history) $\times$ denominator terciles (median isolates), twelve strata with ``All'' rows, and gene class. Per-seed errors are compared with paired $t$ and Wilcoxon tests, 95\% CIs, and Cohen's $d = \text{mean}(D)/\text{sd}(D)$; seed counts were fixed in advance. Validation compares 2023 carbapenemase prevalence with GLASS meropenem resistance (Spearman).
 
-\textbf{Setup.} RTX 3060, Ryzen 7 5700X, 16~GB RAM; PyTorch 2.5.1, CUDA 12.1, pandas, NumPy, SciPy. About 3,000 parameters; ten seconds per run; over 300 permutation runs in under twelve minutes. Fixed settings: 300 full-batch epochs, Adam (lr $2\times10^{-3}$, weight decay $10^{-4}$), clip 1.0; seeds 16 (feature comparison), 4 (per shuffle), 5 (placebo, LOCO). Ablations cross four graph conditions (none, geography, lineage, multi channel) with five or seven features. Stages log settings; runs checkpoint. A leakage path in one control script, an inverted report label, and the absence handling were fixed, and all results regenerated. Code is available on reasonable request; data are public from NCBI Pathogen Detection (retrieved 25 July 2026).
+\textbf{Setup.} RTX 3060, Ryzen 7 5700X, 16~GB RAM, PyTorch 2.5.1, CUDA 12.1; about 3,000 parameters, ten seconds per run, over 300 permutation runs in under twelve minutes. Fixed settings: 300 full-batch epochs, Adam (lr $2\times10^{-3}$, weight decay $10^{-4}$), clip 1.0; seeds 16 (feature comparison), 4 (per shuffle), 5 (placebo, LOCO). Ablations cross four graph conditions with five or seven features. A leakage path, an inverted report label, and the absence handling were fixed before regenerating all results. Code is available on reasonable request; data are public from NCBI Pathogen Detection (retrieved 25 July 2026).
 
 \section{Results and Discussion}\label{sec:res}
+\begin{figure*}[!t]
+\centering
+\subfloat[Headline]{\includegraphics[width=0.24\textwidth,height=0.08\textheight,keepaspectratio]{Figure12_headline_persistence.png}\label{fig:headline}}
+\hfil
+\subfloat[Twelve strata]{\includegraphics[width=0.24\textwidth,height=0.08\textheight,keepaspectratio]{Figure7_stratified_persistence_vs_gnn.png}\label{fig:stratified}}
+\hfil
+\subfloat[Full ablation]{\includegraphics[width=0.24\textwidth,height=0.08\textheight,keepaspectratio]{Figure10_ablation.png}\label{fig:ablation}}
+\hfil
+\subfloat[Channels by regime]{\includegraphics[width=0.24\textwidth,height=0.08\textheight,keepaspectratio]{Figure13_channels_hurt.png}\label{fig:channelshurt}}
+\caption{Forecasting performance: model against persistence, and graph ablation by volatility.}
+\label{fig:perf}
+\end{figure*}
+\begin{figure*}[!t]
+\centering
+\subfloat[Five vs.\ seven features]{\includegraphics[width=0.24\textwidth,height=0.08\textheight,keepaspectratio]{Figure8_clinical_fraction_effect.png}\label{fig:clinical}}
+\hfil
+\subfloat[Effect by denominator]{\includegraphics[width=0.24\textwidth,height=0.08\textheight,keepaspectratio]{Figure14_feature_by_denominator.png}\label{fig:featuredenom}}
+\hfil
+\subfloat[Channel gates]{\includegraphics[width=0.24\textwidth,height=0.08\textheight,keepaspectratio]{Figure16_channel_gates.png}\label{fig:gates}}
+\hfil
+\subfloat[Channel radar]{\includegraphics[width=0.24\textwidth,height=0.08\textheight,keepaspectratio]{Figure11_channel_radar.png}\label{fig:radar}}
+\caption{Features and channels: source-composition effect and learned gates.}
+\label{fig:feat}
+\end{figure*}
 \subsection{Baselines, Features, and Ablation}
-Volatility terciles split at SDs 0.013 and 0.059 (580/579/580 nodes); denominator terciles at 141 and 525 isolates. Persistence MAE is 0.0481 pooled, rising 25-fold with volatility (Table~\ref{tab:baseline}); drift is worst everywhere. By gene class it is 0.0516 (2,569 acquired) and 0.0345 (659 point mutations). Seven features beat five in every condition; the best is lineage only (0.0755), then multi channel (0.0773). In mid and high volatility lineage only is best and adding the other channels raises error 14\%; multi channel is best in low volatility.
+Volatility terciles split at SDs 0.013 and 0.059 (580/579/580 nodes); denominator terciles at 141 and 525 isolates. Persistence MAE is 0.0481 pooled, rising 25-fold with volatility (Table~\ref{tab:baseline}); drift is worst everywhere. By gene class it is 0.0516 (2,569 acquired) and 0.0345 (659 point mutations). Seven features beat five in every condition; the best is lineage only (0.0755), then multi channel (0.0773). In mid and high volatility lineage only is best and adding the other channels raises error 14\% (Fig.~\ref{fig:ablation}, \ref{fig:channelshurt}); multi channel is best in low volatility.
 
 \begin{table}[!t]
 \centering\footnotesize
@@ -150,7 +165,7 @@ Pooled & 3,228 & 0.0481 & -- & -- & -- \\
 \end{tabular}
 \end{table}
 
-The source features help in mid and high volatility, not low; the pooled test is borderline ($p_t=0.051$, $p_W=0.044$), diluted by the large null low stratum (Table~\ref{tab:paired}). The benefit is largest at small denominators and vanishes at large ones.
+The source features help in mid and high volatility, not low; the pooled test is borderline ($p_t=0.051$, $p_W=0.044$), diluted by the large null low stratum (Table~\ref{tab:paired}). The benefit is largest at small denominators and vanishes at large ones (Fig.~\ref{fig:clinical}, \ref{fig:featuredenom}).
 
 \begin{table}[!t]
 \centering\footnotesize
@@ -188,9 +203,9 @@ High & 334 & 0.1519 & 0.1201 & +26\% & 215 & 0.1443 & 0.1078 & +34\% & 31 & 0.19
 \end{table*}
 
 \subsection{Persistence, Gates, and Permutation}
-Persistence wins all twelve strata (Table~\ref{tab:strata}); the gap is smallest in high volatility with small denominators (26\%). Learned gates (mean $\pm$ SD over 16 seeds, layer 0 / layer 1) are co-occurrence $-0.418\pm0.080$ / $-0.275\pm0.073$, lineage $-0.264\pm0.113$ / $-0.179\pm0.215$, and geography $-0.027\pm0.115$ / $-0.032\pm0.309$: co-occurrence exceeds five SDs, lineage two, and geography is within its own SD. All are negative, so neighbours push a node away from their mean. Gates are competitive: alone, geography's gate is +0.081 vs.\ $-0.030$ with competitors. Year-on-year changes of co-occurrence neighbours correlate at $-0.124$, with consistent sign in all four years; lineage (+0.015) and geography (+0.019) are inconsistent.
+Persistence wins all twelve strata (Table~\ref{tab:strata}, Fig.~\ref{fig:headline}, \ref{fig:stratified}); the gap is smallest in high volatility with small denominators (26\%). Learned gates (mean $\pm$ SD over 16 seeds, layer 0 / layer 1) are co-occurrence $-0.418\pm0.080$ / $-0.275\pm0.073$, lineage $-0.264\pm0.113$ / $-0.179\pm0.215$, and geography $-0.027\pm0.115$ / $-0.032\pm0.309$: co-occurrence exceeds five SDs, lineage two, and geography is within its own SD. All are negative, so neighbours push a node away from their mean. Gates are competitive: alone, geography's gate is +0.081 vs.\ $-0.030$ with competitors. Year-on-year changes of co-occurrence neighbours correlate at $-0.124$, with consistent sign in all four years; lineage (+0.015) and geography (+0.019) are inconsistent (Fig.~\ref{fig:gates}, \ref{fig:radar}).
 
-No channel passes the permutation test (Table~\ref{tab:permutation}, Fig.~\ref{fig:permutation}). Co-occurrence is closest ($p=0.098$; 0.314 in 2023 and 0.059 in 2024), lineage 0.941 and 0.098 by year. Its 0.0099 gain is about one fifth of persistence's error (0.0481): even credited fully, no channel approaches persistence, so all channels are null, with co-occurrence suggestive but practically negligible.
+No channel passes the permutation test (Table~\ref{tab:permutation}, Fig.~\ref{fig:permutation}). Co-occurrence is closest ($p=0.098$; 0.314 in 2023 and 0.059 in 2024), lineage 0.941 and 0.098 by year. Its 0.0099 gain is one fifth of persistence's error (0.0481), so even credited fully it is practically negligible: all channels are null.
 
 \begin{table}[!t]
 \centering\footnotesize
@@ -213,56 +228,46 @@ Geography & 0.0799 & 0.0834 & 0.0080 & $-0.0035$ & 0.471 \\
 \end{tabular}
 \end{table}
 
-\begin{figure}[!t]
+
+\begin{figure*}[!t]
 \centering
-\includegraphics[width=\linewidth,height=0.13\textheight,keepaspectratio]{Figure6_permutation_null.png}
-\caption{Permutation null distributions per channel, real graph marked.}
-\label{fig:permutation}
-\end{figure}
-
+\subfloat[Permutation nulls]{\includegraphics[width=0.24\textwidth,height=0.08\textheight,keepaspectratio]{Figure6_permutation_null.png}\label{fig:permutation}}
+\hfil
+\subfloat[LOCO, matched six]{\includegraphics[width=0.24\textwidth,height=0.08\textheight,keepaspectratio]{Figure9_loco_fair.png}\label{fig:locofair}}
+\hfil
+\subfloat[LOCO, all 17]{\includegraphics[width=0.24\textwidth,height=0.08\textheight,keepaspectratio]{Figure15_loco_all_countries.png}\label{fig:locoall}}
+\hfil
+\subfloat[GLASS concordance]{\includegraphics[width=0.24\textwidth,height=0.08\textheight,keepaspectratio]{Figure5_glass_concordance.png}\label{fig:glass}}
+\caption{Controls and validation: permutation test, leave-one-country-out, and GLASS concordance.}
+\label{fig:ctrl}
+\end{figure*}
 \subsection{Placebo, Transfer, and External Validation}
-The volume-only placebo scored 0.1138 vs.\ 0.0816 for the full model in the same five-seed robustness run (28.3\% better; the headline 0.0773 is the 16-seed run), and did not collapse (prediction SD 0.0399). In matched LOCO on six data-rich countries (in-distribution $\to$ held out), China 0.0475$\to$0.0424, USA 0.0458$\to$0.0721, India 0.0645$\to$0.0658, Italy 0.1053$\to$0.1066, Germany 0.0618$\to$0.0619, and Japan 0.0995$\to$0.1042, pooled 0.0586$\to$0.0667 (+13.7\%, $p=0.371$). Four differ by under 0.005; the USA drives the gap, where one seed gave 0.156 vs.\ about 0.045 for the other four. Over all 17 countries held-out error spans 0.042 (China) to 0.306 (Chile); data-rich countries average 0.0755 and all 0.1148; Chile and Ethiopia (0.220) have only 45 and 38 nodes.
+The volume-only placebo scored 0.1138 vs.\ 0.0816 for the full model in the five-seed robustness run (28.3\% better; headline 0.0773 is 16-seed), with prediction SD 0.0399 (no collapse). In matched LOCO on six data-rich countries (in-distribution $\to$ held out), China 0.0475$\to$0.0424, USA 0.0458$\to$0.0721, India 0.0645$\to$0.0658, Italy 0.1053$\to$0.1066, Germany 0.0618$\to$0.0619, and Japan 0.0995$\to$0.1042, pooled 0.0586$\to$0.0667 (+13.7\%, $p=0.371$; Fig.~\ref{fig:locofair}, \ref{fig:locoall}). Four differ by under 0.005; the USA drives the gap, where one seed gave 0.156 vs.\ about 0.045 for the other four. Over all 17 countries held-out error spans 0.042 (China) to 0.306 (Chile); data-rich countries average 0.0755 and all 0.1148; Chile and Ethiopia (0.220) have only 45 and 38 nodes.
 
-Against GLASS 2023 \cite{ref4} (190 carbapenemase symbols, 43 countries) agreement is weak (Table~\ref{tab:glass}). All six countries at 100\% genomic prevalence rest on tiny samples: UAE 1 isolate, Finland 3, Egypt 6, Greece 7, Qatar 7, Malaysia 11, where GLASS tested 960, 715, 184, 179, 268, and 6,618. Conversely, Japan 34,891 GLASS tests vs.\ 525 genomes, South Africa 6,849 vs.\ 716, and the UK 1.1\% clinical resistance vs.\ 94.9\% genomic prevalence from 39 isolates.
+Against GLASS 2023 \cite{ref4} (190 carbapenemase symbols, 43 countries) agreement is weak (Fig.~\ref{fig:glass}): Spearman +0.174 ($p=0.264$), Pearson +0.251 ($p=0.105$), 23 of 43 countries on the same side of both medians (near chance), and 26 of 43 with fewer than 30 genomic isolates. All six countries at 100\% genomic prevalence rest on tiny samples: UAE 1 isolate, Finland 3, Egypt 6, Greece 7, Qatar 7, Malaysia 11, where GLASS tested 960, 715, 184, 179, 268, and 6,618. Conversely, Japan 34,891 GLASS tests vs.\ 525 genomes, South Africa 6,849 vs.\ 716, and the UK 1.1\% clinical resistance vs.\ 94.9\% genomic prevalence from 39 isolates.
 
-\begin{table}[!t]
-\centering\footnotesize
-\caption{Genomic prevalence vs.\ clinical surveillance, 2023.}
-\label{tab:glass}
-\begin{tabular}{@{}lcc@{}}
-\toprule
-Measure & WHO GLASS & EARS-Net (Sec.~V) \\
-\midrule
-Countries in both sources & 43 & 12 \\
-Spearman & +0.174, $p=0.264$ & +0.032, $p=0.921$ \\
-Pearson & +0.251, $p=0.105$ & -- \\
-Same side of both medians & 23 of 43 & -- \\
-Fewer than 30 genomic isolates & 26 of 43 & 7 of 12 \\
-\bottomrule
-\end{tabular}
-\end{table}
 
 \subsection{Discussion}\label{sec:disc}
-\textbf{Persistence.} As in Vihta et al., where median change was within one point and persistence neared tuned boosting \cite{ref17}, no-change wins; in low volatility (580 of 1,739 nodes) it errs by 0.0044. Unlike them, our model also loses in volatile series (35\% worse), plausibly because series are short (at most seven yearly points vs.\ six years of monthly data) and the target is genotypic.
+\textbf{Persistence.} As in \cite{ref17}, where median change was within one point, no-change wins; in low volatility (580 of 1,739 nodes) it errs by 0.0044. Unlike them, our model also loses in volatile series (35\% worse), plausibly because series are short (at most seven yearly points vs.\ six years of monthly data) and the target is genotypic.
 
-\textbf{Gates.} Co-occurrence is weighted most, lineage moderately, geography not at all. The negative co-occurrence gate matches the $-0.124$ correlation; antagonism between determinants is measurable at scale \cite{ref14}, while plasmid linkage \cite{ref13} and positive epistasis \cite{ref15} push the other way, so this is one signal in a mixed picture that tools like ReGAIN target \cite{ref16}. A null geography gate is expected if spread is within hospitals \cite{ref10} and carried by clones such as ST15 \cite{ref11}. Gates express relative usefulness only. The permutation test then shows the specific structure is not demonstrably better than random at equal density: null SDs (0.008--0.009) match the effects (0.003--0.010), so power is limited.
+\textbf{Gates.} Co-occurrence is weighted most, lineage moderately, geography not at all. The negative co-occurrence gate matches the $-0.124$ correlation; antagonism between determinants is measurable at scale \cite{ref14}, while plasmid linkage \cite{ref13} and positive epistasis \cite{ref15} push the other way, so this is one signal in a mixed picture that tools like ReGAIN target \cite{ref16}. A null geography gate is expected if spread is within hospitals \cite{ref10} and carried by clones such as ST15 \cite{ref11}. Gates express relative usefulness only, and the specific structure is not demonstrably better than random: null SDs (0.008--0.009) match the effects (0.003--0.010), so power is limited.
 
-\textbf{Features and transfer.} Source composition partly substitutes for sampling depth, useful where sequencing is scarce \cite{ref1, ref2}; an earlier eight-seed hint of harm in low volatility reversed at 16 seeds and is null. Transfer to unseen countries is not demonstrated and the degradation rests on one run; an earlier $-7\%$ figure compared six rich countries with all 17 and vanished when matched. Sparse countries being hardest fits the sampling bias of Yu et al.\ \cite{ref24}, though theirs is a clade-level result, so ours is a related instance, not a confirmation.
+\textbf{Features and transfer.} Source composition partly substitutes for sampling depth \cite{ref1, ref2}; an eight-seed hint of low-volatility harm reversed at 16 seeds. Transfer is not demonstrated and rests on one run; an earlier $-7\%$ figure compared six rich countries with all 17 and vanished when matched. Sparse countries being hardest fits the sampling bias of Yu et al.\ \cite{ref24}, though theirs is a clade-level result, so ours is a related instance, not a confirmation.
 
-\textbf{Genomic vs.\ clinical.} Weak concordance mixes small samples, differing sequencing and testing incentives, and a genotype--phenotype gap (expression, copy number, method) \cite{ref7}. Genome-derived prevalence should not proxy clinical burden \cite{ref6, ref24}; centralised sequencing with structured metadata \cite{ref5} can help.
+\textbf{Genomic vs.\ clinical.} Small samples, differing incentives, and a genotype--phenotype gap \cite{ref7} mean genome-derived prevalence should not proxy clinical burden \cite{ref6, ref24}; structured centralised sequencing \cite{ref5} can help.
 
-\textbf{Related work and limitations.} Unlike \cite{ref17, ref18, ref19, ref23}, we use a shuffled control. Offered as a channel, lineage gets weight second to co-occurrence, but whether it reflects transmission or clonal confounding cannot be resolved here. Limitations: 17 countries, short series, an unaudited clustering pipeline \cite{ref8}, a genotypic target, AST for 1.43\% of isolates, an underpowered permutation test, and a LOCO design that keeps held-out histories as features. Practically, any system must first beat last year's value; recording only detections cannot separate absence from silence; and genomic prevalence describes what was sequenced, not what circulates.
+\textbf{Related work and limitations.} Unlike \cite{ref17, ref18, ref19, ref23}, we use a shuffled control; lineage, offered as a channel, ranks second, but transmission vs.\ clonal confounding is unresolved. Limitations: 17 countries, short series, an unaudited clustering pipeline \cite{ref8}, a genotypic target, AST for 1.43\% of isolates, an underpowered permutation test, and a LOCO design that keeps held-out histories as features. Practically, systems must first beat last year's value, and recording only detections cannot separate absence from silence.
 
 \section{Supplementary Analyses}\label{sec:supp}
-Four later sources (GLASS consumption, ECDC ESAC-Net, ECDC EARS-Net, an expanded NCBI pull) were joined by country and year or passed through the same pipeline and appended, leaving the main panel unchanged.
+Four later sources were joined by country and year or run through the same pipeline and appended, leaving the main panel unchanged.
 
-\textbf{Consumption feature.} GLASS doses per 1000 inhabitants per day for penicillins, cephalosporins, carbapenems, and quinolones exist for 8 of 17 countries (none for the USA, China, India, or Turkey, verified in the raw file), leaving 74.3\% of rows without real values. Change in MAE (negative helps) on all node years was +0.0018 ($p=0.847$) low, +0.0039 ($p=0.576$) mid, $-0.0176$ ($p=0.010$, $d=-0.74$) high, and $-0.0037$ ($p=0.554$) pooled; on 2023 real-data nodes only, high volatility gave $-0.0151$ ($p=0.018$, $d=-0.67$, 617 nodes), with no effect in low or mid. Like clinical fraction, it helps only volatile series. The ESAC-Net split (6 countries) was not tested as a feature.
+\textbf{Consumption feature.} GLASS doses per 1000 inhabitants per day for penicillins, cephalosporins, carbapenems, and quinolones exist for 8 of 17 countries (none for the USA, China, India, or Turkey, verified in the raw file), leaving 74.3\% of rows without real values. Change in MAE (negative helps) on all node years was +0.0018 ($p=0.847$) low, +0.0039 ($p=0.576$) mid, $-0.0176$ ($p=0.010$, $d=-0.74$) high, and $-0.0037$ ($p=0.554$) pooled; on 2023 real-data nodes only, high volatility gave $-0.0151$ ($p=0.018$, $d=-0.67$, 617 nodes), with no effect in low or mid. Like clinical fraction, it helps only volatile series; the ESAC-Net split (6 countries) was not tested as a feature.
 
-\textbf{Consumption channel.} Cosine similarity of consumption profiles (8 countries, 24\% node coverage) gave $p=0.529$ (Table~\ref{tab:permutation}), a fourth null, suggesting a property of the task at this sample size.
+\textbf{Consumption channel.} Cosine-similar consumption profiles (8 countries, 24\% coverage) gave $p=0.529$ (Table~\ref{tab:permutation}), a fourth null.
 
-\textbf{EARS-Net.} The download meant as sector consumption was actually EARS-Net resistance and isolates tested for carbapenem-resistant \textit{K. pneumoniae} in 30 countries; 12 overlapped in 2023 (7 below 30 isolates) and reproduced the weak GLASS agreement (Table~\ref{tab:glass}), consistent with it rather than independent proof.
+\textbf{EARS-Net.} The download meant as sector consumption was actually EARS-Net resistance and isolates tested for carbapenem-resistant \textit{K. pneumoniae} in 30 countries; 12 overlapped in 2023 (7 below 30 isolates), and Spearman +0.032 ($p=0.921$) reproduced the weak GLASS agreement, consistent with it rather than independent proof.
 
-\textbf{Expanded panel.} An unrestricted pull qualified Canada, Tunisia, and Turkey under the same rule; Japan narrowly missed in three of seven years (by as few as 2 isolates) but stays in the main panel. Appending (verified to leave original files unchanged) gives 20 countries, 1,948 nodes, 2,773 geographic and 5,887 co-occurrence edges, and unchanged 4,218 lineage edges, since the new pull lacks SNP clusters. Persistence vs.\ model: Canada 0.068 vs.\ 0.084 (94 nodes), Tunisia 0.174 vs.\ 0.187 (58), Turkey 0.111 vs.\ 0.119 (57); the model loses on unseen data, replicating the main finding. Lineage only rises from 0.0755 to 0.0826, below no graph with five features, as the 209 new nodes get no lineage input, while multi channel holds up. No channel is significant (Table~\ref{tab:permutation}); the lineage and co-occurrence shifts cannot be separated from run variation with one set of 50 shuffles.
+\textbf{Expanded panel.} An unrestricted pull qualified Canada, Tunisia, and Turkey (Japan missed three of seven years by as few as 2 isolates but stays in the main panel). Appending, with original files verified unchanged, gives 20 countries, 1,948 nodes, 2,773 geographic and 5,887 co-occurrence edges, and unchanged 4,218 lineage edges, since the new pull lacks SNP clusters. Persistence vs.\ model: Canada 0.068 vs.\ 0.084 (94 nodes), Tunisia 0.174 vs.\ 0.187 (58), Turkey 0.111 vs.\ 0.119 (57); the model loses on unseen data, replicating the main finding. Lineage only rises from 0.0755 to 0.0826 (below no graph with five features) as the 209 new nodes lack lineage input. No channel is significant (Table~\ref{tab:permutation}); the lineage and co-occurrence shifts cannot be told from run variation.
 
 \section{Conclusion}\label{sec:concl}
 A gated multi-channel GNN lost to persistence in all twelve strata (0.0773 vs.\ 0.0481) while beating a volume placebo by 28.3\%. Gates ranked co-occurrence ($-0.418$) over lineage ($-0.264$) and geography ($-0.027$), but no channel beat 50 density-matched graphs (best $p=0.098$). Clinical fraction and consumption helped only volatile series, LOCO degradation (13.7\%, $p=0.371$) was not significant, GLASS and EARS-Net agreement was weak, and three new countries reproduced the main finding. Future work: (1) classify emergence directly on the 454 recovered events, which persistence cannot detect by construction; (2) test ESAC-Net as a feature and fill consumption gaps; (3) widen the panel beyond one repository; and (4) check lineage against published sequence types.
@@ -281,7 +286,7 @@ GBD 2021 Antimicrobial Resistance Collaborators, ``Global burden of bacterial an
 H. Sati \textit{et al.}, ``The WHO bacterial priority pathogens list 2024: A prioritisation study to guide research, development, and public health strategies against antimicrobial resistance,'' \textit{Lancet Infect. Dis.}, 2025, doi: 10.1016/S1473-3099(25)00118-5.
 
 \bibitem{ref4}
-World Health Organization, ``Global Antimicrobial Resistance and Use Surveillance System (GLASS) report 2022,'' WHO, Geneva, 2022. Accessed: Aug. 17, 2026. [Online]. Available: \url{https://www.who.int/publications/i/item/9789240062702}
+World Health Organization, ``Global Antimicrobial Resistance and Use Surveillance System (GLASS) report 2022,'' WHO, Geneva, 2022. [Online]. Available: \url{https://www.who.int/publications/i/item/9789240062702}
 
 \bibitem{ref5}
 A. Kohlenberg \textit{et al.}, ``From structured surveys to outbreak investigations: Advancing genomic surveillance of carbapenem-resistant Enterobacterales within the European Antimicrobial Resistance Genes Surveillance Network,'' \textit{Front. Public Health}, vol. 13, p. 1671769, 2025, doi: 10.3389/fpubh.2025.1671769.
@@ -293,7 +298,7 @@ N. Van Goethem \textit{et al.}, ``Status and potential of bacterial genomics for
 M. Feldgarden \textit{et al.}, ``AMRFinderPlus and the reference gene catalog facilitate examination of the genomic links among antimicrobial resistance, stress response, and virulence,'' \textit{Sci. Rep.}, vol. 11, Art. no. 12728, 2021, doi: 10.1038/s41598-021-91456-0.
 
 \bibitem{ref8}
-NCBI, ``Pathogen Detection: SNP cluster and isolate clustering methodology,'' Bethesda, MD, USA. Accessed: Aug. 17, 2026. [Online]. Available: \url{https://www.ncbi.nlm.nih.gov/pathogendetect/doc/about/}
+NCBI, ``Pathogen Detection: SNP cluster and isolate clustering methodology,'' Bethesda, MD, USA. [Online]. Available: \url{https://www.ncbi.nlm.nih.gov/pathogendetect/doc/about/}
 
 \bibitem{ref9}
 K. L. Wyres, M. M. C. Lam, and K. E. Holt, ``Population genomics of \textit{Klebsiella pneumoniae},'' \textit{Nat. Rev. Microbiol.}, vol. 18, no. 6, pp. 344--359, 2020, doi: 10.1038/s41579-019-0315-1.
@@ -329,7 +334,7 @@ M. Baker \textit{et al.}, ``Genomic and socioeconomic drivers of antimicrobial r
 J. Kim \textit{et al.}, ``Predicting antimicrobial resistance of bacterial pathogens using time series analysis,'' \textit{Front. Microbiol.}, vol. 14, Art. no. 1160224, 2023, doi: 10.3389/fmicb.2023.1160224.
 
 \bibitem{ref20}
-T. N. Kipf and M. Welling, ``Semi-supervised classification with graph convolutional networks,'' arXiv:1609.02907, 2017, doi: 10.48550/arXiv.1609.02907.
+T. N. Kipf and M. Welling, ``Semi-supervised classification with graph convolutional networks,'' arXiv:1609.02907, 2017.
 
 \bibitem{ref21}
 M. Schlichtkrull \textit{et al.}, ``Modeling relational data with graph convolutional networks,'' in \textit{The Semantic Web. ESWC 2018}, LNCS, vol. 10843, Springer, 2018, pp. 593--607, doi: 10.1007/978-3-319-93417-4\_38.
