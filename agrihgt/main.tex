@@ -11,6 +11,9 @@
 % when those files are uploaded; otherwise placeholder rows are shown, so the
 % paper always compiles.
 \usepackage{catchfile}
+\usepackage{xcolor}
+% Red marker for every value that must come from the generated result tables
+\newcommand{\TBD}[1]{\textcolor{red}{[#1]}}
 % Figures: include the image if uploaded, otherwise draw a labelled box
 \newcommand{\figorbox}[2]{\IfFileExists{#2}{\includegraphics[#1]{#2}}{\fbox{\parbox[c][2cm][c]{0.8\linewidth}{\centering\footnotesize Missing: \texttt{\detokenize{#2}}}}}}
 \newcommand{\loadrows}[3]{\IfFileExists{#2}{\CatchFileDef{#1}{#2}{}}{\def#1{#3}}}
@@ -35,7 +38,7 @@
   A8 & No fusion gate & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
 }
 \loadrows{\PerClassRows}{tables/perclass_rows.tex}{%
-  \multicolumn{11}{c}{\textit{Per-class rows are generated from the selected model's test predictions.}} \\
+  \multicolumn{16}{c}{\textit{Per-class rows are generated from the selected model's test predictions.}} \\
 }
 
 % Compact spacing so that the paper fits in five pages
@@ -52,7 +55,7 @@
 
 \begin{document}
 
-% TODO: final title and author block
+% Replace the author block with the real names, affiliations, and e-mails
 \title{AgriHGT: Heterogeneous Graph Transformer for Multi-Crop Leaf Disease Classification}
 
 \author{\IEEEauthorblockN{Author One, Author Two, Author Three}
@@ -62,8 +65,7 @@
 \maketitle
 
 \begin{abstract}
-% TODO: write after the results are generated; state only numbers from tables/*.tex.
-AgriHGT is a two-stage visual-relational framework for 28-class leaf disease classification on the Agri-Vision4 dataset (Tomato, Papaya, Zucchini, Bottle Gourd). Partially fine-tuned visual backbones provide one feature vector per leaf image, and a Heterogeneous Graph Transformer propagates information among leaf-image, crop, disease, and disease-category nodes before a gated residual fusion and a leaf-disease compatibility decoder. A duplicate-aware, leakage-controlled split, a label-shortcut-free message/supervision partition, seven backbones, three message-passing depths, and a nine-configuration component ablation are evaluated. [Results to be inserted from the generated tables.]
+Leaf disease classification in multi-crop field images is usually treated as independent image recognition, although crops, diseases, and disease categories are related and visually similar leaves carry complementary evidence. We propose AgriHGT, a two-stage visual-relational framework that places partially fine-tuned backbone features of each leaf image in a heterogeneous graph with crop, disease, and disease-category nodes, propagates information with a Heterogeneous Graph Transformer, fuses the result with a gated residual visual path, and predicts the disease with a leaf-disease compatibility decoder. On the 28-class Agri-Vision4 dataset (Tomato, Papaya, Zucchini, Bottle Gourd), we build a duplicate-aware, leakage-controlled split through MD5 deduplication, perceptual-hash linking, and an iterative near-duplicate audit, and prevent label shortcuts by separating message-passing and supervised training nodes. Seven convolutional, transformer, and self-supervised backbones, three message-passing depths, a feature-only logistic-regression reference, and a nine-configuration component ablation are evaluated. The best configuration, \TBD{backbone, depth}, reaches \TBD{xx.xx}\% test accuracy and \TBD{0.xxxx} macro-F1, compared with \TBD{xx.xx}\% for the corresponding feature-only reference, and the ablation shows that \TBD{component} contributes most.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -71,10 +73,24 @@ Plant disease classification, heterogeneous graph transformer, graph neural netw
 \end{IEEEkeywords}
 
 \section{Introduction}
-% TODO: Introduction (about 0.5 page): motivation, gap, contributions.
+Leaf diseases reduce vegetable yield and quality, and in smallholder settings such as Bangladesh, expert diagnosis is often unavailable when it is needed. Deep learning on leaf images has become the standard route to automated diagnosis~\cite{ferentinos2018deep,srivastava2021plant}, progressing from CNNs to vision transformers and self-supervised representations~\cite{thakur2023vitcnn,subburaj2025plantention,hasan2026multicrop,wang2024ssl,zhao2023cla}. These models, however, classify each image independently. In a multi-crop setting, a leaf belongs to a crop, its disease belongs to a broader category, the same category spans several crops, and visually similar leaves of the same crop tend to share a diagnosis. This structure is not used by an image-only classifier.
+
+Two lines of work address parts of it. Graph neural networks relate visual regions or leaf images~\cite{bera2024pndnet,surekha2026adjleafgnn}, and agricultural knowledge graphs encode crops, diseases, pests, and symptoms~\cite{zhao2024llmkg,yan2025cropdpkg,li2025marbc}. They are rarely combined, and combining them raises three practical risks: augmented copies of one photograph leaking across partitions, label information returning to supervised nodes through the graph, and conclusions that hold for only one backbone.
+
+We therefore propose AgriHGT, which joins image features and agricultural knowledge in one heterogeneous graph processed by the Heterogeneous Graph Transformer (HGT)~\cite{hu2020heterogeneous}. Our contributions are:
+\begin{itemize}
+\item a heterogeneous graph of 26,905 nodes and 13 relation types linking leaf images to crops, diseases, and disease categories, with gated residual fusion and a leaf-disease compatibility decoder;
+\item a duplicate-aware, leakage-controlled protocol for Agri-Vision4~\cite{billah2026agrivision4}, combining exact deduplication, perceptual-hash linking, an iterative near-duplicate audit, and per-class support control, plus a message/supervision partition that removes label shortcuts;
+\item a comparison of seven backbones, three HGT depths, and a feature-only reference, testing whether graph learning helps consistently across representations; and
+\item a nine-configuration ablation with paired McNemar tests, and evaluation with class-balanced, chance-corrected, and calibration metrics.
+\end{itemize}
 
 \section{Related Work}
-% TODO: Related work (about 0.4 page).
+\textbf{Image-based plant disease recognition.} CNN transfer learning established high accuracy on leaf images~\cite{ferentinos2018deep,srivastava2021plant}, with ResNet~\cite{shahoveisi2023rust,shafik2024transfer} and EfficientNet~\cite{ali2025efficientnet} models widely used. Vision and Swin transformers~\cite{boukabouya2022vision,murugavalli2025plant,liu2025plant} and other recent designs~\cite{thakur2023vitcnn,subburaj2025plantention,hasan2026multicrop} capture longer-range context, and self-supervised learning is increasingly used~\cite{wang2024ssl,zhao2023cla}. All treat images independently.
+
+\textbf{Graphs for plant disease.} Graph-based models capture relationships among visual regions or leaf images, including feature-space similarity graphs over images~\cite{bera2024pndnet,surekha2026adjleafgnn}. Agricultural knowledge graphs represent semantic relationships among crops, diseases, pests, symptoms, and related entities~\cite{zhao2024llmkg,yan2025cropdpkg,li2025marbc}. AgriHGT combines both kinds of information in one graph.
+
+\textbf{Heterogeneous graph learning.} HGT uses node- and edge-type-dependent parameters and relation-aware attention for graphs with many node and relation types~\cite{hu2020heterogeneous}. AgriHGT applies it to a graph in which leaf images, crops, diseases, and categories coexist, so that similarity messages and knowledge messages are handled by separate parameters.
 
 \section{Materials and Methods}
 
@@ -265,7 +281,12 @@ macro-F1 a 95\% bootstrap interval (2,000 resamples of the test set), and each a
 Experiments ran on Kaggle with one NVIDIA Tesla T4 GPU. PyTorch and Torchvision served backbone training and feature extraction; DINOv2 was loaded from its official implementation and DINOv3 ViT-B/16 via \texttt{timm}; pyHGT provided the graph and HGT layers (with the zero-layer change of Section~\ref{sec:model_architecture}); PyTorch Geometric supported graph operations; scikit-learn provided nearest-neighbor search, logistic regression, and evaluation; Pandas and NumPy handled data; and Pillow and ImageHash handled images and perceptual hashing. The split was fixed across backbones, seed 42 was used for the main and ablation experiments, and a fixed hold-out validation set (not $k$-fold cross-validation) selected checkpoints and depths. All experiments are single-seed; multi-seed variability was not estimated and is a limitation.
 
 \section{Results}
-% TODO: after running scripts/agrihgt_metrics.py, describe ONLY the generated numbers.
+\textbf{Backbones and depth.} Table~\ref{tab:backbone_results} reports every backbone with the feature-only reference and HGT depths 0--2. The strongest configuration is \TBD{backbone, depth}, with \TBD{xx.xx}\% test accuracy (95\% CI \TBD{[xx.xx, xx.xx]}), \TBD{0.xxxx} macro-F1, and $\kappa=$ \TBD{0.xxxx}. Relative to its logistic-regression reference, message passing changes accuracy by \TBD{$\pm$x.xx} points and macro-F1 by \TBD{$\pm$0.xxxx}; across backbones, HGT-1/2 improves on HGT-0 for \TBD{k} of 7 backbones. Self-supervised DINO features \TBD{do / do not} outperform the supervised CNN and Swin features.
+
+\textbf{Component ablation.} Table~\ref{tab:ablation_results} shows that removing \TBD{component} causes the largest macro-F1 drop (\TBD{$-$0.xxxx}, McNemar $p=$ \TBD{0.xxx}), while \TBD{components} change results by less than \TBD{x} points and are not significant at $p<0.05$.
+
+\textbf{Per-class behavior.} Table~\ref{tab:perclass} shows that the lowest F1 occurs for \TBD{classes}, mostly minority classes, whereas \TBD{classes} are recognized almost perfectly.
+
 
 \begin{table*}[!t]
 \centering
@@ -299,13 +320,13 @@ Experiments ran on Kaggle with one NVIDIA Tesla T4 GPU. PyTorch and Torchvision 
 
 \begin{table*}[!t]
 \centering
-\caption{Per-Class Test Results of the Selected AgriHGT Model (One-vs-Rest Counts from the Confusion Matrix)}
+\caption{Per-Class One-vs-Rest Test Results of the Selected AgriHGT Model (BG = Bottle Gourd, PA = Papaya, TO = Tomato, ZU = Zucchini; $n$ = Test Support)}
 \label{tab:perclass}
 \scriptsize
-\setlength{\tabcolsep}{3.5pt}
-\begin{tabular}{@{}l|rrr|cccc|cc|r@{}}
+\setlength{\tabcolsep}{2.6pt}
+\begin{tabular}{@{}l|cccccc|r||l|cccccc|r@{}}
 \toprule
-\textbf{Class} & $TP$ & $FP$ & $FN$ & \textbf{Prec.} & \textbf{Rec.} & \textbf{Spec.} & \textbf{F1} & \textbf{Jaccard} & \textbf{MCC} & \textbf{Supp.} \\
+\textbf{Class} & \textbf{Prec.} & \textbf{Rec.} & \textbf{Spec.} & \textbf{F1} & \textbf{Jacc.} & \textbf{MCC} & $n$ & \textbf{Class} & \textbf{Prec.} & \textbf{Rec.} & \textbf{Spec.} & \textbf{F1} & \textbf{Jacc.} & \textbf{MCC} & $n$ \\
 \midrule
 \PerClassRows
 \bottomrule
@@ -313,13 +334,12 @@ Experiments ran on Kaggle with one NVIDIA Tesla T4 GPU. PyTorch and Torchvision 
 \end{table*}
 
 \section{Discussion and Limitations}
-% TODO: interpret the generated results. Known limitations from the design:
-% single seed; transductive setting; leakage control limited to same-class
-% perceptual-hash pairs at Hamming distance <= 6; logistic regression sees all
-% 25,122 training labels while AgriHGT supervises only 6,241 train_sup nodes.
+The comparison with HGT-0 is the most direct test of message passing, because only propagation differs; the logistic-regression reference instead shows how much is already in the adapted features, but it sees all 25,122 training labels while AgriHGT supervises only the 6,241 \texttt{train\_sup} nodes, so it is not a matched ablation. The gate initialization ($\sigma(2)\approx0.88$) lets the model fall back on visual evidence when graph messages are unhelpful, which is why the residual-bypass ablation (A7) is informative about how much the graph alone can carry.
+
+Four limitations qualify the results. First, the evaluation is transductive: test images take part in message passing without their labels, so performance on images added after training remains to be measured. Second, leakage control covers same-class pairs within Hamming distance six of a 256-bit perceptual hash; near-duplicates beyond this threshold or across classes are not excluded. Third, all experiments use one seed and one fixed split, so differences smaller than the Wilson and bootstrap intervals should not be over-interpreted. Fourth, the four crops come from one region, so transfer to other crops, regions, and imaging conditions is untested.
 
 \section{Conclusion}
-% TODO
+AgriHGT combines backbone features of leaf images with crop, disease, and disease-category knowledge in a heterogeneous graph, processed by relation-aware HGT message passing, gated residual fusion, and a compatibility decoder. On a leakage-controlled split of Agri-Vision4 with a label-shortcut-free supervision scheme, it was evaluated across seven backbones, three depths, and nine ablations, reaching \TBD{xx.xx}\% accuracy and \TBD{0.xxxx} macro-F1 with \TBD{backbone}. Future work will evaluate inductive inference, multiple seeds and splits, cross-class near-duplicate auditing, and additional crops and regions.
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}

@@ -204,12 +204,27 @@ def ablation_rows(runs, n_classes, rng) -> str:
     return "\n".join(lines) + "\n"
 
 
+CROP_CODES = {"bottle gourd": "BG", "bottle_gourd": "BG", "papaya": "PA", "tomato": "TO", "zucchini": "ZU"}
+
+
+def short_name(name: str, width: int = 27) -> str:
+    """Compact class label for the two-column per-class table, e.g. 'BG: Downy Mildew'."""
+    low = name.replace("___", " ").replace("__", " ").strip()
+    for crop, code in CROP_CODES.items():
+        if low.lower().startswith(crop):
+            low = f"{code}: " + low[len(crop):].lstrip(" _-:")
+            break
+    low = low.replace("_", " ")
+    return low if len(low) <= width else low[: width - 1] + "."
+
+
 def perclass_rows(r, n_classes) -> str:
+    """Per-class one-vs-rest metrics, laid out as two side-by-side halves of the class list."""
     y, p = r["y_true"], r["y_pred"]
     names = [str(s) for s in r["class_names"]] if "class_names" in r else [f"Class {c}" for c in range(n_classes)]
     cm = confusion_matrix(y, p, labels=range(n_classes))
     N = cm.sum()
-    lines = []
+    cells = []
     for c in range(n_classes):
         tp = cm[c, c]
         fp = cm[:, c].sum() - tp
@@ -222,10 +237,14 @@ def perclass_rows(r, n_classes) -> str:
         jac = tp / (tp + fp + fn) if tp + fp + fn else 0.0
         den = math.sqrt(float((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn)))
         mcc = (tp * tn - fp * fn) / den if den else 0.0
-        name = names[c].replace("_", r"\_")
-        lines.append(
-            f"{name} & {tp} & {fp} & {fn} & {f(prec)} & {f(rec)} & {f(spec)} & {f(f1)} & {f(jac)} & {f(mcc)} & {tp + fn} \\\\"
-        )
+        name = short_name(names[c]).replace("&", r"\&")
+        cells.append(f"{name} & {f(prec, 3)} & {f(rec, 3)} & {f(spec, 3)} & {f(f1, 3)} & {f(jac, 3)} & {f(mcc, 3)} & {tp + fn}")
+    half = (len(cells) + 1) // 2
+    blank = " & ".join([""] * 8)
+    lines = []
+    for i in range(half):
+        right = cells[half + i] if half + i < len(cells) else blank
+        lines.append(f"{cells[i]} & {right} \\\\")
     return "\n".join(lines) + "\n"
 
 
