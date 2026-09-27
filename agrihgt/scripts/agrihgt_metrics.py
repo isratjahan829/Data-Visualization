@@ -220,7 +220,7 @@ def short_name(name: str, width: int = 27) -> str:
     low = name.replace("___", " ").replace("__", " ").strip()
     for crop, code in CROP_CODES.items():
         if low.lower().startswith(crop):
-            low = f"{code}: " + low[len(crop):].lstrip(" _-:")
+            low = f"{code}: " + low[len(crop):].lstrip(" _-:|")
             break
     low = low.replace("_", " ")
     return low if len(low) <= width else low[: width - 1] + "."
