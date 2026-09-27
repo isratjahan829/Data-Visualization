@@ -86,9 +86,9 @@ We therefore propose AgriHGT, which joins image features and agricultural knowle
 \end{itemize}
 
 \section{Related Work}
-\textbf{Image-based plant disease recognition.} CNN transfer learning established high accuracy on leaf images~\cite{ferentinos2018deep,srivastava2021plant}, with ResNet~\cite{shahoveisi2023rust,shafik2024transfer} and EfficientNet~\cite{ali2025efficientnet} models widely used. Vision and Swin transformers~\cite{boukabouya2022vision,murugavalli2025plant,liu2025plant} and other recent designs~\cite{thakur2023vitcnn,subburaj2025plantention,hasan2026multicrop} capture longer-range context, and self-supervised learning is increasingly used~\cite{wang2024ssl,zhao2023cla}. All treat images independently.
+\textbf{Image-based plant disease recognition.} CNN transfer learning established high accuracy on leaf images~\cite{ferentinos2018deep,srivastava2021plant}, with ResNet~\cite{shahoveisi2023rust,shafik2024transfer} and EfficientNet~\cite{ali2025efficientnet} models widely used. Vision and Swin transformers~\cite{boukabouya2022vision,murugavalli2025plant,liu2025plant} and efficient or task-specific transformers~\cite{borhani2022vit,parez2023greenvit,roy2025ricevit,hemalatha2024pdlcvit} capture longer-range context, CNN--ViT hybrids and ensembles combine both~\cite{thakur2023vitcnn,shandilya2025maize,aboelenin2025hybrid,kalpana2025ensemble}, attention-based and lightweight multi-crop models target deployment and cross-dataset use~\cite{subburaj2025plantention,hasan2026multicrop,zidan2026plantanet,mahapatra2026crossdataset}, and self-supervised, zero-shot, and unseen-crop methods reduce label dependence~\cite{wang2024ssl,zhao2023cla,kumar2024zeroshot,wu2026unseencrop}. All treat images independently.
 
-\textbf{Graphs for plant disease.} Graph-based models capture relationships among visual regions or leaf images, including feature-space similarity graphs over images~\cite{bera2024pndnet,surekha2026adjleafgnn}. Agricultural knowledge graphs represent semantic relationships among crops, diseases, pests, symptoms, and related entities~\cite{zhao2024llmkg,yan2025cropdpkg,li2025marbc}. AgriHGT combines both kinds of information in one graph.
+\textbf{Graphs for plant disease.} Graph-based models capture relationships among visual regions or leaf images, including graph convolutional and CNN--GCN models~\cite{bera2024pndnet,rao2024cnngcn,bajpai2024potato}, graph-related attention~\cite{lin2023pyramid}, attention-enhanced and general GNN classifiers~\cite{gnn2026spinach,gnn2026custom}, and feature-space graphs over adjacent leaves~\cite{surekha2026adjleafgnn}. Agricultural knowledge graphs represent semantic relationships among crops, diseases, pests, symptoms, and related entities~\cite{zhao2024llmkg,yan2025cropdpkg,li2025marbc}. Knowledge graphs have also been fused with vision transformers for classification~\cite{alwan2025kgfusion}; AgriHGT instead places leaf images and knowledge entities in one heterogeneous graph.
 
 \textbf{Heterogeneous graph learning.} HGT uses node- and edge-type-dependent parameters and relation-aware attention for graphs with many node and relation types~\cite{hu2020heterogeneous}. AgriHGT applies it to a graph in which leaf images, crops, diseases, and categories coexist, so that similarity messages and knowledge messages are handled by separate parameters.
 
@@ -99,7 +99,7 @@ AgriHGT is a two-stage visual-relational classifier (Fig.~\ref{fig:workflow}). F
 
 \begin{figure}[!t]
 \centering
-\figorbox{width=\columnwidth,height=0.17\textheight,keepaspectratio}{figures/worflow.drawio.png}
+\figorbox{width=\columnwidth,height=0.13\textheight,keepaspectratio}{figures/worflow.drawio.png}
 \caption{Overview of the AgriHGT methodology.}
 \label{fig:workflow}
 \end{figure}
@@ -109,7 +109,7 @@ Agri-Vision4~\cite{billah2026agrivision4} contains leaf images of Tomato, Papaya
 
 \begin{figure}[!t]
 \centering
-\figorbox{width=\columnwidth,height=0.15\textheight,keepaspectratio}{figures/class_dist.png}
+\figorbox{width=\columnwidth,height=0.12\textheight,keepaspectratio}{figures/class_dist.png}
 \caption{Original and augmented images across the four crops of Agri-Vision4.}
 \label{fig:crop_distribution}
 \end{figure}
@@ -150,7 +150,7 @@ Mosaic Virus & 315 & Yellow Necrotic Spot Holes & 51 & & & Iron Chlorosis Damage
 \subsection{Visual Backbones}
 \label{sec:backbone_selection}
 Each image's backbone feature initializes its \texttt{leaf\_image} node and defines the \texttt{similar\_to} relations, so the graph changes with the backbone. Seven backbones spanning convolutional, transformer, supervised, and self-supervised families used in recent plant-disease studies~\cite{thakur2023vitcnn,subburaj2025plantention,hasan2026multicrop} were compared (Table~\ref{tab:backbone_categories}), both to find the strongest one and to test whether heterogeneous graph learning behaves consistently across representations.
-ResNet50 is a standard residual CNN baseline whose residual connections ease deep training, used widely in plant-disease transfer learning~\cite{shahoveisi2023rust,shafik2024transfer}. DenseNet121 connects each layer to all earlier outputs, encouraging feature reuse so that small lesions and larger texture patterns both remain available. EfficientNet-B3 scales depth, width, and resolution jointly, suiting symptoms at multiple scales, and performs strongly on leaf disease~\cite{ali2025efficientnet}. ConvNeXt-Tiny is a modern CNN with transformer-inspired design, a middle point showing whether gains need attention or also arise in a modernized CNN. Swin-Tiny is a supervised hierarchical transformer with shifted-window local attention, applied to plant disease in~\cite{boukabouya2022vision,murugavalli2025plant,liu2025plant}. DINOv2 ViT-B/14 is self-supervised, learning from unlabeled images an embedding space that may preserve visual structure beyond supervised classes, which matters because the graph needs meaningful neighborhoods, not only a strong classifier~\cite{wang2024ssl,zhao2023cla}. DINOv3 ViT-B/16, a newer DINO model, tests whether a newer self-supervised representation helps; the DINOv2--DINOv3 comparison isolates representation generation within one family.
+ResNet50 is the standard residual CNN reference used in plant-disease transfer learning~\cite{shahoveisi2023rust,shafik2024transfer}; DenseNet121's dense connections reuse features so small lesions and larger textures both stay available; EfficientNet-B3's compound scaling suits multi-scale symptoms~\cite{ali2025efficientnet}; ConvNeXt-Tiny, a transformer-inspired CNN, tests whether gains need attention; and Swin-Tiny adds shifted-window hierarchical attention~\cite{boukabouya2022vision,murugavalli2025plant,liu2025plant}. The self-supervised DINOv2 ViT-B/14 and DINOv3 ViT-B/16 learn from unlabeled images an embedding that may preserve structure beyond supervised classes, which matters because the graph needs meaningful neighborhoods, not only a strong classifier~\cite{wang2024ssl,zhao2023cla}; comparing them isolates the effect of representation generation within one family.
 
 \begin{table}[!t]
 \centering
@@ -175,11 +175,11 @@ DINOv3 ViT-B/16 & ViT & Self-sup. & Recent DINO generation \\
 
 \subsection{Backbone Adaptation and Feature Extraction}
 \label{sec:backbone_adaptation}
-Generic pretrained features may emphasize shape, background, and global appearance rather than subtle color and texture cues, so each backbone was first adapted on the training partition with a temporary 28-class head, fine-tuning only the last stage: \texttt{layer4} for ResNet50; \texttt{denseblock4}, \texttt{norm5}, and classifier for DenseNet121; \texttt{features[7:]} for EfficientNet-B3; \texttt{features[7]} for ConvNeXt-Tiny; the final stage and terminal norm for Swin-Tiny; and the final two blocks and terminal norms for DINOv2 and DINOv3, each with its head. Partial fine-tuning limits cost and preserves low- and mid-level pretrained features on a dataset far smaller than the pretraining data. Validation accuracy was monitored every epoch (with patience-based early stopping where used), the best checkpoint was restored, the head was replaced by an identity, and the frozen backbone ran one deterministic pass without augmentation over all 26,866 images at its native resolution and normalization. This gives feature matrices of $26{,}866\times d$ with $d=2{,}048$ (ResNet50), 1,024 (DenseNet121), 1,536 (EfficientNet-B3), and 768 (ConvNeXt-Tiny, Swin-Tiny, DINOv2, DINOv3). Each dimension was standardized as $x'=(x-\mu_{\mathrm{train}})/\sigma_{\mathrm{train}}$ with statistics from the training partition only, applied unchanged to validation and test, separately per backbone.
+Because generic features may emphasize shape and background over subtle color and texture cues, each backbone was first adapted on the training partition with a temporary 28-class head, fine-tuning only the last stage: \texttt{layer4} for ResNet50; \texttt{denseblock4}, \texttt{norm5}, and classifier for DenseNet121; \texttt{features[7:]} for EfficientNet-B3; \texttt{features[7]} for ConvNeXt-Tiny; the final stage and terminal norm for Swin-Tiny; and the final two blocks and terminal norms for DINOv2 and DINOv3, each with its head. Partial fine-tuning limits cost and preserves low- and mid-level features. Validation accuracy was monitored every epoch (with patience-based early stopping where used), the best checkpoint was restored, the head was replaced by an identity, and the frozen backbone ran one deterministic pass without augmentation over all 26,866 images at its native resolution and normalization. This gives feature matrices of $26{,}866\times d$ with $d=2{,}048$ (ResNet50), 1,024 (DenseNet121), 1,536 (EfficientNet-B3), and 768 (ConvNeXt-Tiny, Swin-Tiny, DINOv2, DINOv3). Each dimension was standardized as $x'=(x-\mu_{\mathrm{train}})/\sigma_{\mathrm{train}}$ with statistics from the training partition only, applied unchanged to validation and test, separately per backbone.
 
 \subsection{Heterogeneous Graph Construction}
 \label{sec:graph_construction}
-Graph learning has captured relations among image regions or leaves~\cite{bera2024pndnet,surekha2026adjleafgnn}, and agricultural knowledge graphs relate crops, diseases, pests, and symptoms~\cite{zhao2024llmkg,yan2025cropdpkg,li2025marbc}; AgriHGT combines both (Fig.~\ref{fig:het_graph}). One graph per backbone has 26,905 nodes: 26,866 \texttt{leaf\_image}, 4 \texttt{crop}, 28 \texttt{disease}, and 7 \texttt{disease\_category} nodes (Healthy, Viral, Bacterial, Fungal, Pest, Nutrient Deficiency, Other), with categories fixed from class names before training~\cite{yan2025cropdpkg,li2025marbc}. Leaf nodes take the standardized backbone vector; non-image nodes have no pixels and receive learnable input embeddings.
+One graph (Fig.~\ref{fig:het_graph}) per backbone has 26,905 nodes: 26,866 \texttt{leaf\_image}, 4 \texttt{crop}, 28 \texttt{disease}, and 7 \texttt{disease\_category} nodes (Healthy, Viral, Bacterial, Fungal, Pest, Nutrient Deficiency, Other), with categories fixed from class names before training~\cite{yan2025cropdpkg,li2025marbc}. Leaf nodes take the standardized backbone vector; non-image nodes have no pixels and receive learnable input embeddings.
 
 Six forward relations are used: \texttt{grown\_on} (leaf$\to$crop), \texttt{affects} (crop$\to$disease), \texttt{is\_type\_of} (disease$\to$category), \texttt{similar\_to} (leaf$\to$similar leaf), \texttt{has\_disease} (selected training leaf$\to$disease), and \texttt{co\_category} (disease$\to$disease of the same category). Adding a reverse for each and a self-loop per node gives 13 relation types. For \texttt{similar\_to}, following feature-space similarity graphs~\cite{surekha2026adjleafgnn}, each image links to its five nearest neighbors of the same crop under
 \begin{equation}
@@ -190,7 +190,7 @@ restricting to the crop to reduce the influence of crop-level leaf shape, giving
 
 \begin{figure}[!t]
 \centering
-\figorbox{width=\columnwidth,height=0.17\textheight,keepaspectratio}{figures/graph.png}
+\figorbox{width=\columnwidth,height=0.13\textheight,keepaspectratio}{figures/graph.png}
 \caption{AgriHGT heterogeneous graph: \texttt{leaf\_image}, \texttt{crop}, \texttt{disease}, and \texttt{disease\_category} nodes and their typed relations.}
 \label{fig:het_graph}
 \end{figure}
@@ -203,7 +203,7 @@ AgriHGT has three components: heterogeneous message passing, gated fusion of gra
 
 \begin{figure*}[!t]
 \centering
-\figorbox{width=\textwidth,height=0.22\textheight,keepaspectratio}{figures/model.drawio.png}
+\figorbox{width=\textwidth,height=0.19\textheight,keepaspectratio}{figures/model.drawio.png}
 \caption{AgriHGT architecture: visual feature extraction, heterogeneous graph construction, relation-aware HGT message passing, residual visual fusion, and disease prediction.}
 \label{fig:agrihgt_architecture}
 \end{figure*}
@@ -274,11 +274,11 @@ where $C$ is the number of correct predictions and $n_c$, $\hat{n}_c$ are true a
 \Big(\hat{p} + \tfrac{z^2}{2N} \pm z\sqrt{\tfrac{\hat{p}(1-\hat{p})}{N} + \tfrac{z^2}{4N^2}}\Big)\Big/\Big(1 + \tfrac{z^2}{N}\Big), \quad z=1.96,
 \label{eq:wilson}
 \end{equation}
-macro-F1 a 95\% bootstrap interval (2,000 resamples of the test set), and each ablation is compared with A0 on the same 848 images by an exact McNemar test on the discordant pairs $(n_{01}, n_{10})$, $p = 2\sum_{k\le\min(n_{01},n_{10})}\binom{n_{01}+n_{10}}{k}2^{-(n_{01}+n_{10})}$. All values are computed by a released script directly from saved predictions.
+macro-F1 a 95\% bootstrap interval (2,000 resamples of the test set), and each ablation is compared with A0 on the same 848 images by an exact McNemar test on the discordant pairs $(n_{01}, n_{10})$, $p = 2\sum_{k\le\min(n_{01},n_{10})}\binom{n_{01}+n_{10}}{k}2^{-(n_{01}+n_{10})}$. All values are computed by script directly from saved predictions.
 
 \subsection{Experimental Setup}
 \label{sec:experimental_setup}
-Experiments ran on Kaggle with one NVIDIA Tesla T4 GPU. PyTorch and Torchvision served backbone training and feature extraction; DINOv2 was loaded from its official implementation and DINOv3 ViT-B/16 via \texttt{timm}; pyHGT provided the graph and HGT layers (with the zero-layer change of Section~\ref{sec:model_architecture}); PyTorch Geometric supported graph operations; scikit-learn provided nearest-neighbor search, logistic regression, and evaluation; Pandas and NumPy handled data; and Pillow and ImageHash handled images and perceptual hashing. The split was fixed across backbones, seed 42 was used for the main and ablation experiments, and a fixed hold-out validation set (not $k$-fold cross-validation) selected checkpoints and depths. All experiments are single-seed; multi-seed variability was not estimated and is a limitation.
+Experiments ran on Kaggle with one NVIDIA Tesla T4 GPU. We used PyTorch and Torchvision (backbones), the official DINOv2 code and \texttt{timm} DINOv3, pyHGT (with the zero-layer change) and PyTorch Geometric (graphs), scikit-learn (neighbors, logistic regression, evaluation), Pandas and NumPy, and Pillow and ImageHash (perceptual hashing). The split was fixed across backbones, seed 42 was used for the main and ablation experiments, and a fixed hold-out validation set (not $k$-fold cross-validation) selected checkpoints and depths. All experiments are single-seed; multi-seed variability was not estimated and is a limitation.
 
 \section{Results}
 \textbf{Backbones and depth.} Table~\ref{tab:backbone_results} reports every backbone with the feature-only reference and HGT depths 0--2. The strongest configuration is \TBD{backbone, depth}, with \TBD{xx.xx}\% test accuracy (95\% CI \TBD{[xx.xx, xx.xx]}), \TBD{0.xxxx} macro-F1, and $\kappa=$ \TBD{0.xxxx}. Relative to its logistic-regression reference, message passing changes accuracy by \TBD{$\pm$x.xx} points and macro-F1 by \TBD{$\pm$0.xxxx}; across backbones, HGT-1/2 improves on HGT-0 for \TBD{k} of 7 backbones. Self-supervised DINO features \TBD{do / do not} outperform the supervised CNN and Swin features.
@@ -342,6 +342,6 @@ Four limitations qualify the results. First, the evaluation is transductive: tes
 AgriHGT combines backbone features of leaf images with crop, disease, and disease-category knowledge in a heterogeneous graph, processed by relation-aware HGT message passing, gated residual fusion, and a compatibility decoder. On a leakage-controlled split of Agri-Vision4 with a label-shortcut-free supervision scheme, it was evaluated across seven backbones, three depths, and nine ablations, reaching \TBD{xx.xx}\% accuracy and \TBD{0.xxxx} macro-F1 with \TBD{backbone}. Future work will evaluate inductive inference, multiple seeds and splits, cross-class near-duplicate auditing, and additional crops and regions.
 
 \bibliographystyle{IEEEtran}
-\bibliography{references}
+\bibliography{ref_1}
 
 \end{document}
