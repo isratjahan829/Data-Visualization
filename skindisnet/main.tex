@@ -35,7 +35,7 @@
 \maketitle
 
 \begin{abstract}
-Skin diseases are common in all populations and can considerably harm quality of life, yet accurate diagnosis depends on scarce dermatological expertise. Automated image-based classification could help, but clinical images vary widely in illumination, background, acquisition conditions, and disease appearance, and imbalanced class distributions degrade multi-class performance. This paper proposes SkinDisNet-GT, a graph-transformer framework that combines hierarchical visual feature extraction with explicit spatial modeling. Experiments use the SkinDisNet clinical dataset of 1,710 images from six skin-disease classes. A pretrained Swin-Tiny backbone maps $224\times224$ inputs to a $14\times14\times384$ feature map, converted into 196 spatial nodes. A nine-nearest-neighbor graph is processed with degree-based structural encoding, spatial-distance bias, multi-head graph attention, and graph-transformer blocks. Class-balanced sampling, weighted focal loss, label smoothing, Mixup/CutMix, two-stage fine-tuning, and test-time augmentation address class imbalance. On the held-out test set, SkinDisNet-GT achieved 87.94\% accuracy, a weighted F1-score of 0.8761, a weighted AUC-ROC of 0.9534, and a test loss of 0.6060. Controlled ablations evaluate the contribution of the training components and the graph module; the advanced-training Swin-Tiny configuration reached 89.11\% accuracy. The study shows the viability of hierarchical transformer features for automated clinical skin-disease diagnosis, with complementary quantitative and visual interpretability analysis.
+Skin diseases are common and harm quality of life, yet diagnosis depends on scarce dermatological expertise. Automated classification of clinical images is hindered by variable illumination, background, acquisition, and appearance, and by class imbalance. We propose SkinDisNet-GT, a graph-transformer framework combining hierarchical visual features with explicit spatial modeling, evaluated on the SkinDisNet clinical dataset of 1,710 images from six classes. A pretrained Swin-Tiny backbone maps $224\times224$ inputs to a $14\times14\times384$ feature map, converted into 196 nodes of a nine-nearest-neighbor graph processed with degree-based structural encoding, spatial-distance bias, multi-head graph attention, and graph-transformer blocks. Class-balanced sampling, weighted focal loss, label smoothing, Mixup/CutMix, two-stage fine-tuning, and test-time augmentation address imbalance. On the held-out test set, SkinDisNet-GT achieved 87.94\% accuracy, 0.8761 weighted F1, 0.9534 weighted AUC-ROC, and 0.6060 test loss, with Cohen's $\kappa$ of 0.8443 and MCC of 0.8484. In controlled ablations, the advanced-training Swin-Tiny configuration reached 89.11\%. The study shows the viability of hierarchical transformer features for clinical skin-disease diagnosis, with quantitative and visual interpretability analysis.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -47,25 +47,18 @@ Skin diseases affect people of any age, nationality, and skin type. Diagnosis re
 
 This work explores explicitly organizing hierarchical transformer features as a graph for clinical skin disease classification on SkinDisNet, a six-class clinical dataset. Unlike controlled dermoscopic datasets, clinical photographs vary in illumination, background, and appearance, and the dataset is highly imbalanced, so balanced learning and augmentation are required.
 
-The objectives are to: (i) develop SkinDisNet-GT; (ii) build an imbalance-aware pipeline with class-balanced sampling, weighted focal loss, label smoothing, Mixup/CutMix, and two-phase fine-tuning; (iii) evaluate accuracy, precision, recall, weighted F1, one-vs-rest AUC, test loss, confusion matrices, and per-class results; (iv) perform controlled ablations of graph reasoning, Mixup/CutMix, and test-time augmentation (TTA); (v) provide Grad-CAM visualizations of the regions relevant to predictions; and (vi) analyze data-splitting and augmentation leakage controls and identify remaining limitations in patient-level grouping.
+We aim to (i) develop SkinDisNet-GT; (ii) build an imbalance-aware pipeline with class-balanced sampling, weighted focal loss, label smoothing, Mixup/CutMix, and two-phase fine-tuning; (iii) evaluate accuracy, precision, recall, weighted F1, one-vs-rest AUC, test loss, confusion matrices, and per-class results; (iv) perform controlled ablations of graph reasoning, Mixup/CutMix, and test-time augmentation (TTA); (v) provide Grad-CAM visualizations of the regions relevant to predictions; and (vi) analyze data-splitting and augmentation leakage controls and identify remaining limitations in patient-level grouping.
 
-The main contributions are:
-\begin{itemize}
-\item A Swin-Tiny-to-graph architecture that maps a $14\times14$ hierarchical feature grid to 196 relational image-region nodes.
-\item A graph-transformer module that integrates KNN graph aggregation, degree-based structural encoding, spatial-distance bias, multi-head attention, and feed-forward transformation.
-\item A controlled study of the effects of advanced training components and graph removal under the same evaluation partition.
-\item An explainability analysis using Grad-CAM on the graph-transformer feature representation.
-\end{itemize}
-Sections II--VII cover related work, the method, setup, results, limitations, and conclusions.
+Our contributions are (1) a Swin-Tiny-to-graph architecture mapping a $14\times14$ hierarchical feature grid to 196 relational image-region nodes; (2) a graph-transformer module integrating KNN aggregation, degree-based structural encoding, spatial-distance bias, multi-head attention, and feed-forward transformation; (3) a controlled study of advanced training components and graph removal on one evaluation partition; and (4) a Grad-CAM analysis of the graph-transformer features.
 
 \section{Related Work}
-\textbf{Datasets and CNN-based classification.} HAM10000 is a multi-source dermatoscopic benchmark of 10,015 images in seven categories \cite{ref1}, and Esteva et al.\ showed end-to-end deep networks succeed at clinical skin cancer classification \cite{ref2}. Chaturvedi et al.\ compared CNN architectures on seven-class HAM10000 and found good results for ResNeXt-101 \cite{ref3}. Balaji et al.\ combined dynamic graph-cut segmentation with a Na\"{i}ve Bayes classifier, showing an efficient structured pipeline but a dependency on handcrafted segmentation \cite{ref4}. These methods miss relational modeling: CNNs are local, and handcrafted pipelines separate lesion isolation from recognition.
+\textbf{CNN-based classification.} HAM10000 is a multi-source dermatoscopic benchmark of 10,015 images in seven categories \cite{ref1}; end-to-end deep networks succeeded at clinical skin cancer classification \cite{ref2}; ResNeXt-101 performed well among CNNs on seven-class HAM10000 \cite{ref3}; and graph-cut segmentation with Na\"{i}ve Bayes gave an efficient but handcrafted pipeline \cite{ref4}. These methods miss relational modeling: CNNs are local, and handcrafted pipelines separate lesion isolation from recognition.
 
-\textbf{Transformers in dermatology.} After ViT's patch tokenization \cite{ref5}, DermViT used contextual and hierarchical attention to handle lesion variability and localization \cite{ref8}. Newaz et al.\ found Swin Transformers performed well on mobile-captured images, stressing global context under uncontrolled acquisition \cite{ref7}. Halawani et al.\ fused transformer and CNN features with hybrid attention, highlighting complementary global and local representations \cite{ref9}. Our baselines follow the same trend: ViT-B/16 reached 79.77\% accuracy and 0.7948 weighted F1 on the held-out test set, and Swin-Tiny 84.44\% and 0.8406, a direct reference for the added benefit of graph reasoning.
+\textbf{Transformers in dermatology.} After ViT \cite{ref5}, DermViT used contextual and hierarchical attention for lesion variability and localization \cite{ref8}, Swin Transformers performed well on mobile-captured images under uncontrolled acquisition \cite{ref7}, and EViT-Dens169 fused transformer and CNN features with hybrid attention \cite{ref9}. Our baselines follow this trend: ViT-B/16 reached 79.77\% accuracy (0.7948 weighted F1) and Swin-Tiny 84.44\% (0.8406), a direct reference for the benefit of graph reasoning.
 
-\textbf{Graph-based vision and attention.} Vision GNN builds nearest-neighbor graphs over image patches for visual recognition \cite{ref6}. Progressive Vision Graph addresses first-order similarity, aggregation cost, and deep-graph behavior \cite{ref11}. GAT learns neighbor attention instead of fixed aggregation weights \cite{ref12}, and Graphormer adds structural and positional features to attention \cite{ref13}. A review of GNNs for image-guided diagnosis identifies graph construction and graph-transformer modeling as key parts of medical image pipelines \cite{ref14}. SkinDisNet-GT places the graph module after, not instead of, a hierarchical Swin backbone, turning its spatial feature grid into a graph for learned aggregation and structural attention.
+\textbf{Graph-based vision.} Vision GNN builds nearest-neighbor graphs over patches \cite{ref6}; Progressive Vision Graph addresses first-order similarity, aggregation cost, and deep-graph behavior \cite{ref11}; GAT learns neighbor attention instead of fixed weights \cite{ref12}; Graphormer adds structural and positional features to attention \cite{ref13}; and a review identifies graph construction and graph transformers as key parts of medical image pipelines \cite{ref14}. SkinDisNet-GT places the graph module after, not instead of, a hierarchical Swin backbone.
 
-\textbf{Multimodal and interpretability work.} VitAtt fuses image patch tokens with patient metadata through transformer-based fusion and interpretable attention \cite{ref10}. SkinDisNet also contains patient and disease metadata, but the executed notebooks do not use it because no metadata CSV was found alongside the image folders in the baseline notebook, so all results here are image-only. The gap addressed here is that graph-transformer processing has not been sufficiently studied for realistic clinical skin images such as SkinDisNet.
+\textbf{Multimodal work.} VitAtt fuses image tokens with patient metadata through interpretable attention \cite{ref10}. SkinDisNet also has metadata, but no metadata CSV was found alongside the image folders in the baseline notebook, so all results here are image-only. The gap is that graph-transformer processing is understudied for realistic clinical skin images such as SkinDisNet.
 
 \section{Proposed Methodology: SkinDisNet-GT}
 \subsection{Dataset and Class Distribution}
@@ -92,8 +85,8 @@ Eczema & 466 & 27.25\% & Tinea Corporis & 275 & 16.08\% \\
 
 \begin{figure}[!t]
 \centering
-\includegraphics[width=\columnwidth,height=0.075\textheight,keepaspectratio]{pic-4.png}\\[1pt]
-\includegraphics[width=\columnwidth,height=0.095\textheight,keepaspectratio]{pic-5.png}\\[1pt]
+\includegraphics[width=\columnwidth,height=0.065\textheight,keepaspectratio]{pic-4.png}\\[1pt]
+\includegraphics[width=\columnwidth,height=0.08\textheight,keepaspectratio]{pic-5.png}\\[1pt]
 \includegraphics[width=\columnwidth,height=0.033\textheight,keepaspectratio]{pic-6.png}
 \caption{Sample images from the six skin disease classes.}
 \label{fig:skin_disease_samples}
@@ -101,11 +94,11 @@ Eczema & 466 & 27.25\% & Tinea Corporis & 275 & 16.08\% \\
 
 \begin{figure*}[!t]
 \centering
-\subfloat[Class distribution and class share]{\includegraphics[width=0.32\textwidth,height=0.12\textheight,keepaspectratio]{pic-2.png}\label{fig:class_distribution}}
+\subfloat[Class distribution and class share]{\includegraphics[width=0.32\textwidth,height=0.095\textheight,keepaspectratio]{pic-2.png}\label{fig:class_distribution}}
 \hfil
-\subfloat[Images per patient (distribution and CDF)]{\includegraphics[width=0.32\textwidth,height=0.12\textheight,keepaspectratio]{pic-9.png}\label{fig:patient_image_distribution}}
+\subfloat[Images per patient (distribution and CDF)]{\includegraphics[width=0.32\textwidth,height=0.095\textheight,keepaspectratio]{pic-9.png}\label{fig:patient_image_distribution}}
 \hfil
-\subfloat[Grayscale intensity per class]{\includegraphics[width=0.32\textwidth,height=0.12\textheight,keepaspectratio]{pic-8.png}\label{fig:grayscale_intensity}}
+\subfloat[Grayscale intensity per class]{\includegraphics[width=0.32\textwidth,height=0.095\textheight,keepaspectratio]{pic-8.png}\label{fig:grayscale_intensity}}
 \caption{Exploratory analysis of the preprocessed SkinDisNet dataset.}
 \label{fig:eda}
 \end{figure*}
@@ -114,47 +107,33 @@ A stratified 70:15:15 split gave 1,197 training, 256 validation, and 257 test im
 
 \begin{figure*}[!t]
 \centering
-\includegraphics[width=\textwidth,height=0.25\textheight,keepaspectratio]{pic-7.jpg}
+\includegraphics[width=\textwidth,height=0.19\textheight,keepaspectratio]{pic-7.jpg}
 \caption{Overview of the proposed SkinDisNet-GT methodology.}
 \label{fig:proposed_methodology}
 \end{figure*}
 
-\subsection{Input Processing and Augmentation}
-Inputs are $224\times224$ RGB with ImageNet normalization (mean $[0.485, 0.456, 0.406]$, standard deviation $[0.229, 0.224, 0.225]$). The SkinDisNet-GT training transform resizes to $256\times256$, crops to $224\times224$, applies horizontal (0.5) and vertical (0.3) flips, rotation up to 30$^\circ$, color jitter (brightness 0.3, contrast 0.3, saturation 0.2, hue 0.1), and grayscale with probability 0.05. Baselines use only resizing and horizontal flips. Mixup ($\alpha=0.2$) or CutMix ($\alpha=1.0$) is applied to a batch with probability 0.5, choosing between them with equal probability. TTA averages predictions on the original and horizontally flipped image.
+\textbf{Input Processing and Augmentation.} Inputs are $224\times224$ RGB with ImageNet normalization (mean $[0.485, 0.456, 0.406]$, standard deviation $[0.229, 0.224, 0.225]$). The SkinDisNet-GT training transform resizes to $256\times256$, crops to $224\times224$, applies horizontal (0.5) and vertical (0.3) flips, rotation up to 30$^\circ$, color jitter (brightness 0.3, contrast 0.3, saturation 0.2, hue 0.1), and grayscale with probability 0.05. Baselines use only resizing and horizontal flips. Each batch gets Mixup ($\alpha=0.2$) or CutMix ($\alpha=1.0$), equally likely, with probability 0.5. TTA averages predictions on the original and horizontally flipped image.
 
-\subsection{Swin Feature Extraction}
-The pretrained timm Swin-Tiny model \texttt{swin\_tiny\_patch4\_window7\_224}, with feature extraction at output stage index 2, produces a $14\times14\times384$ grid, flattened into $N=196$ nodes. Each 384-dimensional node is projected to 256 dimensions by a linear layer and GELU, a learned 256-dimensional positional embedding is added, and LayerNorm follows, giving $X \in \mathbb{R}^{B \times 196 \times 256}$.
+\textbf{Swin Feature Extraction.} The pretrained timm Swin-Tiny model \texttt{swin\_tiny\_patch4\_window7\_224}, with feature extraction at output stage index 2, produces a $14\times14\times384$ grid, flattened into $N=196$ nodes. Each 384-dimensional node is projected to 256 dimensions by a linear layer and GELU, a learned 256-dimensional positional embedding is added, and LayerNorm follows, giving $X \in \mathbb{R}^{B \times 196 \times 256}$.
 
-\subsection{K-Nearest-Neighbor Graph Construction}
-Each image becomes a 196-node graph: after L2 normalization, each node keeps the $k=9$ most similar other nodes, excluding itself:
+\textbf{K-Nearest-Neighbor Graph Construction.} Each image becomes a 196-node graph: after L2 normalization, each node keeps the $k=9$ most similar other nodes, excluding itself:
 \begin{equation}
 s_{ij} = \frac{x_i^T x_j}{\lVert x_i \rVert_2 \lVert x_j \rVert_2}, \qquad \mathcal{N}_k(i) = \operatorname{TopK}_{j \neq i}(s_{ij}),
 \label{eq:knn}
 \end{equation}
 with $A_{ij}=1$ if $j \in \mathcal{N}_k(i)$ and 0 otherwise, $A \in \{0,1\}^{B \times 196 \times 196}$. This gives an explicit local relational structure while retaining all spatial nodes.
 
-\subsection{Structural Encoding}
-Each node is augmented with a learned degree/centrality embedding and a spatial-distance bias. The degree $d_i = \sum_{j} A_{ij}$ is clipped to 20 and embedded through a learned table:
-\begin{equation}
-\widetilde{x}_i = x_i + e_{cent}(d_i).
-\label{eq:structural}
-\end{equation}
+\textbf{Structural Encoding.} Each node is augmented with a learned degree/centrality embedding and a spatial-distance bias. The degree $d_i = \sum_{j} A_{ij}$ is clipped to 20 and embedded through a learned table, giving $\widetilde{x}_i = x_i + e_{cent}(d_i)$.
 Node positions are the original $14\times14$ grid coordinates, and the integer Euclidean distance between two locations is mapped through a learned scalar embedding to give the attention bias $b_{ij}$.
 
-\subsection{Graph Aggregation Module}
-Each graph-transformer block contains a Grapher module. Node features pass through a linear layer and LayerNorm, and neighbor features gathered by the KNN indices are averaged:
-\begin{equation}
-\bar{x}_i = \frac{1}{k} \sum_{j \in \mathcal{N}_k(i)} x_j.
-\label{eq:neighbor_avg}
-\end{equation}
+\textbf{Graph Aggregation Module.} Each graph-transformer block contains a Grapher module. Node features pass through a linear layer and LayerNorm, and neighbor features gathered by the KNN indices are averaged, $\bar{x}_i = \frac{1}{k} \sum_{j \in \mathcal{N}_k(i)} x_j$.
 The center and aggregated features are concatenated and passed through a two-layer transformation $g$ with GELU and dropout, with a residual connection:
 \begin{equation}
 x_i' = x_i + g([x_i ; \bar{x}_i]).
 \label{eq:grapher_residual}
 \end{equation}
 
-\subsection{Graph Transformer Attention}
-The attention layer has eight heads; queries, keys, and values come from a single linear projection of the normalized node features. For head $h$,
+\textbf{Graph Transformer Attention.} The attention layer has eight heads; queries, keys, and values come from a single linear projection of the normalized node features. For head $h$,
 \begin{equation}
 S_{ij}^{(h)} = \frac{Q_i^{(h)} K_j^{(h)T}}{\sqrt{d_h}} + b_{ij}, \quad \alpha_{ij}^{(h)} = \operatorname{softmax}_j\big(S_{ij}^{(h)}\big),
 \label{eq:attn_score}
@@ -165,11 +144,9 @@ Z_i^{(h)} = \textstyle\sum_{j} \alpha_{ij}^{(h)} V_j^{(h)}.
 \end{equation}
 Head outputs are concatenated, projected, and added residually; the spatial bias lets attention use structural position as well as content.
 
-\subsection{Feed-Forward Transformation and Classification}
-Each block ends with a residual feed-forward network (LayerNorm, Linear--GELU--Dropout, Linear--Dropout) of width $4\times256 = 1024$. Three identical graph-transformer blocks are stacked, followed by LayerNorm and mean pooling over the 196 nodes. The classifier is a two-layer MLP $256 \rightarrow 128 \rightarrow 6$ with GELU and dropout. The model has 16,091,749 parameters, all trainable once the backbone is unfrozen.
+\textbf{Feed-Forward Transformation and Classification.} Each block ends with a residual feed-forward network (LayerNorm, Linear--GELU--Dropout, Linear--Dropout) of width $4\times256 = 1024$. Three identical graph-transformer blocks are stacked, followed by LayerNorm and mean pooling over the 196 nodes. The classifier is a two-layer MLP $256 \rightarrow 128 \rightarrow 6$ with GELU and dropout. The model has 16,091,749 parameters, all trainable once the backbone is unfrozen.
 
-\subsection{Imbalance-Aware Objective}
-Class weights computed from the training labels are $[4.0714, 0.5973, 0.6120, 0.8313, 3.6273, 1.0337]$ for AD, CD, EC, SC, SD, and TC. The hard-label focal loss applies focusing factor $\gamma=2$ to weighted cross-entropy with label smoothing 0.1. With $CE_i$ the weighted smoothed cross-entropy of sample $i$ and $p_{t,i} = \exp(-CE_i)$,
+\textbf{Imbalance-Aware Objective.} Class weights computed from the training labels are $[4.0714, 0.5973, 0.6120, 0.8313, 3.6273, 1.0337]$ for AD, CD, EC, SC, SD, and TC. The hard-label focal loss applies focusing factor $\gamma=2$ to weighted cross-entropy with label smoothing 0.1. With $CE_i$ the weighted smoothed cross-entropy of sample $i$ and $p_{t,i} = \exp(-CE_i)$,
 \begin{equation}
 L_{focal} = \frac{1}{B} \sum_{i} (1 - p_{t,i})^{\gamma} CE_i.
 \label{eq:focal_loss}
@@ -181,97 +158,123 @@ L_{soft} = \frac{1}{B} \sum_{i} (1 - p_{t,i})^{\gamma} \Big[ -\sum_{c} y_{ic} \l
 \end{equation}
 The evaluation criterion is weighted cross-entropy without focal modulation.
 
-\subsection{Optimization and Training Schedule}
-SkinDisNet-GT is trained for 60 epochs with batch size 16 using AdamW (weight decay $10^{-2}$), with learning rates $10^{-5}$ for the Swin backbone and $3\times10^{-4}$ for all other parameters, and cosine annealing toward $10^{-6}$. The backbone is frozen during epochs 1--10 and fully unfrozen from epoch 11. Mixed precision is enabled and gradients are clipped to norm 1.0. The best checkpoint is selected by validation weighted F1, with a best value of 0.9251 at epoch 47. The Swin-Tiny backbone alone has about 28.3M parameters.
+\textbf{Optimization and Training Schedule.} SkinDisNet-GT is trained for 60 epochs with batch size 16 using AdamW (weight decay $10^{-2}$), with learning rates $10^{-5}$ for the Swin backbone and $3\times10^{-4}$ for all other parameters, and cosine annealing toward $10^{-6}$. The backbone is frozen during epochs 1--10 and fully unfrozen from epoch 11. Mixed precision is enabled and gradients are clipped to norm 1.0. The best checkpoint is selected by validation weighted F1, with a best value of 0.9251 at epoch 47. The Swin-Tiny backbone alone has about 28.3M parameters.
 
 \section{Experimental Setup}
 \subsection{Baseline Implementations}
 Three pretrained baselines, ViT-B/16, Swin-Tiny, and EfficientNet-B0, are fine-tuned for six classes under the same 70/15/15 stratified split, $224\times224$ images, batch size 32, class-weighted cross-entropy, AdamW (learning rate $10^{-4}$, weight decay $10^{-2}$), cosine annealing to $10^{-6}$, mixed precision, and validation-accuracy checkpoint selection, for 30 epochs each. ViT-B/16 and EfficientNet-B0 have 85,803,270 and 4,015,234 parameters, respectively.
 
 \subsection{Evaluation Metrics}
-Performance is measured on the test set by accuracy, weighted F1, and weighted one-vs-rest ROC-AUC, with per-class precision, recall, F1, and support. Test loss is reported for the three baselines and for the proposed model without TTA. With TTA, SkinDisNet-GT obtained 87.55\% accuracy, weighted F1 of 0.8734, and weighted ROC-AUC of 0.9392. Dice and IoU are not used, since they are segmentation metrics and this study is classification. With predictions $\hat{y}_i$ and labels $y_i$, $Acc = \frac{1}{N} \sum_{i} \mathbf{1}[\hat{y}_i = y_i]$ and
+Test-set metrics are accuracy, weighted F1, weighted one-vs-rest ROC-AUC, and per-class precision, recall, F1, and support. With TTA, SkinDisNet-GT obtained 87.55\% accuracy, weighted F1 of 0.8734, and weighted ROC-AUC of 0.9392. Dice and IoU are not used, since they are segmentation metrics and this study is classification. With predictions $\hat{y}_i$ and labels $y_i$, $Acc = \frac{1}{N} \sum_{i} \mathbf{1}[\hat{y}_i = y_i]$ and
 \begin{equation}
 P_c = \tfrac{TP_c}{TP_c + FP_c}, \;\; R_c = \tfrac{TP_c}{TP_c + FN_c}, \;\; F1_c = \tfrac{2 P_c R_c}{P_c + R_c}.
 \label{eq:prec_recall}
 \end{equation}
-The weighted aggregate is $F1 = \sum_{c} w_c F1_c$, with $w_c$ the class-support fraction; ROC-AUC uses one-vs-rest probabilities with weighted averaging.
+The weighted aggregate is $F1 = \sum_{c} w_c F1_c$, with $w_c$ the class-support fraction, and the macro aggregate is the unweighted mean over the six classes. ROC-AUC uses one-vs-rest probabilities with weighted averaging. We additionally derive one-vs-rest specificity, negative predictive value, balanced accuracy, $F_\beta$ ($\beta=2$ weights recall), and the Jaccard index:
+\begin{equation}
+Sp_c = \tfrac{TN_c}{TN_c+FP_c}, \;\; NPV_c = \tfrac{TN_c}{TN_c+FN_c}, \;\; BA_c = \tfrac{R_c+Sp_c}{2},
+\label{eq:spec}
+\end{equation}
+\begin{equation}
+F_{\beta,c} = \tfrac{(1+\beta^2)P_cR_c}{\beta^2P_c+R_c}, \qquad J_c = \tfrac{TP_c}{TP_c+FP_c+FN_c}.
+\label{eq:fbeta}
+\end{equation}
+Per-class MCC applies the binary MCC one-vs-rest; multiclass MCC and Cohen's kappa are
+\begin{equation}
+MCC = \tfrac{C\,N - \sum_c \hat{n}_c n_c}{\sqrt{(N^2-\sum_c \hat{n}_c^2)(N^2-\sum_c n_c^2)}}, \quad \kappa = \tfrac{p_o - p_e}{1 - p_e},
+\label{eq:kappa}
+\end{equation}
+where $C$ is the number of correct predictions, $n_c$ and $\hat{n}_c$ are the true and predicted counts of class $c$, $p_o$ is the accuracy, and $p_e=\sum_c n_c\hat{n}_c/N^2$. Accuracy $\hat{p}$ on $N$ images has the 95\% Wilson interval ($z=1.96$)
+\begin{equation}
+\big(\hat{p} + \tfrac{z^2}{2N} \pm z\sqrt{\hat{p}(1-\hat{p})/N + z^2/(4N^2)}\big)\big/\big(1 + z^2/N\big).
+\label{eq:wilson}
+\end{equation}
 
 \section{Results and Ablation Study}
 \subsection{Final SkinDisNet-GT Performance}
-The non-TTA configuration is selected for its better accuracy and weighted F1: test loss 0.6060, 87.94\% accuracy, weighted precision 0.8918, recall 0.8794, F1 0.8761, and AUC-ROC 0.9534 (Table~\ref{tab:final}). With TTA it reaches 87.55\%, 0.8716 F1, and 0.9541 AUC, slightly lower accuracy and F1 but slightly higher AUC.
+The non-TTA configuration is selected for its better accuracy and weighted F1: test loss 0.6060, 87.94\% accuracy, weighted precision 0.8918, recall 0.8794, F1 0.8761, and AUC-ROC 0.9534 (Table~\ref{tab:final}). With TTA it reaches 87.55\%, 0.8716 F1, and 0.9541 AUC, slightly lower accuracy and F1 but slightly higher AUC. The 226 of 257 correct predictions give a 95\% Wilson interval of 83.39--91.37\%. Agreement beyond chance is high ($\kappa=0.8443$, MCC $=0.8484$), but macro recall (0.8235) is well below weighted recall (0.8794), and macro F1 (0.8485) below weighted F1, because errors concentrate in the minority classes.
 
 \begin{table}[!t]
-\caption{Final SkinDisNet-GT Test Performance (non-TTA) and Baselines}
+\caption{Overall Test Metrics of SkinDisNet-GT (Non-TTA, $N=257$); Macro, $\kappa$, MCC, and CI Derived from Table~\ref{tab:perclass}}
 \label{tab:final}
 \centering
 \footnotesize
-\begin{tabular}{lr|lr}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lr|lr@{}}
 \toprule
-\textbf{Metric} & \textbf{Result} & \textbf{Metric} & \textbf{Result} \\
+\textbf{Metric} & \textbf{Value} & \textbf{Metric} & \textbf{Value} \\
 \midrule
-Test Loss & 0.6060 & Weighted Recall & 0.8794 \\
-Accuracy & 87.94\% & Weighted F1 & 0.8761 \\
-Weighted Precision & 0.8918 & Weighted AUC-ROC & 0.9534 \\
-\midrule
-\multicolumn{2}{l|}{Parameters: 16,091,749} & \multicolumn{2}{l}{With TTA: 87.55\%, F1 0.8716} \\
-\multicolumn{2}{l|}{ViT-B/16: 79.77\%, F1 0.7948} & \multicolumn{2}{l}{Swin-Tiny: 84.44\%, F1 0.8406} \\
+Test loss & 0.6060 & Correct / total & 226 / 257 \\
+Accuracy (micro-F1) & 87.94\% & 95\% Wilson CI & [83.39, 91.37]\% \\
+Error rate & 12.06\% & Weighted AUC-ROC & 0.9534 \\
+Prec.\ W/M & .8918/.9035 & Cohen's $\kappa$ ($p_e$) & 0.8443 (0.2255) \\
+Rec.\ W/M & .8794/.8235 & Multiclass MCC & 0.8484 \\
+F1 W/M & .8761/.8485 & Parameters & 16,091,749 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \subsection{Per-Class Performance}
-In Table~\ref{tab:perclass}, Tinea Corporis has the best F1 (0.9412), then Scabies (0.9027) and Contact Dermatitis (0.8774); Eczema has high precision (0.9815) but low recall (0.7571); and minority Atopic and Seborrheic Dermatitis have recalls of only 0.7000 and 0.5833, so imbalance remains a major challenge despite weighted sampling and focal loss.
+Table~\ref{tab:perclass} recovers one-vs-rest counts from precision, recall, and support ($TP=R\,n$, $FP=TP/P-TP$); they sum to 226 correct and reproduce the weighted precision, recall, and F1. Tinea Corporis has the best F1 (0.9412) and MCC (0.9304), then Scabies (0.9027) and Contact Dermatitis (0.8774). Contact Dermatitis absorbs the most false positives (15, FPR 0.0811). Eczema has high precision (0.9815) but low recall (0.7571), missing 17 cases. Minority Atopic and Seborrheic Dermatitis have recalls of only 0.7000 and 0.5833 (FNR 0.3000 and 0.4167) but near-perfect specificity (0.9960 and 1.0000), so the model under-predicts them. Imbalance remains a major challenge despite weighted sampling and focal loss.
 
-\begin{table}[!t]
-\caption{SkinDisNet-GT Per-Class Test Results}
+\begin{table*}[!t]
+\caption{SkinDisNet-GT Per-Class One-vs-Rest Test Results. $TP$--$TN$ Are Derived from the Reported Precision, Recall, and Support; Sens.\ = Recall, Spec.\ = Specificity, BA = Balanced Accuracy, J = Jaccard Index}
 \label{tab:perclass}
 \centering
-\footnotesize
-\begin{tabular}{lrrrr}
+\scriptsize
+\setlength{\tabcolsep}{3.2pt}
+\begin{tabular}{@{}l|rrrr|rrrr|rrr|rr|rr|r@{}}
 \toprule
-\textbf{Class} & \textbf{Prec.} & \textbf{Rec.} & \textbf{F1} & \textbf{Supp.} \\
+\textbf{Class} & $TP$ & $FP$ & $FN$ & $TN$ & \textbf{Prec.} & \textbf{Sens.} & \textbf{Spec.} & \textbf{NPV} & \textbf{F1} & $\mathbf{F_2}$ & \textbf{J} & \textbf{BA} & \textbf{MCC} & \textbf{FPR} & \textbf{FNR} & \textbf{Supp.} \\
 \midrule
-Atopic & 0.8750 & 0.7000 & 0.7778 & 10 \\
-Contact & 0.8193 & 0.9444 & 0.8774 & 72 \\
-Eczema & 0.9815 & 0.7571 & 0.8548 & 70 \\
-Scabies & 0.8361 & 0.9808 & 0.9027 & 52 \\
-Seborrheic & 1.0000 & 0.5833 & 0.7368 & 12 \\
-Tinea & 0.9091 & 0.9756 & 0.9412 & 41 \\
+Atopic Derm. & 7 & 1 & 3 & 246 & 0.8750 & 0.7000 & 0.9960 & 0.9880 & 0.7778 & 0.7292 & 0.6364 & 0.8480 & 0.7750 & 0.0040 & 0.3000 & 10 \\
+Contact Derm. & 68 & 15 & 4 & 170 & 0.8193 & 0.9444 & 0.9189 & 0.9770 & 0.8774 & 0.9164 & 0.7816 & 0.9317 & 0.8291 & 0.0811 & 0.0556 & 72 \\
+Eczema & 53 & 1 & 17 & 186 & 0.9815 & 0.7571 & 0.9947 & 0.9163 & 0.8548 & 0.7934 & 0.7465 & 0.8759 & 0.8215 & 0.0053 & 0.2429 & 70 \\
+Scabies & 51 & 10 & 1 & 195 & 0.8361 & 0.9808 & 0.9512 & 0.9949 & 0.9027 & 0.9480 & 0.8226 & 0.9660 & 0.8800 & 0.0488 & 0.0192 & 52 \\
+Seborrheic Derm. & 7 & 0 & 5 & 245 & 1.0000 & 0.5833 & 1.0000 & 0.9800 & 0.7368 & 0.6364 & 0.5833 & 0.7917 & 0.7561 & 0.0000 & 0.4167 & 12 \\
+Tinea Corporis & 40 & 4 & 1 & 212 & 0.9091 & 0.9756 & 0.9815 & 0.9953 & 0.9412 & 0.9615 & 0.8889 & 0.9785 & 0.9304 & 0.0185 & 0.0244 & 41 \\
+\midrule
+Total / Macro & 226 & 31 & 31 & 1254 & 0.9035 & 0.8235 & 0.9737 & 0.9752 & 0.8485 & 0.8308 & 0.7432 & 0.8986 & 0.8320 & 0.0263 & 0.1765 & 257 \\
+Weighted & -- & -- & -- & -- & 0.8918 & 0.8794 & 0.9628 & 0.9676 & 0.8761 & 0.8761 & 0.7825 & 0.9211 & 0.8480 & 0.0372 & 0.1206 & 257 \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{table*}
 
 \begin{figure*}[!t]
 \centering
-\subfloat[Training loss, accuracy, weighted F1, and AUC over 60 epochs]{\includegraphics[width=0.36\textwidth,height=0.16\textheight,keepaspectratio]{training_history.png}\label{fig:training}}
+\subfloat[Loss, accuracy, weighted F1, AUC over 60 epochs]{\includegraphics[width=0.36\textwidth,height=0.12\textheight,keepaspectratio]{training_history.png}\label{fig:training}}
 \hfil
-\subfloat[Confusion matrix: counts and row-normalized \%]{\includegraphics[width=0.27\textwidth,height=0.16\textheight,keepaspectratio]{confusion_matrix.png}\label{fig:confusion}}
+\subfloat[Confusion matrix (counts, row \%)]{\includegraphics[width=0.27\textwidth,height=0.12\textheight,keepaspectratio]{confusion_matrix.png}\label{fig:confusion}}
 \hfil
-\subfloat[Grad-CAM for Atopic Dermatitis and Eczema: image, overlay, prediction]{\includegraphics[width=0.33\textwidth,height=0.16\textheight,keepaspectratio]{gradcam.png}\label{fig:gradcam}}
+\subfloat[Grad-CAM: Atopic Derm.\ and Eczema]{\includegraphics[width=0.33\textwidth,height=0.12\textheight,keepaspectratio]{gradcam.png}\label{fig:gradcam}}
 \caption{SkinDisNet-GT training dynamics, confusion analysis on the test set, and Grad-CAM explanations.}
 \label{fig:results}
 \end{figure*}
 \subsection{Controlled Ablation Study}
-On the same 257-image test partition, four configurations are compared: (1) Swin-Tiny without graph reasoning, with Mixup/CutMix and TTA; (2) SkinDisNet-GT without TTA; (3) SkinDisNet-GT without Mixup/CutMix; and (4) full SkinDisNet-GT (Table~\ref{tab:ablation}).
+On the same 257-image partition we compare (1) Swin-Tiny without graph reasoning, with Mixup/CutMix and TTA; (2) SkinDisNet-GT without TTA; (3) without Mixup/CutMix; and (4) full SkinDisNet-GT, beside the TTA variant and the two baselines (Table~\ref{tab:ablation}).
 
-\begin{table}[!t]
-\caption{Controlled Ablation Results on the 257-Image Test Set}
+\begin{table*}[!t]
+\caption{Baseline and Controlled Ablation Results on the 257-Image Test Set. $\Delta$ Values Are Relative to SkinDisNet-GT (No TTA); Rel.\ Err.\ Is the Error-Rate Ratio $e/e_{\text{GT}}$ (Below 1 Means Fewer Errors)}
 \label{tab:ablation}
 \centering
-\footnotesize
-\begin{tabular}{@{}lrrr@{}}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}l|l|rrcr|rr|rr|r@{}}
 \toprule
-\textbf{Configuration} & \textbf{Acc.} & \textbf{W-F1} & \textbf{AUC} \\
+\textbf{Configuration} & \textbf{Group} & \textbf{Correct} & \textbf{Acc.} & \textbf{95\% Wilson CI} & \textbf{Error} & $\boldsymbol{\Delta}$\textbf{Acc.\ (pp)} & \textbf{Rel.\ Err.} & \textbf{W-F1} & $\boldsymbol{\Delta}$\textbf{F1} & \textbf{AUC} \\
 \midrule
-Swin-Tiny only & 89.11\% & 0.8896 & 0.9812 \\
-SkinDisNet-GT, no TTA & 87.94\% & 0.8761 & 0.9534 \\
-SkinDisNet-GT, no Mixup/CutMix & 85.60\% & 0.8519 & 0.9540 \\
-SkinDisNet-GT, full & 87.94\% & 0.8761 & 0.9534 \\
+ViT-B/16 & Baseline & 205 & 79.77\% & [74.44, 84.23] & 20.23\% & $-8.17$ & 1.677 & 0.7948 & $-0.0813$ & -- \\
+Swin-Tiny & Baseline & 217 & 84.44\% & [79.50, 88.36] & 15.56\% & $-3.50$ & 1.290 & 0.8406 & $-0.0355$ & -- \\
+Swin-Tiny only (adv.\ training) & Ablation & 229 & 89.11\% & [84.71, 92.36] & 10.89\% & $+1.17$ & 0.903 & 0.8896 & $+0.0135$ & 0.9812 \\
+SkinDisNet-GT, no TTA & Proposed & 226 & 87.94\% & [83.39, 91.37] & 12.06\% & 0.00 & 1.000 & 0.8761 & 0.0000 & 0.9534 \\
+SkinDisNet-GT, with TTA & Ablation & 225 & 87.55\% & [82.95, 91.04] & 12.45\% & $-0.39$ & 1.032 & 0.8716 & $-0.0045$ & 0.9541 \\
+SkinDisNet-GT, no Mixup/CutMix & Ablation & 220 & 85.60\% & [80.78, 89.37] & 14.40\% & $-2.34$ & 1.194 & 0.8519 & $-0.0242$ & 0.9540 \\
+SkinDisNet-GT, full & Ablation & 226 & 87.94\% & [83.39, 91.37] & 12.06\% & 0.00 & 1.000 & 0.8761 & 0.0000 & 0.9534 \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{table*}
 
-Removing Mixup/CutMix lowers accuracy from 87.94\% to 85.60\%, a 2.34 percentage-point drop, showing its effectiveness in the pipeline. TTA does not help (87.55\% and 0.8716 F1 with TTA), improving only AUC slightly. Most importantly, the advanced-training Swin-Tiny-only configuration reaches 89.11\%, surpassing SkinDisNet-GT's 87.94\%. The experiments therefore do not show that graph reasoning alone provides an independent gain over the stronger Swin-Tiny baseline; rather, they show that the full SkinDisNet-GT pipeline is feasible and that Mixup/CutMix has a measurable effect. Architecture-controlled experiments are needed to isolate the contribution of graph reasoning.
+Removing Mixup/CutMix lowers accuracy from 87.94\% to 85.60\%, a 2.34 percentage-point drop (six more errors, 19.4\% more error), showing its effectiveness in the pipeline. TTA does not help (87.55\% and 0.8716 F1 with TTA, one more error), improving only AUC slightly. Most importantly, the advanced-training Swin-Tiny-only configuration reaches 89.11\%, surpassing SkinDisNet-GT's 87.94\%. The margin is three test images, and the two Wilson intervals overlap almost entirely, so a single 257-image partition cannot separate the models. Graph reasoning alone thus shows no independent gain over the stronger Swin-Tiny baseline; rather, the full pipeline is feasible and Mixup/CutMix has a measurable effect. SkinDisNet-GT does improve on the plain ViT-B/16 and Swin-Tiny baselines by 8.17 and 3.50 points, though these baselines use a simpler training recipe. Architecture-controlled experiments are needed to isolate the contribution of graph reasoning.
 
 \subsection{Training Dynamics and Confusion Analysis}
 Over the 60-epoch run (Fig.~\ref{fig:training}), training loss decreases rapidly, and validation accuracy and weighted F1 rise during the early and middle stages; the checkpoint is selected at the best validation weighted F1 of 0.9251 at epoch 47. The confusion matrix (Fig.~\ref{fig:confusion}) shows strong diagonals for Scabies and Tinea Corporis and more evident minority-class errors for Atopic and Seborrheic Dermatitis, consistent with the per-class recalls in Table~\ref{tab:perclass}.
@@ -279,18 +282,18 @@ Over the 60-epoch run (Fig.~\ref{fig:training}), training loss decreases rapidly
 
 
 \subsection{Explainability with Grad-CAM}
-Grad-CAM is computed on the 196 graph-transformer node features before global mean pooling; the $14\times14$ activation map is resized to the input resolution and overlaid on the clinical image. Fig.~\ref{fig:gradcam} shows representative Atopic Dermatitis and Eczema examples. The model focuses on localized skin regions rather than the whole image uniformly; this is qualitative evidence of attention, not clinical lesion localization.
+Grad-CAM is computed on the 196 graph-transformer node features before global mean pooling; the $14\times14$ activation map is resized to the input resolution and overlaid on the clinical image. For Atopic Dermatitis and Eczema (Fig.~\ref{fig:gradcam}), the model focuses on localized skin regions, which is qualitative evidence of attention, not clinical lesion localization.
 
 
-\subsection{Parameter Count and Computation}
-SkinDisNet-GT has 16,091,749 parameters versus 27,816,960 (27,519,354 in the backbone) for the Swin-Tiny ablation classifier, thanks to its compact graph-transformer head, though KNN graph construction and graph attention add operations that parameter count does not capture.
+\textbf{Parameters.} SkinDisNet-GT has 16,091,749 parameters versus 27,816,960 (27,519,354 in the backbone) for the Swin-Tiny ablation classifier, thanks to its compact graph-transformer head, though KNN graph construction and graph attention add operations that parameter count does not capture.
 
 \section{Limitations and Future Work}
-First, the partition does not guarantee strict patient-level separation, so images of one patient may fall in different partitions; patient-grouped stratified splitting with reliable metadata-to-image matching is needed. Second, the Swin-Tiny-only model outperforms the current configuration, so an independent gain from graph reasoning is not established; identical training with and without the graph module should isolate it. Third, a single cohort and one held-out partition require external validation, patient-level cross-validation, calibration analysis, and subgroup robustness evaluation before stronger claims of clinical generalization. Finally, Grad-CAM is qualitative evidence of attention, not clinical validation of lesion localization, calling for systematic explainability evaluation and expert assessment. Graph-size sensitivity, structural encoding ablations, and uncertainty estimation are further directions.
+(1) Splitting is not strictly patient-level; patient-grouped stratified splits with reliable metadata-to-image matching are needed. (2) Swin-Tiny-only outperforms the current model, so identical training with and without the graph module must isolate its gain. (3) A single cohort and test partition call for external validation, patient-level cross-validation, calibration, and subgroup robustness analysis. (4) Grad-CAM is not clinical validation of lesion localization and needs systematic evaluation and expert assessment. Graph-size sensitivity, structural encoding ablations, and uncertainty estimation are further directions.
 
 \section{Conclusion}
-We presented SkinDisNet-GT, which turns a pretrained Swin-Tiny $14\times14$ feature grid into 196 graph nodes processed by nine-nearest-neighbor graph construction, structural encoding, graph aggregation, multi-head attention, and three graph-transformer blocks, trained with weighted sampling, weighted focal loss with label smoothing, Mixup/CutMix, and two-phase fine-tuning to handle imbalance and visual variability. The selected non-TTA configuration achieved 87.94\% accuracy, 0.8761 weighted F1, 0.9534 weighted AUC-ROC, and 0.6060 test loss on the 257-image test partition. Removing Mixup/CutMix reduced accuracy to 85.60\%, while the advanced-training Swin-Tiny-only baseline reached 89.11\%, so the results demonstrate feasibility but do not establish that graph reasoning alone performs best. Grad-CAM adds qualitative insight, and patient-level evaluation and architecture-controlled experiments are needed to determine the independent contribution and generalizability of explicit graph reasoning.
+SkinDisNet-GT turns a Swin-Tiny $14\times14$ feature grid into a 196-node, nine-nearest-neighbor graph processed by structural encoding, graph aggregation, multi-head attention, and three graph-transformer blocks, trained with imbalance-aware sampling, focal loss, and Mixup/CutMix. It achieved 87.94\% accuracy, 0.8761 weighted F1, 0.9534 weighted AUC-ROC, and 0.6060 test loss ($\kappa=0.8443$, MCC $=0.8484$) on 257 test images. Removing Mixup/CutMix reduced accuracy to 85.60\%, while the advanced-training Swin-Tiny-only model reached 89.11\% within overlapping confidence intervals, so the results demonstrate feasibility but not an independent gain from graph reasoning. Patient-level evaluation and architecture-controlled experiments are needed to establish it.
 
+{\scriptsize
 \begin{thebibliography}{00}
 \setlength{\itemsep}{0pt}
 \bibitem{ref1} P. Tschandl, C. Rosendahl, and H. Kittler, ``The HAM10000 dataset, a large collection of multi-source dermatoscopic images of common pigmented skin lesions,'' \emph{Scientific Data}, vol. 5, no. 1, p. 180161, 2018.
@@ -308,5 +311,6 @@ We presented SkinDisNet-GT, which turns a pretrained Swin-Tiny $14\times14$ feat
 \bibitem{ref13} C. Ying, T. Cai, S. Luo, et al., ``Do transformers really perform badly for graph representation?,'' \emph{Advances in Neural Information Processing Systems}, vol. 34, pp. 28877--28888, 2021.
 \bibitem{ref14} L. Zhang, Y. Zhao, T. Che, S. Li, and X. Wang, ``Graph neural networks for image-guided disease diagnosis: A review,'' \emph{iRadiology}, vol. 1, no. 2, pp. 151--166, 2023.
 \end{thebibliography}
+}
 
 \end{document}
