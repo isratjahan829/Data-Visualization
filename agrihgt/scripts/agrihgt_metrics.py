@@ -158,28 +158,36 @@ def f(x, d=4, pct=False) -> str:
 
 
 def backbone_rows(runs, n_classes, rng) -> str:
+    """One row per backbone: accuracy and macro-F1 for LogReg and HGT-0/1/2, then full
+    metrics for the HGT depth selected by validation accuracy (never by test results)."""
     lines = []
     for key, label in BACKBONES:
-        present = [(v, vl) for v, vl in VARIANTS if f"{key}_{v}" in runs]
-        if not present:
-            continue
-        best_val = max(
-            (runs[f"{key}_{v}"].get("val_acc", -1) for v, _ in VARIANTS[1:] if f"{key}_{v}" in runs),
-            default=None,
-        )
-        for i, (v, vl) in enumerate(present):
-            m = metrics(runs[f"{key}_{v}"], n_classes, rng)
-            name = label if i == 0 else ""
-            mark = r"$^{\dagger}$" if v != "LR" and best_val is not None and runs[f"{key}_{v}"].get("val_acc") == best_val else ""
-            lines.append(
-                f"{name} & {vl}{mark} & {f(m['val_acc'], pct=True)} & {f(m['acc'], pct=True)} & "
-                f"[{f(m['acc_lo'], pct=True)}, {f(m['acc_hi'], pct=True)}] & {f(m['bal_acc'], pct=True)} & "
-                f"{f(m['macro_p'])} & {f(m['macro_r'])} & {f(m['macro_f1'])} & {f(m['weighted_f1'])} & "
-                f"{f(m['kappa'])} & {f(m['mcc'])} & {f(m['top3'], pct=True)} & {f(m['auc'])} \\\\"
-            )
-        lines.append(r"\midrule")
-    if lines and lines[-1] == r"\midrule":
-        lines.pop()
+        cells = [label]
+        best_key, best_val = None, -1.0
+        for v, _ in VARIANTS:
+            rid = f"{key}_{v}"
+            if rid in runs:
+                m = metrics(runs[rid], n_classes, rng)
+                cells += [f(m["acc"], pct=True), f(m["macro_f1"])]
+                val = float(runs[rid].get("val_acc", float("nan")))
+                if v != "LR" and not math.isnan(val) and val > best_val:
+                    best_key, best_val = v, val
+            else:
+                cells += ["--", "--"]
+        if best_key is None:
+            cells += ["--"] * 6
+        else:
+            m = metrics(runs[f"{key}_{best_key}"], n_classes, rng)
+            cells += [
+                best_key.replace("L", ""),
+                f"[{f(m['acc_lo'], pct=True)}, {f(m['acc_hi'], pct=True)}]",
+                f(m["bal_acc"], pct=True),
+                f(m["kappa"]),
+                f(m["mcc"]),
+                f(m["auc"]),
+            ]
+        if any(f"{key}_{v}" in runs for v, _ in VARIANTS):
+            lines.append(" & ".join(cells) + " \\\\")
     return "\n".join(lines) + "\n"
 
 
