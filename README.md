@@ -24,3 +24,10 @@ PGDDS 103: Data Analysis & Data Visualizations — FreshCart Grocers churn case.
 5. Exploration — averages by `Churn`, cross-tabulation of `Tenure_Cohort` vs `Churn`
 6. Validation — assertions for zero missing values and zero duplicate `ShopperID` entries
 7. Visualizations — churn averages, tenure cohort vs churn, per-shopper order rate, missing items vs order rate
+
+---
+
+# Project — Laptop Price Predictor
+
+Four notebooks, one per group of assignment steps (data loading → cleaning → visualization & feature
+engineering → models & cross-validation). See [`Laptop_Price_Predictor/README.md`](Laptop_Price_Predictor/README.md).
