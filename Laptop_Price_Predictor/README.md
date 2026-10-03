@@ -1,7 +1,14 @@
 # Laptop Price Predictor
 
-Predict a laptop's price from its specification. The assignment's 20 steps are split into four notebooks, in the
-same order as the assignment document. All notebooks are already executed, with every output saved.
+Predict a laptop's price from its specification. All notebooks are already executed, with every output saved.
+
+## One notebook (all 20 steps)
+`Laptop_Price_Predictor_Complete.ipynb` runs every step from Import Library to cross_val Accuracy, top to bottom.
+It only needs `Cleaned_Laptop_data.csv`. In Colab: *Runtime → Run all*, and upload the CSV when asked.
+
+## Four notebooks (one per group of steps)
+The same work split into four parts, in the same order as the assignment document. Its results are identical
+to the single notebook.
 
 | Part | Notebook | Assignment steps | Reads | Writes |
 |---|---|---|---|---|

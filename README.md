@@ -29,5 +29,6 @@ PGDDS 103: Data Analysis & Data Visualizations — FreshCart Grocers churn case.
 
 # Project — Laptop Price Predictor
 
-Four notebooks, one per group of assignment steps (data loading → cleaning → visualization & feature
-engineering → models & cross-validation). See [`Laptop_Price_Predictor/README.md`](Laptop_Price_Predictor/README.md).
+All 20 assignment steps (data loading → cleaning → visualization & feature engineering → models &
+cross-validation) in one notebook, `Laptop_Price_Predictor/Laptop_Price_Predictor_Complete.ipynb`, and also
+split into four part notebooks. See [`Laptop_Price_Predictor/README.md`](Laptop_Price_Predictor/README.md).
