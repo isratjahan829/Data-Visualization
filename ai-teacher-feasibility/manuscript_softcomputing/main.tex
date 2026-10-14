@@ -334,7 +334,7 @@ where $\varphi\ge0.95$ indicates that the factors can be considered equal \citep
 \paragraph{Student typologies} To identify groups of students with similar activity-capability profiles we applied $k$-means clustering \citep{lloyd1982} to the ten standardised activity capabilities for $k=2,\dots,6$. The number of clusters was fixed by a pre-declared rule: the highest mean silhouette $s(i)=(b_i-a_i)/\max(a_i,b_i)$ \citep{rousseeuw1987} among solutions whose bootstrap stability, the mean adjusted Rand index \citep{hubert1985} over 20 resamples, was at least 0.90. Distributions of all activity scores are visualised as raincloud plots \citep{allen2019}.
 
 \subsection{Subgroup analysis and software}
-Differences in TRFS by gender, level of study, field of study, mode of study and ChatGPT version were tested with Kruskal--Wallis tests, with $\varepsilon^2$ as effect size. All analyses were run in Python~3.13 with NumPy, pandas, SciPy and scikit-learn \citep{pedregosa2011}. The CFA was estimated with a purpose-written maximum-likelihood routine (SciPy L-BFGS-B). A fixed random seed (2024) was used throughout. The complete pipeline, which regenerates every table and figure, is available in the replication package (see Data and code availability). All analysis tables that are not shown in the main text are reported in Appendix~\ref{app:tables}.
+Differences in TRFS by gender, level of study, field of study, mode of study and ChatGPT version were tested with Kruskal--Wallis tests, with $\varepsilon^2$ as effect size. All analyses were run in Python~3.13 with NumPy, pandas, SciPy and scikit-learn \citep{pedregosa2011}. The CFA was estimated with a purpose-written maximum-likelihood routine (SciPy L-BFGS-B). A fixed random seed (2024) was used throughout. The complete pipeline, which regenerates every table and figure, is available in the replication package (see Data and code availability).
 
 %======================================================================
 \section{Results}
@@ -558,14 +558,6 @@ The author thanks D.~Rav\v{s}elj, A.~Aristovnik and the Global ChatGPT Student S
 \item \textbf{Use of generative AI:} [To be completed by the author in line with the journal's policy.]
 \item \textbf{Author contribution:} M.B.S.: conceptualization, methodology, software, formal analysis, visualization, writing -- original draft, writing -- review \& editing.
 \end{itemize}
-
-\begin{appendices}
-\section{Supplementary analysis tables}
-\label{app:tables}
-This appendix reports every analysis output that is not shown in the main text: item-level descriptive statistics, the compared measurement mappings, the complete fuzzy rule bases, validity correlations, pairwise activity tests, selected ANN hyperparameters, activity-level effect sizes and robustness ranges, subgroup and field-of-study results, quantile-regression coefficients, typology selection and profiles, and country effects. All values are generated directly from the analysis code (\texttt{src/make\_latex.py}).
-
-\input{generated/appendix.tex}
-\end{appendices}
 
 \bibliography{refs}
 
