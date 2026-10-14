@@ -16,4 +16,4 @@ the analysis code -- do not edit by hand).
 Fill in before submission: [University name], [City], [Country], funding statement and the
 generative-AI declaration (in "Declarations").
 Soft Computing limits: abstract 150-250 words (this one is ~210); check current author guidelines
-for page/figure limits and move Tables 1, 9 and 10 to Supplementary Information if needed.
+for page/figure limits and move e.g. the grid-verification, HTMT and invariance tables to Supplementary Information if needed.
