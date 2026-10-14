@@ -1,0 +1,10 @@
+Rule,SE,C,IQ
+1,Low,Low,Low
+2,Low,Medium,Low
+3,Low,High,Medium
+4,Medium,Low,Low
+5,Medium,Medium,Medium
+6,Medium,High,Medium
+7,High,Low,Medium
+8,High,Medium,Medium
+9,High,High,High

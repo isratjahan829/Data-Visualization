@@ -1,0 +1,524 @@
+\begin{thebibliography}{61}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\href}[2]{#2}
+\providecommand{\path}[1]{#1}
+\providecommand{\DOIprefix}{doi:}
+\providecommand{\ArXivprefix}{arXiv:}
+\providecommand{\URLprefix}{URL: }
+\providecommand{\Pubmedprefix}{pmid:}
+\providecommand{\doi}[1]{\href{http://dx.doi.org/#1}{\path{#1}}}
+\providecommand{\Pubmed}[1]{\href{pmid:#1}{\path{#1}}}
+\providecommand{\bibinfo}[2]{#2}
+\ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
+%Type = Article
+\bibitem[{Allen et~al.(2019)Allen, Poggiali, Whitaker, Marshall and
+  Kievit}]{allen2019}
+\bibinfo{author}{Allen, M.}, \bibinfo{author}{Poggiali, D.},
+  \bibinfo{author}{Whitaker, K.}, \bibinfo{author}{Marshall, T.R.},
+  \bibinfo{author}{Kievit, R.A.}, \bibinfo{year}{2019}.
+\newblock \bibinfo{title}{Raincloud plots: a multi-platform tool for robust
+  data visualization}.
+\newblock \bibinfo{journal}{Wellcome Open Research} \bibinfo{volume}{4},
+  \bibinfo{pages}{63}.
+\newblock \DOIprefix\doi{10.12688/wellcomeopenres.15191.1}.
+%Type = Article
+\bibitem[{Autor et~al.(2003)Autor, Levy and Murnane}]{autor2003}
+\bibinfo{author}{Autor, D.H.}, \bibinfo{author}{Levy, F.},
+  \bibinfo{author}{Murnane, R.J.}, \bibinfo{year}{2003}.
+\newblock \bibinfo{title}{The skill content of recent technological change: An
+  empirical exploration}.
+\newblock \bibinfo{journal}{The Quarterly Journal of Economics}
+  \bibinfo{volume}{118}, \bibinfo{pages}{1279--1333}.
+\newblock \DOIprefix\doi{10.1162/003355303322552801}.
+%Type = Article
+\bibitem[{Biswas(1995)}]{biswas1995}
+\bibinfo{author}{Biswas, R.}, \bibinfo{year}{1995}.
+\newblock \bibinfo{title}{An application of fuzzy sets in students'
+  evaluation}.
+\newblock \bibinfo{journal}{Fuzzy Sets and Systems} \bibinfo{volume}{74},
+  \bibinfo{pages}{187--194}.
+%Type = Article
+\bibitem[{Bond et~al.(2024)Bond, Khosravi, De~Laat, Bergdahl, Negrea, Oxley,
+  Pham, Chong and Siemens}]{bond2024}
+\bibinfo{author}{Bond, M.}, \bibinfo{author}{Khosravi, H.},
+  \bibinfo{author}{De~Laat, M.}, \bibinfo{author}{Bergdahl, N.},
+  \bibinfo{author}{Negrea, V.}, \bibinfo{author}{Oxley, E.},
+  \bibinfo{author}{Pham, P.}, \bibinfo{author}{Chong, S.W.},
+  \bibinfo{author}{Siemens, G.}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{A meta systematic review of artificial intelligence
+  in higher education: a call for increased ethics, collaboration, and rigour}.
+\newblock \bibinfo{journal}{International Journal of Educational Technology in
+  Higher Education} \bibinfo{volume}{21}, \bibinfo{pages}{4}.
+\newblock \DOIprefix\doi{10.1186/s41239-023-00436-z}.
+%Type = Article
+\bibitem[{Breiman(2001)}]{breiman2001}
+\bibinfo{author}{Breiman, L.}, \bibinfo{year}{2001}.
+\newblock \bibinfo{title}{Random forests}.
+\newblock \bibinfo{journal}{Machine Learning} \bibinfo{volume}{45},
+  \bibinfo{pages}{5--32}.
+\newblock \DOIprefix\doi{10.1023/A:1010933404324}.
+%Type = Article
+\bibitem[{Budescu(1993)}]{budescu1993}
+\bibinfo{author}{Budescu, D.V.}, \bibinfo{year}{1993}.
+\newblock \bibinfo{title}{Dominance analysis: A new approach to the problem of
+  relative importance of predictors in multiple regression}.
+\newblock \bibinfo{journal}{Psychological Bulletin} \bibinfo{volume}{114},
+  \bibinfo{pages}{542--551}.
+\newblock \DOIprefix\doi{10.1037/0033-2909.114.3.542}.
+%Type = Article
+\bibitem[{Chan and Hu(2023)}]{chanhu2023}
+\bibinfo{author}{Chan, C.K.Y.}, \bibinfo{author}{Hu, W.}, \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{Students' voices on generative {AI}: perceptions,
+  benefits, and challenges in higher education}.
+\newblock \bibinfo{journal}{International Journal of Educational Technology in
+  Higher Education} \bibinfo{volume}{20}, \bibinfo{pages}{43}.
+\newblock \DOIprefix\doi{10.1186/s41239-023-00411-8}.
+%Type = Article
+\bibitem[{Chan and Tsi(2024)}]{chantsi2024}
+\bibinfo{author}{Chan, C.K.Y.}, \bibinfo{author}{Tsi, L.H.Y.},
+  \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Will generative {AI} replace teachers in higher
+  education? {A} study of teacher and student perceptions}.
+\newblock \bibinfo{journal}{Studies in Educational Evaluation}
+  \bibinfo{volume}{83}, \bibinfo{pages}{101395}.
+\newblock \DOIprefix\doi{10.1016/j.stueduc.2024.101395}.
+%Type = Article
+\bibitem[{Chen and Lee(1999)}]{chenlee1999}
+\bibinfo{author}{Chen, S.M.}, \bibinfo{author}{Lee, C.H.},
+  \bibinfo{year}{1999}.
+\newblock \bibinfo{title}{New methods for students' evaluation using fuzzy
+  sets}.
+\newblock \bibinfo{journal}{Fuzzy Sets and Systems} \bibinfo{volume}{104},
+  \bibinfo{pages}{209--218}.
+%Type = Article
+\bibitem[{Cotton et~al.(2024)Cotton, Cotton and Shipway}]{cotton2024}
+\bibinfo{author}{Cotton, D.R.E.}, \bibinfo{author}{Cotton, P.A.},
+  \bibinfo{author}{Shipway, J.R.}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Chatting and cheating: Ensuring academic integrity in
+  the era of {ChatGPT}}.
+\newblock \bibinfo{journal}{Innovations in Education and Teaching
+  International} \bibinfo{volume}{61}, \bibinfo{pages}{228--239}.
+\newblock \DOIprefix\doi{10.1080/14703297.2023.2190148}.
+%Type = Article
+\bibitem[{Crompton and Burke(2023)}]{crompton2023}
+\bibinfo{author}{Crompton, H.}, \bibinfo{author}{Burke, D.},
+  \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{Artificial intelligence in higher education: the
+  state of the field}.
+\newblock \bibinfo{journal}{International Journal of Educational Technology in
+  Higher Education} \bibinfo{volume}{20}, \bibinfo{pages}{22}.
+\newblock \DOIprefix\doi{10.1186/s41239-023-00392-8}.
+%Type = Article
+\bibitem[{Cronbach(1951)}]{cronbach1951}
+\bibinfo{author}{Cronbach, L.J.}, \bibinfo{year}{1951}.
+\newblock \bibinfo{title}{Coefficient alpha and the internal structure of
+  tests}.
+\newblock \bibinfo{journal}{Psychometrika} \bibinfo{volume}{16},
+  \bibinfo{pages}{297--334}.
+\newblock \DOIprefix\doi{10.1007/BF02310555}.
+%Type = Article
+\bibitem[{Dwivedi et~al.(2023)}]{dwivedi2023}
+\bibinfo{author}{Dwivedi, Y.K.}, et~al., \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{``{So} what if {ChatGPT} wrote it?''
+  {Multidisciplinary} perspectives on opportunities, challenges and
+  implications of generative conversational {AI} for research, practice and
+  policy}.
+\newblock \bibinfo{journal}{International Journal of Information Management}
+  \bibinfo{volume}{71}, \bibinfo{pages}{102642}.
+\newblock \DOIprefix\doi{10.1016/j.ijinfomgt.2023.102642}.
+%Type = Book
+\bibitem[{Efron and Tibshirani(1993)}]{efron1993}
+\bibinfo{author}{Efron, B.}, \bibinfo{author}{Tibshirani, R.J.},
+  \bibinfo{year}{1993}.
+\newblock \bibinfo{title}{An Introduction to the Bootstrap}.
+\newblock \bibinfo{publisher}{Chapman \& Hall}, \bibinfo{address}{New York}.
+%Type = Article
+\bibitem[{Eloundou et~al.(2024)Eloundou, Manning, Mishkin and
+  Rock}]{eloundou2024}
+\bibinfo{author}{Eloundou, T.}, \bibinfo{author}{Manning, S.},
+  \bibinfo{author}{Mishkin, P.}, \bibinfo{author}{Rock, D.},
+  \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{{GPTs} are {GPTs}: Labor market impact potential of
+  {LLMs}}.
+\newblock \bibinfo{journal}{Science} \bibinfo{volume}{384},
+  \bibinfo{pages}{1306--1308}.
+\newblock \DOIprefix\doi{10.1126/science.adj0998}.
+%Type = Article
+\bibitem[{Fornell and Larcker(1981)}]{fornell1981}
+\bibinfo{author}{Fornell, C.}, \bibinfo{author}{Larcker, D.F.},
+  \bibinfo{year}{1981}.
+\newblock \bibinfo{title}{Evaluating structural equation models with
+  unobservable variables and measurement error}.
+\newblock \bibinfo{journal}{Journal of Marketing Research}
+  \bibinfo{volume}{18}, \bibinfo{pages}{39--50}.
+\newblock \DOIprefix\doi{10.1177/002224378101800104}.
+%Type = Article
+\bibitem[{Frey and Osborne(2017)}]{frey2017}
+\bibinfo{author}{Frey, C.B.}, \bibinfo{author}{Osborne, M.A.},
+  \bibinfo{year}{2017}.
+\newblock \bibinfo{title}{The future of employment: How susceptible are jobs to
+  computerisation?}
+\newblock \bibinfo{journal}{Technological Forecasting and Social Change}
+  \bibinfo{volume}{114}, \bibinfo{pages}{254--280}.
+\newblock \DOIprefix\doi{10.1016/j.techfore.2016.08.019}.
+%Type = Article
+\bibitem[{Friedman(2001)}]{friedman2001}
+\bibinfo{author}{Friedman, J.H.}, \bibinfo{year}{2001}.
+\newblock \bibinfo{title}{Greedy function approximation: A gradient boosting
+  machine}.
+\newblock \bibinfo{journal}{The Annals of Statistics} \bibinfo{volume}{29},
+  \bibinfo{pages}{1189--1232}.
+\newblock \DOIprefix\doi{10.1214/aos/1013203451}.
+%Type = Article
+\bibitem[{Friedman(1937)}]{friedman1937}
+\bibinfo{author}{Friedman, M.}, \bibinfo{year}{1937}.
+\newblock \bibinfo{title}{The use of ranks to avoid the assumption of normality
+  implicit in the analysis of variance}.
+\newblock \bibinfo{journal}{Journal of the American Statistical Association}
+  \bibinfo{volume}{32}, \bibinfo{pages}{675--701}.
+\newblock \DOIprefix\doi{10.1080/01621459.1937.10503522}.
+%Type = Article
+\bibitem[{Henseler et~al.(2015)Henseler, Ringle and Sarstedt}]{henseler2015}
+\bibinfo{author}{Henseler, J.}, \bibinfo{author}{Ringle, C.M.},
+  \bibinfo{author}{Sarstedt, M.}, \bibinfo{year}{2015}.
+\newblock \bibinfo{title}{A new criterion for assessing discriminant validity
+  in variance-based structural equation modeling}.
+\newblock \bibinfo{journal}{Journal of the Academy of Marketing Science}
+  \bibinfo{volume}{43}, \bibinfo{pages}{115--135}.
+\newblock \DOIprefix\doi{10.1007/s11747-014-0403-8}.
+%Type = Article
+\bibitem[{Holm(1979)}]{holm1979}
+\bibinfo{author}{Holm, S.}, \bibinfo{year}{1979}.
+\newblock \bibinfo{title}{A simple sequentially rejective multiple test
+  procedure}.
+\newblock \bibinfo{journal}{Scandinavian Journal of Statistics}
+  \bibinfo{volume}{6}, \bibinfo{pages}{65--70}.
+%Type = Book
+\bibitem[{Holmes et~al.(2019)Holmes, Bialik and Fadel}]{holmes2019}
+\bibinfo{author}{Holmes, W.}, \bibinfo{author}{Bialik, M.},
+  \bibinfo{author}{Fadel, C.}, \bibinfo{year}{2019}.
+\newblock \bibinfo{title}{Artificial Intelligence in Education: Promises and
+  Implications for Teaching and Learning}.
+\newblock \bibinfo{publisher}{Center for Curriculum Redesign},
+  \bibinfo{address}{Boston, MA}.
+%Type = Article
+\bibitem[{Hornik et~al.(1989)Hornik, Stinchcombe and White}]{hornik1989}
+\bibinfo{author}{Hornik, K.}, \bibinfo{author}{Stinchcombe, M.},
+  \bibinfo{author}{White, H.}, \bibinfo{year}{1989}.
+\newblock \bibinfo{title}{Multilayer feedforward networks are universal
+  approximators}.
+\newblock \bibinfo{journal}{Neural Networks} \bibinfo{volume}{2},
+  \bibinfo{pages}{359--366}.
+\newblock \DOIprefix\doi{10.1016/0893-6080(89)90020-8}.
+%Type = Article
+\bibitem[{Hu and Bentler(1999)}]{hu1999}
+\bibinfo{author}{Hu, L.t.}, \bibinfo{author}{Bentler, P.M.},
+  \bibinfo{year}{1999}.
+\newblock \bibinfo{title}{Cutoff criteria for fit indexes in covariance
+  structure analysis: Conventional criteria versus new alternatives}.
+\newblock \bibinfo{journal}{Structural Equation Modeling} \bibinfo{volume}{6},
+  \bibinfo{pages}{1--55}.
+\newblock \DOIprefix\doi{10.1080/10705519909540118}.
+%Type = Article
+\bibitem[{Hubert and Arabie(1985)}]{hubert1985}
+\bibinfo{author}{Hubert, L.}, \bibinfo{author}{Arabie, P.},
+  \bibinfo{year}{1985}.
+\newblock \bibinfo{title}{Comparing partitions}.
+\newblock \bibinfo{journal}{Journal of Classification} \bibinfo{volume}{2},
+  \bibinfo{pages}{193--218}.
+\newblock \DOIprefix\doi{10.1007/BF01908075}.
+%Type = Article
+\bibitem[{Jang(1993)}]{jang1993}
+\bibinfo{author}{Jang, J.S.R.}, \bibinfo{year}{1993}.
+\newblock \bibinfo{title}{{ANFIS}: adaptive-network-based fuzzy inference
+  system}.
+\newblock \bibinfo{journal}{IEEE Transactions on Systems, Man, and Cybernetics}
+  \bibinfo{volume}{23}, \bibinfo{pages}{665--685}.
+\newblock \DOIprefix\doi{10.1109/21.256541}.
+%Type = Article
+\bibitem[{Kasneci et~al.(2023)}]{kasneci2023}
+\bibinfo{author}{Kasneci, E.}, et~al., \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{{ChatGPT} for good? {O}n opportunities and challenges
+  of large language models for education}.
+\newblock \bibinfo{journal}{Learning and Individual Differences}
+  \bibinfo{volume}{103}, \bibinfo{pages}{102274}.
+\newblock \DOIprefix\doi{10.1016/j.lindif.2023.102274}.
+%Type = Inproceedings
+\bibitem[{Kingma and Ba(2015)}]{kingma2015}
+\bibinfo{author}{Kingma, D.P.}, \bibinfo{author}{Ba, J.}, \bibinfo{year}{2015}.
+\newblock \bibinfo{title}{Adam: A method for stochastic optimization}, in:
+  \bibinfo{booktitle}{Proceedings of the 3rd International Conference on
+  Learning Representations (ICLR)}.
+\newblock \bibinfo{note}{ArXiv:1412.6980}.
+%Type = Book
+\bibitem[{Kline(2016)}]{kline2016}
+\bibinfo{author}{Kline, R.B.}, \bibinfo{year}{2016}.
+\newblock \bibinfo{title}{Principles and Practice of Structural Equation
+  Modeling}.
+\newblock \bibinfo{edition}{4th} ed., \bibinfo{publisher}{Guilford Press},
+  \bibinfo{address}{New York}.
+%Type = Article
+\bibitem[{Koenker and Bassett(1978)}]{koenker1978}
+\bibinfo{author}{Koenker, R.}, \bibinfo{author}{Bassett, G.},
+  \bibinfo{year}{1978}.
+\newblock \bibinfo{title}{Regression quantiles}.
+\newblock \bibinfo{journal}{Econometrica} \bibinfo{volume}{46},
+  \bibinfo{pages}{33--50}.
+\newblock \DOIprefix\doi{10.2307/1913643}.
+%Type = Article
+\bibitem[{Kulik and Fletcher(2016)}]{kulik2016}
+\bibinfo{author}{Kulik, J.A.}, \bibinfo{author}{Fletcher, J.D.},
+  \bibinfo{year}{2016}.
+\newblock \bibinfo{title}{Effectiveness of intelligent tutoring systems: A
+  meta-analytic review}.
+\newblock \bibinfo{journal}{Review of Educational Research}
+  \bibinfo{volume}{86}, \bibinfo{pages}{42--78}.
+\newblock \DOIprefix\doi{10.3102/0034654315581420}.
+%Type = Article
+\bibitem[{Lakens(2017)}]{lakens2017}
+\bibinfo{author}{Lakens, D.}, \bibinfo{year}{2017}.
+\newblock \bibinfo{title}{Equivalence tests: A practical primer for t tests,
+  correlations, and meta-analyses}.
+\newblock \bibinfo{journal}{Social Psychological and Personality Science}
+  \bibinfo{volume}{8}, \bibinfo{pages}{355--362}.
+\newblock \DOIprefix\doi{10.1177/1948550617697177}.
+%Type = Article
+\bibitem[{Lipovetsky and Conklin(2001)}]{lipovetsky2001}
+\bibinfo{author}{Lipovetsky, S.}, \bibinfo{author}{Conklin, M.},
+  \bibinfo{year}{2001}.
+\newblock \bibinfo{title}{Analysis of regression in game theory approach}.
+\newblock \bibinfo{journal}{Applied Stochastic Models in Business and Industry}
+  \bibinfo{volume}{17}, \bibinfo{pages}{319--330}.
+\newblock \DOIprefix\doi{10.1002/asmb.446}.
+%Type = Article
+\bibitem[{Lloyd(1982)}]{lloyd1982}
+\bibinfo{author}{Lloyd, S.P.}, \bibinfo{year}{1982}.
+\newblock \bibinfo{title}{Least squares quantization in {PCM}}.
+\newblock \bibinfo{journal}{IEEE Transactions on Information Theory}
+  \bibinfo{volume}{28}, \bibinfo{pages}{129--137}.
+\newblock \DOIprefix\doi{10.1109/TIT.1982.1056489}.
+%Type = Article
+\bibitem[{Lorenzo-Seva and ten Berge(2006)}]{lorenzo2006}
+\bibinfo{author}{Lorenzo-Seva, U.}, \bibinfo{author}{ten Berge, J.M.F.},
+  \bibinfo{year}{2006}.
+\newblock \bibinfo{title}{Tucker's congruence coefficient as a meaningful index
+  of factor similarity}.
+\newblock \bibinfo{journal}{Methodology} \bibinfo{volume}{2},
+  \bibinfo{pages}{57--64}.
+\newblock \DOIprefix\doi{10.1027/1614-2241.2.2.57}.
+%Type = Book
+\bibitem[{Luckin et~al.(2016)Luckin, Holmes, Griffiths and
+  Forcier}]{luckin2016}
+\bibinfo{author}{Luckin, R.}, \bibinfo{author}{Holmes, W.},
+  \bibinfo{author}{Griffiths, M.}, \bibinfo{author}{Forcier, L.B.},
+  \bibinfo{year}{2016}.
+\newblock \bibinfo{title}{Intelligence Unleashed: An Argument for {AI} in
+  Education}.
+\newblock \bibinfo{publisher}{Pearson}, \bibinfo{address}{London}.
+%Type = Article
+\bibitem[{Machado and Santos~Silva(2005)}]{machado2005}
+\bibinfo{author}{Machado, J.A.F.}, \bibinfo{author}{Santos~Silva, J.M.C.},
+  \bibinfo{year}{2005}.
+\newblock \bibinfo{title}{Quantiles for counts}.
+\newblock \bibinfo{journal}{Journal of the American Statistical Association}
+  \bibinfo{volume}{100}, \bibinfo{pages}{1226--1237}.
+\newblock \DOIprefix\doi{10.1198/016214505000000330}.
+%Type = Article
+\bibitem[{Mamdani and Assilian(1975)}]{mamdani1975}
+\bibinfo{author}{Mamdani, E.H.}, \bibinfo{author}{Assilian, S.},
+  \bibinfo{year}{1975}.
+\newblock \bibinfo{title}{An experiment in linguistic synthesis with a fuzzy
+  logic controller}.
+\newblock \bibinfo{journal}{International Journal of Man-Machine Studies}
+  \bibinfo{volume}{7}, \bibinfo{pages}{1--13}.
+\newblock \DOIprefix\doi{10.1016/S0020-7373(75)80002-2}.
+%Type = Book
+\bibitem[{Miao and Holmes(2023)}]{unesco2023}
+\bibinfo{author}{Miao, F.}, \bibinfo{author}{Holmes, W.}, \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{Guidance for Generative {AI} in Education and
+  Research}.
+\newblock \bibinfo{publisher}{UNESCO}, \bibinfo{address}{Paris}.
+%Type = Article
+\bibitem[{Nadeau and Bengio(2003)}]{nadeau2003}
+\bibinfo{author}{Nadeau, C.}, \bibinfo{author}{Bengio, Y.},
+  \bibinfo{year}{2003}.
+\newblock \bibinfo{title}{Inference for the generalization error}.
+\newblock \bibinfo{journal}{Machine Learning} \bibinfo{volume}{52},
+  \bibinfo{pages}{239--281}.
+\newblock \DOIprefix\doi{10.1023/A:1024068626366}.
+%Type = Article
+\bibitem[{Nakagawa and Schielzeth(2013)}]{nakagawa2013}
+\bibinfo{author}{Nakagawa, S.}, \bibinfo{author}{Schielzeth, H.},
+  \bibinfo{year}{2013}.
+\newblock \bibinfo{title}{A general and simple method for obtaining {$R^2$}
+  from generalized linear mixed-effects models}.
+\newblock \bibinfo{journal}{Methods in Ecology and Evolution}
+  \bibinfo{volume}{4}, \bibinfo{pages}{133--142}.
+\newblock \DOIprefix\doi{10.1111/j.2041-210x.2012.00261.x}.
+%Type = Article
+\bibitem[{Pedregosa et~al.(2011)}]{pedregosa2011}
+\bibinfo{author}{Pedregosa, F.}, et~al., \bibinfo{year}{2011}.
+\newblock \bibinfo{title}{Scikit-learn: Machine learning in {Python}}.
+\newblock \bibinfo{journal}{Journal of Machine Learning Research}
+  \bibinfo{volume}{12}, \bibinfo{pages}{2825--2830}.
+%Type = Article
+\bibitem[{Podsakoff et~al.(2003)Podsakoff, MacKenzie, Lee and
+  Podsakoff}]{podsakoff2003}
+\bibinfo{author}{Podsakoff, P.M.}, \bibinfo{author}{MacKenzie, S.B.},
+  \bibinfo{author}{Lee, J.Y.}, \bibinfo{author}{Podsakoff, N.P.},
+  \bibinfo{year}{2003}.
+\newblock \bibinfo{title}{Common method biases in behavioral research: A
+  critical review of the literature and recommended remedies}.
+\newblock \bibinfo{journal}{Journal of Applied Psychology}
+  \bibinfo{volume}{88}, \bibinfo{pages}{879--903}.
+\newblock \DOIprefix\doi{10.1037/0021-9010.88.5.879}.
+%Type = Article
+\bibitem[{Popenici and Kerr(2017)}]{popenici2017}
+\bibinfo{author}{Popenici, S.A.D.}, \bibinfo{author}{Kerr, S.},
+  \bibinfo{year}{2017}.
+\newblock \bibinfo{title}{Exploring the impact of artificial intelligence on
+  teaching and learning in higher education}.
+\newblock \bibinfo{journal}{Research and Practice in Technology Enhanced
+  Learning} \bibinfo{volume}{12}, \bibinfo{pages}{22}.
+\newblock \DOIprefix\doi{10.1186/s41039-017-0062-8}.
+%Type = Book
+\bibitem[{Raudenbush and Bryk(2002)}]{raudenbush2002}
+\bibinfo{author}{Raudenbush, S.W.}, \bibinfo{author}{Bryk, A.S.},
+  \bibinfo{year}{2002}.
+\newblock \bibinfo{title}{Hierarchical Linear Models: Applications and Data
+  Analysis Methods}.
+\newblock \bibinfo{edition}{2nd} ed., \bibinfo{publisher}{Sage},
+  \bibinfo{address}{Thousand Oaks, CA}.
+%Type = Misc
+\bibitem[{Rav{\v{s}}elj et~al.(2025a)}]{ravselj2024data}
+\bibinfo{author}{Rav{\v{s}}elj, D.}, et~al., \bibinfo{year}{2025}a.
+\newblock \bibinfo{title}{Higher education students' early perceptions of
+  {ChatGPT}: Global survey data}.
+\newblock \bibinfo{howpublished}{Mendeley Data, Version 2. Licence CC BY 4.0}.
+\newblock \DOIprefix\doi{10.17632/ymg9nsn6kn.2}.
+%Type = Article
+\bibitem[{Rav{\v{s}}elj et~al.(2025b)}]{ravselj2025}
+\bibinfo{author}{Rav{\v{s}}elj, D.}, et~al., \bibinfo{year}{2025}b.
+\newblock \bibinfo{title}{Higher education students' perceptions of {ChatGPT}:
+  A global study of early reactions}.
+\newblock \bibinfo{journal}{PLOS ONE} \bibinfo{volume}{20},
+  \bibinfo{pages}{e0315011}.
+\newblock \DOIprefix\doi{10.1371/journal.pone.0315011}.
+%Type = Article
+\bibitem[{Romero and Ventura(2020)}]{romero2020}
+\bibinfo{author}{Romero, C.}, \bibinfo{author}{Ventura, S.},
+  \bibinfo{year}{2020}.
+\newblock \bibinfo{title}{Educational data mining and learning analytics: An
+  updated survey}.
+\newblock \bibinfo{journal}{WIREs Data Mining and Knowledge Discovery}
+  \bibinfo{volume}{10}, \bibinfo{pages}{e1355}.
+\newblock \DOIprefix\doi{10.1002/widm.1355}.
+%Type = Book
+\bibitem[{Ross(2010)}]{ross2010}
+\bibinfo{author}{Ross, T.J.}, \bibinfo{year}{2010}.
+\newblock \bibinfo{title}{Fuzzy Logic with Engineering Applications}.
+\newblock \bibinfo{edition}{3rd} ed., \bibinfo{publisher}{Wiley},
+  \bibinfo{address}{Chichester}.
+%Type = Article
+\bibitem[{Rousseeuw(1987)}]{rousseeuw1987}
+\bibinfo{author}{Rousseeuw, P.J.}, \bibinfo{year}{1987}.
+\newblock \bibinfo{title}{Silhouettes: A graphical aid to the interpretation
+  and validation of cluster analysis}.
+\newblock \bibinfo{journal}{Journal of Computational and Applied Mathematics}
+  \bibinfo{volume}{20}, \bibinfo{pages}{53--65}.
+\newblock \DOIprefix\doi{10.1016/0377-0427(87)90125-7}.
+%Type = Article
+\bibitem[{Rudolph et~al.(2023)Rudolph, Tan and Tan}]{rudolph2023}
+\bibinfo{author}{Rudolph, J.}, \bibinfo{author}{Tan, S.}, \bibinfo{author}{Tan,
+  S.}, \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{{ChatGPT}: Bullshit spewer or the end of traditional
+  assessments in higher education?}
+\newblock \bibinfo{journal}{Journal of Applied Learning and Teaching}
+  \bibinfo{volume}{6}.
+\newblock \DOIprefix\doi{10.37074/jalt.2023.6.1.9}.
+%Type = Article
+\bibitem[{Rumelhart et~al.(1986)Rumelhart, Hinton and Williams}]{rumelhart1986}
+\bibinfo{author}{Rumelhart, D.E.}, \bibinfo{author}{Hinton, G.E.},
+  \bibinfo{author}{Williams, R.J.}, \bibinfo{year}{1986}.
+\newblock \bibinfo{title}{Learning representations by back-propagating errors}.
+\newblock \bibinfo{journal}{Nature} \bibinfo{volume}{323},
+  \bibinfo{pages}{533--536}.
+\newblock \DOIprefix\doi{10.1038/323533a0}.
+%Type = Article
+\bibitem[{Schuirmann(1987)}]{schuirmann1987}
+\bibinfo{author}{Schuirmann, D.J.}, \bibinfo{year}{1987}.
+\newblock \bibinfo{title}{A comparison of the two one-sided tests procedure and
+  the power approach for assessing the equivalence of average bioavailability}.
+\newblock \bibinfo{journal}{Journal of Pharmacokinetics and Biopharmaceutics}
+  \bibinfo{volume}{15}, \bibinfo{pages}{657--680}.
+\newblock \DOIprefix\doi{10.1007/BF01068419}.
+%Type = Article
+\bibitem[{Self and Liang(1987)}]{self1987}
+\bibinfo{author}{Self, S.G.}, \bibinfo{author}{Liang, K.Y.},
+  \bibinfo{year}{1987}.
+\newblock \bibinfo{title}{Asymptotic properties of maximum likelihood
+  estimators and likelihood ratio tests under nonstandard conditions}.
+\newblock \bibinfo{journal}{Journal of the American Statistical Association}
+  \bibinfo{volume}{82}, \bibinfo{pages}{605--610}.
+\newblock \DOIprefix\doi{10.1080/01621459.1987.10478472}.
+%Type = Book
+\bibitem[{Selwyn(2019)}]{selwyn2019}
+\bibinfo{author}{Selwyn, N.}, \bibinfo{year}{2019}.
+\newblock \bibinfo{title}{Should Robots Replace Teachers? {AI} and the Future
+  of Education}.
+\newblock \bibinfo{publisher}{Polity Press}, \bibinfo{address}{Cambridge}.
+%Type = Article
+\bibitem[{Smola and Sch{\"o}lkopf(2004)}]{smola2004}
+\bibinfo{author}{Smola, A.J.}, \bibinfo{author}{Sch{\"o}lkopf, B.},
+  \bibinfo{year}{2004}.
+\newblock \bibinfo{title}{A tutorial on support vector regression}.
+\newblock \bibinfo{journal}{Statistics and Computing} \bibinfo{volume}{14},
+  \bibinfo{pages}{199--222}.
+\newblock \DOIprefix\doi{10.1023/B:STCO.0000035301.49549.88}.
+%Type = Article
+\bibitem[{VanLehn(2011)}]{vanlehn2011}
+\bibinfo{author}{VanLehn, K.}, \bibinfo{year}{2011}.
+\newblock \bibinfo{title}{The relative effectiveness of human tutoring,
+  intelligent tutoring systems, and other tutoring systems}.
+\newblock \bibinfo{journal}{Educational Psychologist} \bibinfo{volume}{46},
+  \bibinfo{pages}{197--221}.
+\newblock \DOIprefix\doi{10.1080/00461520.2011.611369}.
+%Type = Article
+\bibitem[{Venkatesh et~al.(2003)Venkatesh, Morris, Davis and
+  Davis}]{venkatesh2003}
+\bibinfo{author}{Venkatesh, V.}, \bibinfo{author}{Morris, M.G.},
+  \bibinfo{author}{Davis, G.B.}, \bibinfo{author}{Davis, F.D.},
+  \bibinfo{year}{2003}.
+\newblock \bibinfo{title}{User acceptance of information technology: Toward a
+  unified view}.
+\newblock \bibinfo{journal}{MIS Quarterly} \bibinfo{volume}{27},
+  \bibinfo{pages}{425--478}.
+\newblock \DOIprefix\doi{10.2307/30036540}.
+%Type = Article
+\bibitem[{Wang(1998)}]{wang1998}
+\bibinfo{author}{Wang, L.X.}, \bibinfo{year}{1998}.
+\newblock \bibinfo{title}{Universal approximation by hierarchical fuzzy
+  systems}.
+\newblock \bibinfo{journal}{Fuzzy Sets and Systems} \bibinfo{volume}{93},
+  \bibinfo{pages}{223--230}.
+%Type = Article
+\bibitem[{Zadeh(1965)}]{zadeh1965}
+\bibinfo{author}{Zadeh, L.A.}, \bibinfo{year}{1965}.
+\newblock \bibinfo{title}{Fuzzy sets}.
+\newblock \bibinfo{journal}{Information and Control} \bibinfo{volume}{8},
+  \bibinfo{pages}{338--353}.
+\newblock \DOIprefix\doi{10.1016/S0019-9958(65)90241-X}.
+%Type = Article
+\bibitem[{Zawacki-Richter et~al.(2019)Zawacki-Richter, Mar{\'i}n, Bond and
+  Gouverneur}]{zawacki2019}
+\bibinfo{author}{Zawacki-Richter, O.}, \bibinfo{author}{Mar{\'i}n, V.I.},
+  \bibinfo{author}{Bond, M.}, \bibinfo{author}{Gouverneur, F.},
+  \bibinfo{year}{2019}.
+\newblock \bibinfo{title}{Systematic review of research on artificial
+  intelligence applications in higher education -- where are the educators?}
+\newblock \bibinfo{journal}{International Journal of Educational Technology in
+  Higher Education} \bibinfo{volume}{16}, \bibinfo{pages}{39}.
+\newblock \DOIprefix\doi{10.1186/s41239-019-0171-0}.
+
+\end{thebibliography}

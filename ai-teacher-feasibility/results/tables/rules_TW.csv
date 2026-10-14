@@ -1,0 +1,10 @@
+Rule,R,E,TW
+1,Low,Low,Low
+2,Low,Medium,Low
+3,Low,High,Low
+4,Medium,Low,Low
+5,Medium,Medium,Medium
+6,Medium,High,Medium
+7,High,Low,Medium
+8,High,Medium,High
+9,High,High,High
