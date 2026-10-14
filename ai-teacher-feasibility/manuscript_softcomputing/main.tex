@@ -1,7 +1,15 @@
 %% Soft Computing (Springer) submission -- Springer Nature LaTeX template (sn-jnl.cls).
-%% Upload into Overleaf's official "Springer Nature LaTeX Template" project, which
-%% supplies sn-jnl.cls and the sn-*.bst files (see README.txt).
-\documentclass[pdflatex,sn-basic]{sn-jnl}% author-year references (Springer basic)
+%% Compiles directly on Overleaf (fallback layout via sn-compat.tex). For the exact
+%% Springer layout add sn-jnl.cls and sn-basic.bst from Overleaf's official
+%% "Springer Nature LaTeX Template" (see README.txt).
+% If the Springer Nature class is present (official Overleaf template), use it;
+% otherwise fall back to a compatible layout so the project compiles anywhere.
+\IfFileExists{sn-jnl.cls}{%
+  \documentclass[pdflatex,sn-basic]{sn-jnl}% author-year references (Springer basic)
+}{%
+  \documentclass[11pt]{article}
+  \input{sn-compat.tex}
+}
 
 \usepackage{graphicx}
 \usepackage{multirow}

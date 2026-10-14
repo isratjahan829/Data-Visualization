@@ -1,12 +1,17 @@
 Soft Computing (Springer) version of the manuscript -- Springer Nature LaTeX template (sn-jnl).
 
-Overleaf (recommended):
+Overleaf -- quickest: New Project -> Upload Project -> this zip -> Recompile.
+  It compiles directly: without sn-jnl.cls a compatible fallback layout (sn-compat.tex) is used.
+
+Overleaf -- exact Springer layout (recommended before final submission):
   1. Overleaf -> New Project -> Templates -> search "Springer Nature LaTeX Template" -> Open as Template.
      (This gives you the publisher's sn-jnl.cls and sn-*.bst files.)
   2. In that project, delete the sample sn-article.tex and its sample bib/figures.
-  3. Upload main.tex, refs.bib and the folders fig/ and generated/ from this zip
+  3. Upload main.tex, sn-compat.tex, refs.bib and the folders fig/ and generated/ from this zip
      (Upload -> drag the files; for folders create "fig" and "generated" first, then upload into them).
   4. Menu -> Main document: main.tex, Compiler: pdfLaTeX -> Recompile.
+     (Alternatively copy sn-jnl.cls and sn-basic.bst from that template into the uploaded project;
+     main.tex detects the class automatically.)
 
 Reference style: author-year (option sn-basic), as used by Soft Computing. For a numbered style
 change the class option to sn-mathphys-num.
