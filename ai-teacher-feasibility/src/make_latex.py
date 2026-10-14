@@ -534,6 +534,148 @@ Grouping & Group & $n$ & CFI & RMSEA & SRMR & min $\varphi$ & max $|\Delta\lambd
 """)
 
 
+
+# --------------------------------------------------------------------------- #
+# Appendix: every remaining analysis table
+# --------------------------------------------------------------------------- #
+def _tab(caption, label, colspec, header, rows, size=r"\footnotesize", resize=False):
+    body = "\n".join(rows)
+    tab = (r"\begin{tabular}{" + colspec + "}\n\\toprule\n" + header + r"\\" + "\n\\midrule\n"
+           + body + "\n\\bottomrule\n\\end{tabular}")
+    if resize:
+        tab = r"\resizebox{\textwidth}{!}{%" + "\n" + tab + "}"
+    return (r"\begin{table}[!htbp]" + "\n\\centering\n\\caption{" + caption + "}\n\\label{" + label
+            + "}\n" + size + "\n" + tab + "\n\\end{table}\n")
+
+
+def _p(p):
+    return r"$<$0.001" if p < 0.001 else f"{p:.3f}"
+
+
+def tab_appendix():
+    from config import PROCESSED_CSV, REVERSED, TARGET_ITEMS
+    out = []
+    # A1 item descriptives with skewness / kurtosis
+    d = pd.read_csv(PROCESSED_CSV)
+    rows = []
+    for fct in FACTOR_ORDER:
+        for it in FACTORS[fct]["items"]:
+            x = 6 - d[it] if it in REVERSED else d[it]
+            rows.append(rf"{fct} & {it}{' (R)' if it in REVERSED else ''} & {x.mean():.2f} & {x.std():.2f} & {int(x.median())} & {x.skew():.2f} & {x.kurt():.2f} & {100 * (x >= 4).mean():.1f}\\")
+    for it, txt in zip(TARGET_ITEMS, ["Easier to interact with ChatGPT than professors",
+                                      "ChatGPT information clearer than professors'"]):
+        x = d[it]
+        rows.append(rf"TSI & {it} & {x.mean():.2f} & {x.std():.2f} & {int(x.median())} & {x.skew():.2f} & {x.kurt():.2f} & {100 * (x >= 4).mean():.1f}\\")
+    out.append(_tab(r"Item-level descriptive statistics ($N=\Nfinal$; reverse-coded items marked R). Skew and excess kurtosis are sample estimates; \% agree is the share answering 4 or 5.",
+                    "tab:A-items", "llcccccc", r"Factor & Item & Mean & SD & Median & Skew & Kurtosis & \% agree", rows))
+    # A2 measurement alternatives
+    t = pd.read_csv(TABLES / "measurement_alternatives.csv")
+    rows = [rf"{r.mapping} & {r.n:,} & {r.CFI:.3f} & {r.TLI:.3f} & {r.RMSEA:.3f} & {r.SRMR:.3f} & {r.min_alpha:.3f} & {r.min_AVE:.3f} & {r.max_HTMT:.3f}\\" for r in t.itertuples()]
+    out.append(_tab("Candidate item-to-factor mappings compared before the analysis (TE, SE, P, AC and C items differ; A, R and E fixed). M3 was retained.",
+                    "tab:A-mappings", "lcccccccc", r"Mapping & $n$ & CFI & TLI & RMSEA & SRMR & min $\alpha$ & min AVE & max HTMT", rows, resize=True))
+    # A3 full rule bases
+    ab = {"Low": "L", "Medium": "M", "High": "H"}
+    pc = pd.read_csv(TABLES / "rules_PC.csv")
+    cells = [f"{r.Rule} & {ab[r.TE]} & {ab[r.P]} & {ab[r.AC]} & {ab[r.A]} & {ab[r.PC]}" for r in pc.itertuples()]
+    rows = [" & ".join(cells[i + 27 * c] for c in range(3)) + r"\\" for i in range(27)]
+    out.append(_tab(r"Complete rule base of FIS$_1$ (pedagogical capability, 81 rules; L/M/H = Low/Medium/High).", "tab:A-rulesPC",
+                    "rccccc|rccccc|rccccc", " & ".join([r"\# & TE & P & AC & A & PC"] * 3), rows, size=r"\scriptsize", resize=True))
+    iq = pd.read_csv(TABLES / "rules_IQ.csv")
+    act = pd.read_csv(TABLES / "rules_activity.csv")
+    cells = [f"{r.Rule} & {ab[r.Capability]} & {ab[r.R]} & {ab[r.E]} & {ab[r.Feasibility]}" for r in act.itertuples()]
+    rows = [" & ".join(cells[i + 9 * c] for c in range(3)) + r"\\" for i in range(9)]
+    iqrow = "; ".join(f"({ab[r.SE]},{ab[r.C]})$\\to${ab[r.IQ]}" for r in iq.itertuples())
+    out.append(_tab(r"Rule base of the activity-level FIS (27 rules). FIS$_2$ (interaction quality, SE,C$\to$IQ): " + iqrow + ".",
+                    "tab:A-rulesAct", "rcccc|rcccc|rcccc", " & ".join([r"\# & Cap & R & E & Out"] * 3), rows))
+    # A4 validity + usage
+    v = pd.read_csv(TABLES / "table_trfs_validity.csv")
+    u = pd.read_csv(TABLES / "table_trfs_by_usage.csv")
+    lab = {1: "Rarely", 2: "Occasionally", 3: "Moderately", 4: "Considerably", 5: "Extensively"}
+    rows = [rf"{r.criterion} & {r.n:,} & {r.spearman_rho:.3f} & {_p(r.p)}\\" for r in v.itertuples()]
+    rows += [r"\midrule", r"\multicolumn{4}{l}{\textit{TRFS by intensity of ChatGPT use (Q15): $n$, mean (SD)}}\\"]
+    rows += [rf"\quad {lab[int(r.Q15)]} & {int(r.count):,} & {r.mean:.1f} & ({r.std:.1f})\\" for r in u.itertuples()]
+    out.append(_tab("Convergent, criterion and discriminant validity of the overall TRFS (Spearman correlations) and known-groups comparison by intensity of use.",
+                    "tab:A-validity", "lccc", r"Criterion & $n$ & $\rho$ & $p$", rows))
+    # A5 pairwise Wilcoxon
+    t = pd.read_csv(TABLES / "table_activity_pairwise.csv")
+    rows = [rf"{r.pair} & {r.mean_diff:.2f} & {r.rank_biserial:.3f} & {_p(r.p_raw)} & {_p(r.p_holm)}\\" for r in t.itertuples()]
+    out.append(_tab("Wilcoxon signed-rank tests between adjacent activities in the ranking (matched-pairs rank-biserial $r$; Holm-adjusted $p$).",
+                    "tab:A-pairwise", "lcccc", r"Pair & Mean diff. & $r_{rb}$ & $p$ & $p_{\mathrm{Holm}}$", rows))
+    # A6 ANN hyperparameters
+    t = pd.read_csv(TABLES / "ann_selected_hyperparameters.csv")
+    t.columns = ["model", "fold", "alpha", "hidden"]
+    vc = t.groupby(["model", "hidden", "alpha"]).size().reset_index(name="k").sort_values(["model", "k"], ascending=[True, False])
+    rows = [rf"{r.model} & {r.hidden} & {r.alpha:g} & {r.k}\\" for r in vc.itertuples()]
+    out.append(_tab(r"Hyperparameters selected by the inner 3-fold grid search in the \CVfits{} outer folds.",
+                    "tab:A-hyper", "lccc", r"Model & Hidden layers & $\alpha$ (L2) & Times selected", rows))
+    # A7 robustness bands + Mamdani vs WA + effect sizes
+    band = pd.read_csv(TABLES / "robustness_activity_bands.csv", index_col=0)
+    comp = pd.read_csv(TABLES / "deep_mamdani_vs_monotone.csv").set_index("code")
+    eff = pd.read_csv(TABLES / "deep_activity_effects.csv").set_index("code")
+    rows = []
+    for a in eff.sort_values("mean", ascending=False).index:
+        e, c, b = eff.loc[a], comp.loc[a], band.loc[a]
+        rows.append(rf"{e.activity.replace('&', r'\&')} & {e['mean']:.1f} & {e.cohen_d_vs_50:.3f} [{e.d_ci_low:.3f}, {e.d_ci_high:.3f}] & {_p(e.p_tost_equiv_50)} & {'yes' if e.equivalent_to_50 else 'no'} & [{b['p2.5']:.1f}, {b['p97.5']:.1f}] & {c.wa:.1f} & {c.wa_pct_full:.1f} / {c.wa_pct_human:.1f}\\")
+    out.append(_tab(r"Activity-level effect sizes and robustness: Cohen's $d_z$ against 50 with 95\% CI, TOST $p$ for equivalence within $\pm\TostDelta$ points, 2.5--97.5\% range over \RobDraws{} perturbed fuzzy designs, and the provably monotone weighted-average (WA) score with its \% full / \% human shares.",
+                    "tab:A-activity", "lccccccc", r"Activity & Mean & $d_z$ [95\% CI] & $p_{\mathrm{TOST}}$ & Equiv. & Perturbation range & WA mean & WA \% full / human", rows, resize=True))
+    # A8 subgroups
+    t = pd.read_csv(TABLES / "table_subgroups.csv")
+    names = {"Q2": "Gender", "Q8": "Level of study", "Q10": "Field of study", "Q11": "Mode of study", "Q14": "ChatGPT version"}
+    rows = []
+    for q, nm in names.items():
+        sub = t[t.variable == q]
+        r0 = sub.iloc[0]
+        rows.append(rf"\multicolumn{{4}}{{l}}{{\textit{{{nm}}}: $H={r0.KW_H:.1f}$, $p{'<0.001' if r0.KW_p < 0.001 else '=' + format(r0.KW_p, '.3f')}$, $\varepsilon^2={r0.epsilon2:.4f}$}}\\")
+        rows += [rf"\quad {r.level.replace('&', r'\&')} & {r.n:,} & {r.TRFS_mean:.1f} & {r.TRFS_sd:.1f}\\" for r in sub.itertuples()]
+    out.append(_tab("Overall TRFS by subgroup with Kruskal--Wallis tests and $\\varepsilon^2$ effect sizes.",
+                    "tab:A-subgroups", "lccc", r"Group & $n$ & Mean TRFS & SD", rows))
+    # A9 activity x field
+    hm = pd.read_csv(TABLES / "table_activity_by_field.csv", index_col=0)
+    order = list(pd.read_csv(TABLES / "table_activity_feasibility.csv").code)
+    rows = [rf"{ACTIVITIES[a]['name'].replace('&', r'\&')} & " + " & ".join(f"{hm.loc[f, a]:.1f}" for f in hm.index) + r"\\" for a in order]
+    out.append(_tab("Mean activity feasibility scores by field of study.", "tab:A-field",
+                    "l" + "c" * len(hm.index), "Activity & " + " & ".join(c.replace("&", r"\&") for c in hm.index), rows, resize=True))
+    # A10 quantile regression coefficients
+    q = pd.read_csv(TABLES / "deep_quantile_regression.csv")
+    half = (len(q) + 1) // 2
+    cells = [f"{r.tau:.2f} & {r.beta:.2f} & [{r.ci_low:.2f}, {r.ci_high:.2f}]" for r in q.itertuples()]
+    rows = [cells[i] + " & " + (cells[i + half] if i + half < len(cells) else "& &") + r"\\" for i in range(half)]
+    out.append(_tab(r"Quantile-regression coefficients of the TSI on the TRFS (per 10 points), averaged over \QReps{} jittered replications; OLS: \QolsBeta.",
+                    "tab:A-quantile", "ccc|ccc", r"$\tau$ & $\beta(\tau)$ & 95\% CI & $\tau$ & $\beta(\tau)$ & 95\% CI", rows))
+    # A11 typology selection + profiles
+    sel = pd.read_csv(TABLES / "deep_typology_selection.csv")
+    rows = [rf"$k={r.k}$ & {r.silhouette:.3f} & {r.calinski_harabasz:,.0f} & {r.bootstrap_ARI:.3f}\\" for r in sel.itertuples()]
+    out.append(_tab(r"Selection of the number of student typologies ($k$-means): mean silhouette, Calinski--Harabasz index and bootstrap stability (mean adjusted Rand index over 20 resamples).",
+                    "tab:A-kselect", "lccc", r"Solution & Silhouette & Calinski--Harabasz & Bootstrap ARI", rows))
+    prof = pd.read_csv(TABLES / "deep_typology_k3.csv")
+    cols = list(ACTIVITIES) + ["TRFS", "TSI"] + FACTOR_ORDER
+    rows = []
+    for c in cols:
+        nm = ACTIVITIES[c]["name"] if c in ACTIVITIES else (FACTORS[c]["name"] + f" ({c})" if c in FACTORS else c)
+        rows.append(rf"{nm.replace('&', r'\&')} & " + " & ".join(f"{v:.2f}" if c not in ("TRFS", "TSI") else f"{v:.1f}" for v in prof[c]) + r"\\")
+    rows.append(r"$n$ (\%) & " + " & ".join(f"{int(n):,} ({p:.1f})" for n, p in zip(prof.n, prof.pct)) + r"\\")
+    out.append(_tab("Profiles of the three student typologies: mean activity capabilities and factor scores (1--5), TRFS and TSI (0--100).",
+                    "tab:A-typology", "lccc", "Variable & " + " & ".join(prof.label), rows))
+    # A12 country effects
+    ce = pd.read_csv(TABLES / "deep_country_effects.csv").sort_values("mean_TRFS", ascending=False)
+    ce = ce[ce.n >= 30]
+    cells = [rf"{r.country.replace('&', r'\&')} & {r.n} & {r.mean_TRFS:.1f} & {r.u:+.1f}" for r in ce.itertuples()]
+    half = (len(cells) + 1) // 2
+    rows = [cells[i] + " & " + (cells[i + half] if i + half < len(cells) else "& & &") + r"\\" for i in range(half)]
+    out.append(_tab(r"Country random intercepts for the TRFS (\MlCountries{} countries with $n\ge\MlMinN$): BLUP of the country mean and deviation $u_c$ from the grand mean.",
+                    "tab:A-country", "lrcc|lrcc", r"Country & $n$ & Mean & $u_c$ & Country & $n$ & Mean & $u_c$", rows, size=r"\scriptsize"))
+    fig = r"""\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{fig3_control_surfaces.pdf}
+\caption{Control surfaces of (a) FIS$_4$ (TRFS as a function of PC and TW, IQ fixed at 50) and (b) the activity FIS (capability $\times$ reliability, ethical suitability fixed at 3). White contours mark the 35 and 65 thresholds.}
+\label{fig:A-surfaces}
+\end{figure}
+"""
+    (OUT / "appendix.tex").write_text(
+        "% generated by src/make_latex.py -- every analysis table not shown in the main text\n"
+        + fig + "\n".join(out))
+
+
 if __name__ == "__main__":
     macros()
     tab_demographics()
@@ -547,4 +689,5 @@ if __name__ == "__main__":
     tab_math()
     tab_shapley_mixed()
     tab_invariance()
+    tab_appendix()
     print("LaTeX fragments written to", OUT)
