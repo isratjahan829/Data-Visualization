@@ -1,0 +1,6 @@
+criterion,n,spearman_rho,p
+TSI (ChatGPT easier/clearer than professors),11920,0.38761318688803625,0.0
+Q24e satisfied with assistance,11910,0.5521049660984715,0.0
+Q16 overall experience,11903,0.4486999893935362,0.0
+Q15 intensity of use,11898,0.3009381066973875,1.4548344155275218e-247
+Q22h ChatGPT might replace formal education,11912,-0.013026196539016757,0.15513726983934603

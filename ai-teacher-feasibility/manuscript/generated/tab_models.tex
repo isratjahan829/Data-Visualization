@@ -1,0 +1,20 @@
+\begin{table}[!htbp]
+\centering
+\caption{Out-of-fold prediction of the Teacher Substitution Index (TSI, 0--100) from the eight factors: mean (SD) over \CVsplits-fold cross-validation repeated \CVrepeats{} times (\CVfits{} folds). $t$ and $p$: Nadeau--Bengio corrected resampled $t$-test on fold RMSE against the ANN. The calibrated fuzzy model uses no TSI information except a one-parameter linear rescaling of the TRFS fitted on each training fold.}
+\label{tab:models}
+\footnotesize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccc}
+\toprule
+Model & MSE & RMSE & MAE & $R^2$ & $t$ vs ANN & $p$ \\
+\midrule
+\textbf{ANN (MLP)} & 467.3 (15.2) & 21.61 (0.35) & 17.39 (0.37) & 0.259 (0.023) & -- & --\\
+Gradient boosting & 467.3 (15.6) & 21.62 (0.36) & 17.32 (0.36) & 0.259 (0.022) & -0.03 & 0.975\\
+Hybrid fuzzy-ANN & 469.8 (14.7) & 21.67 (0.34) & 17.45 (0.36) & 0.255 (0.022) & -2.64 & 0.013\\
+Random forest & 469.8 (15.9) & 21.67 (0.37) & 17.33 (0.37) & 0.255 (0.023) & -1.30 & 0.204\\
+Linear regression & 471.8 (15.9) & 21.72 (0.37) & 17.53 (0.38) & 0.252 (0.023) & -3.22 & 0.003\\
+SVR (RBF) & 478.0 (16.0) & 21.86 (0.37) & 17.33 (0.35) & 0.242 (0.027) & -5.48 & $<$0.001\\
+Fuzzy HFIS (calibrated) & 533.6 (19.2) & 23.10 (0.42) & 18.70 (0.39) & 0.155 (0.021) & -16.38 & $<$0.001\\
+\bottomrule
+\end{tabular}}
+\end{table}

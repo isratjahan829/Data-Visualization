@@ -1,0 +1,618 @@
+{
+  "flow": {
+    "total_responses": 23218,
+    "chatgpt_users": 16010,
+    "valid_age_18_100": 15888,
+    "complete_on_model_items": 12206,
+    "after_straightlining_removal": 11920
+  },
+  "age": {
+    "mean": 22.91761744966443,
+    "sd": 6.136005732627075,
+    "median": 21.0
+  },
+  "n_countries_study": 92,
+  "n_countries_citizenship": 129,
+  "top_countries": {
+    "Ecuador": 1362,
+    "Spain": 795,
+    "Mexico": 675,
+    "Italy": 594,
+    "Romania": 585,
+    "Chile": 507,
+    "Egypt": 493,
+    "Tanzania": 393,
+    "Latvia": 313,
+    "Turkey": 304
+  },
+  "languages": {
+    "EN": 7422,
+    "ES": 3046,
+    "IT": 501,
+    "AR": 448,
+    "JP": 177,
+    "HE": 166,
+    "TR": 160
+  },
+  "cfa_fit": {
+    "n": 11920.0,
+    "chi2": 9046.683553389981,
+    "df": 271.0,
+    "CFI": 0.9397730785780898,
+    "TLI": 0.9277721422061962,
+    "RMSEA": 0.05212378225658747,
+    "SRMR": 0.045967068912424636,
+    "converged": true
+  },
+  "fornell_larcker_satisfied": false,
+  "max_htmt": 0.8055328903876003,
+  "harman_first_factor_pct": 30.53254274717369,
+  "measurement_alternatives": [
+    {
+      "mapping": "M0 (initial a-priori mapping)",
+      "n": 12066,
+      "CFI": 0.8832629813471723,
+      "TLI": 0.8653034400159679,
+      "RMSEA": 0.0701395009219127,
+      "SRMR": 0.05992156926802836,
+      "min_alpha": 0.5948898737481427,
+      "min_AVE": 0.32376854041657827,
+      "max_HTMT": 1.0039612422039896
+    },
+    {
+      "mapping": "M1",
+      "n": 12558,
+      "CFI": 0.927946228764041,
+      "TLI": 0.9145578591087108,
+      "RMSEA": 0.05647386169142836,
+      "SRMR": 0.04827956086441217,
+      "min_alpha": 0.7176322531757641,
+      "min_AVE": 0.4399568211007282,
+      "max_HTMT": 0.9586822609639837
+    },
+    {
+      "mapping": "M2",
+      "n": 12568,
+      "CFI": 0.9406562047877127,
+      "TLI": 0.9288312419040835,
+      "RMSEA": 0.05172376776109632,
+      "SRMR": 0.04474552146085618,
+      "min_alpha": 0.7173631569599221,
+      "min_AVE": 0.4860251594367113,
+      "max_HTMT": 0.8633435227998508
+    },
+    {
+      "mapping": "M3 (final)",
+      "n": 12564,
+      "CFI": 0.940346222398255,
+      "TLI": 0.9284594918060254,
+      "RMSEA": 0.05183311296288548,
+      "SRMR": 0.044805885342427,
+      "min_alpha": 0.7177675321577258,
+      "min_AVE": 0.48653313818838556,
+      "max_HTMT": 0.8060377147396418
+    }
+  ],
+  "trfs": {
+    "mean": 50.4621868310026,
+    "sd": 19.749108082210903,
+    "median": 49.99999999999999,
+    "class_pct": {
+      "Partial AI assistance": 46.08221476510067,
+      "Full AI replacement": 28.104026845637588,
+      "Human involvement required": 25.813758389261743
+    },
+    "kw_usage_H": 1116.682638298907,
+    "kw_usage_p": 1.8328333437010836e-240,
+    "rho_usage": 0.3009381066973875
+  },
+  "intermediate": {
+    "PC": {
+      "mean": 61.212061678603455,
+      "sd": 16.129282907660222
+    },
+    "IQ": {
+      "mean": 58.58487108823921,
+      "sd": 16.688783821208492
+    },
+    "TW": {
+      "mean": 49.82060553903157,
+      "sd": 20.433043310794588
+    }
+  },
+  "trfs_validity": [
+    {
+      "criterion": "TSI (ChatGPT easier/clearer than professors)",
+      "n": 11920,
+      "spearman_rho": 0.38761318688803625,
+      "p": 0.0
+    },
+    {
+      "criterion": "Q24e satisfied with assistance",
+      "n": 11910,
+      "spearman_rho": 0.5521049660984715,
+      "p": 0.0
+    },
+    {
+      "criterion": "Q16 overall experience",
+      "n": 11903,
+      "spearman_rho": 0.4486999893935362,
+      "p": 0.0
+    },
+    {
+      "criterion": "Q15 intensity of use",
+      "n": 11898,
+      "spearman_rho": 0.3009381066973875,
+      "p": 1.4548344155275218e-247
+    },
+    {
+      "criterion": "Q22h ChatGPT might replace formal education",
+      "n": 11912,
+      "spearman_rho": -0.013026196539016757,
+      "p": 0.15513726983934603
+    }
+  ],
+  "activity_friedman": {
+    "chi2": 5164.462882499801,
+    "p": 0.0,
+    "kendall_W": 0.04814003432606078,
+    "n": 11920,
+    "k": 10
+  },
+  "activities": [
+    {
+      "code": "A1",
+      "activity": "Content explanation",
+      "items": "Q19g, Q19f, Q26b",
+      "capability_mean": 3.799972035794184,
+      "capability_sd": 0.6585106707801417,
+      "alpha": 0.6741422147756011,
+      "TRFS_mean": 54.668438518162326,
+      "TRFS_sd": 18.451493372272854,
+      "TRFS_median": 55.36048829098157,
+      "ci_low": 54.33545167639919,
+      "ci_high": 55.010465190510494,
+      "pct_full": 31.644295302013425,
+      "pct_partial": 52.038590604026844,
+      "pct_human": 16.31711409395973,
+      "category": "Partial AI assistance",
+      "tier": "AI-leaning",
+      "net_endorsement": 15.327181208053695,
+      "rank": 1
+    },
+    {
+      "code": "A2",
+      "activity": "Question answering",
+      "items": "Q19a, Q19b, Q19d",
+      "capability_mean": 3.6504753914988815,
+      "capability_sd": 0.6798544305455553,
+      "alpha": 0.69279046331526,
+      "TRFS_mean": 53.27181674929917,
+      "TRFS_sd": 18.24984702405593,
+      "TRFS_median": 50.00000000000001,
+      "ci_low": 52.938466636132226,
+      "ci_high": 53.61950585670662,
+      "pct_full": 28.666107382550337,
+      "pct_partial": 53.47315436241611,
+      "pct_human": 17.860738255033556,
+      "category": "Partial AI assistance",
+      "tier": "AI-leaning",
+      "net_endorsement": 10.80536912751678,
+      "rank": 2
+    },
+    {
+      "code": "A5",
+      "activity": "Personalized learning",
+      "items": "Q26d, Q26e",
+      "capability_mean": 3.463968120805369,
+      "capability_sd": 0.8798665469004672,
+      "alpha": 0.7167522328273053,
+      "TRFS_mean": 50.942129539252214,
+      "TRFS_sd": 19.302651723669488,
+      "TRFS_median": 50.00000000000001,
+      "ci_low": 50.58219656767548,
+      "ci_high": 51.304919261945976,
+      "pct_full": 22.22315436241611,
+      "pct_partial": 57.34060402684564,
+      "pct_human": 20.436241610738254,
+      "category": "Partial AI assistance",
+      "tier": "AI-leaning",
+      "net_endorsement": 1.786912751677857,
+      "rank": 3
+    },
+    {
+      "code": "A3",
+      "activity": "Assignment feedback",
+      "items": "Q26j, Q28a, Q28b",
+      "capability_mean": 3.421224832214765,
+      "capability_sd": 0.8556783874045456,
+      "alpha": 0.8150568316367998,
+      "TRFS_mean": 50.27741441251691,
+      "TRFS_sd": 19.0024997878452,
+      "TRFS_median": 50.00000000000001,
+      "ci_low": 49.93044262439941,
+      "ci_high": 50.62014699088114,
+      "pct_full": 24.052013422818792,
+      "pct_partial": 52.038590604026844,
+      "pct_human": 23.909395973154364,
+      "category": "Partial AI assistance",
+      "tier": "Balanced",
+      "net_endorsement": 0.1426174496644279,
+      "rank": 4
+    },
+    {
+      "code": "A4",
+      "activity": "Student assessment",
+      "items": "Q27a, Q27b",
+      "capability_mean": 3.3591023489932885,
+      "capability_sd": 0.9282106428469089,
+      "alpha": 0.8020626639745372,
+      "TRFS_mean": 49.356850385813374,
+      "TRFS_sd": 19.604825522204624,
+      "TRFS_median": 50.0,
+      "ci_low": 49.00014100248429,
+      "ci_high": 49.722675372826075,
+      "pct_full": 20.318791946308725,
+      "pct_partial": 56.09060402684564,
+      "pct_human": 23.59060402684564,
+      "category": "Partial AI assistance",
+      "tier": "Human-leaning",
+      "net_endorsement": -3.2718120805369146,
+      "rank": 5
+    },
+    {
+      "code": "A6",
+      "activity": "Student motivation",
+      "items": "Q26f, Q27i",
+      "capability_mean": 3.3234060402684564,
+      "capability_sd": 0.9387112262223407,
+      "alpha": 0.7518193487072744,
+      "TRFS_mean": 49.07506246906752,
+      "TRFS_sd": 19.812589406961173,
+      "TRFS_median": 50.0,
+      "ci_low": 48.730896484315295,
+      "ci_high": 49.43677050876822,
+      "pct_full": 20.0755033557047,
+      "pct_partial": 55.90604026845638,
+      "pct_human": 24.018456375838927,
+      "category": "Partial AI assistance",
+      "tier": "Human-leaning",
+      "net_endorsement": -3.942953020134226,
+      "rank": 6
+    },
+    {
+      "code": "A8",
+      "activity": "Academic guidance",
+      "items": "Q27h, Q27g, Q27j",
+      "capability_mean": 3.26744966442953,
+      "capability_sd": 0.8895231584373035,
+      "alpha": 0.8303424458291733,
+      "TRFS_mean": 48.59843861093177,
+      "TRFS_sd": 19.080916715096055,
+      "TRFS_median": 49.99999999999999,
+      "ci_low": 48.24753288650053,
+      "ci_high": 48.94387134580906,
+      "pct_full": 21.72818791946309,
+      "pct_partial": 51.602348993288594,
+      "pct_human": 26.669463087248324,
+      "category": "Partial AI assistance",
+      "tier": "Human-leaning",
+      "net_endorsement": -4.941275167785236,
+      "rank": 7
+    },
+    {
+      "code": "A10",
+      "activity": "Emotional & social support",
+      "items": "Q28f, Q19c, Q22g, Q22i",
+      "capability_mean": 3.1756291946308726,
+      "capability_sd": 0.6937174035437997,
+      "alpha": 0.4880148486376668,
+      "TRFS_mean": 48.11577100394473,
+      "TRFS_sd": 18.004875564050963,
+      "TRFS_median": 49.99999999999999,
+      "ci_low": 47.79501616245351,
+      "ci_high": 48.45279442554089,
+      "pct_full": 16.451342281879196,
+      "pct_partial": 60.47818791946309,
+      "pct_human": 23.070469798657715,
+      "category": "Partial AI assistance",
+      "tier": "Human-leaning",
+      "net_endorsement": -6.619127516778519,
+      "rank": 8
+    },
+    {
+      "code": "A7",
+      "activity": "Classroom communication",
+      "items": "Q19h, Q26h",
+      "capability_mean": 3.227768456375839,
+      "capability_sd": 0.8516335428622441,
+      "alpha": 0.5288989087982883,
+      "TRFS_mean": 48.10719370290385,
+      "TRFS_sd": 19.016299941263195,
+      "TRFS_median": 49.99999999999999,
+      "ci_low": 47.76661659217365,
+      "ci_high": 48.45875873541597,
+      "pct_full": 16.05704697986577,
+      "pct_partial": 60.394295302013425,
+      "pct_human": 23.548657718120804,
+      "category": "Partial AI assistance",
+      "tier": "Human-leaning",
+      "net_endorsement": -7.491610738255034,
+      "rank": 9
+    },
+    {
+      "code": "A9",
+      "activity": "Problem solving",
+      "items": "Q29c, Q29d, Q29e",
+      "capability_mean": 3.1427572706935125,
+      "capability_sd": 0.9353572775946368,
+      "alpha": 0.8552629571565707,
+      "TRFS_mean": 46.521674160844896,
+      "TRFS_sd": 19.417257338424207,
+      "TRFS_median": 49.99999999999999,
+      "ci_low": 46.16925571548019,
+      "ci_high": 46.887922629121306,
+      "pct_full": 18.976510067114095,
+      "pct_partial": 49.91610738255034,
+      "pct_human": 31.107382550335572,
+      "category": "Partial AI assistance",
+      "tier": "Human-leaning",
+      "net_endorsement": -12.130872483221477,
+      "rank": 10
+    }
+  ],
+  "cv_design": {
+    "splits": 10,
+    "repeats": 3
+  },
+  "model_comparison": [
+    {
+      "model": "ANN (MLP)",
+      "MSE_mean": 467.27321099758876,
+      "MSE_std": 15.184739954787663,
+      "RMSE_mean": 21.61373485563131,
+      "RMSE_std": 0.35185702629836724,
+      "MAE_mean": 17.386892048336335,
+      "MAE_std": 0.3709136395539957,
+      "R2_mean": 0.2594145388963571,
+      "R2_std": 0.022912113072817153,
+      "seconds_mean": 11.378545061747234,
+      "seconds_std": 1.0534422242715462,
+      "t_vs_ANN": NaN,
+      "p_vs_ANN": NaN
+    },
+    {
+      "model": "Gradient boosting",
+      "MSE_mean": 467.3436211018043,
+      "MSE_std": 15.649481110149498,
+      "RMSE_mean": 21.615188977761502,
+      "RMSE_std": 0.36278599770792985,
+      "MAE_mean": 17.31734744355682,
+      "MAE_std": 0.364005557151228,
+      "R2_mean": 0.25935395314142423,
+      "R2_std": 0.021964376834691747,
+      "seconds_mean": 0.2090215762456258,
+      "seconds_std": 0.04894115959325648,
+      "t_vs_ANN": -0.03199367774216804,
+      "p_vs_ANN": 0.9746962777663236
+    },
+    {
+      "model": "Hybrid fuzzy-ANN",
+      "MSE_mean": 469.75314787278745,
+      "MSE_std": 14.706469480016393,
+      "RMSE_mean": 21.671208114562713,
+      "RMSE_std": 0.34021300847641317,
+      "MAE_mean": 17.450817729239827,
+      "MAE_std": 0.36239756478728524,
+      "R2_mean": 0.25547573246417804,
+      "R2_std": 0.02243394156824708,
+      "seconds_mean": 11.626429923375447,
+      "seconds_std": 1.1039894014709506,
+      "t_vs_ANN": -2.6361754090650633,
+      "p_vs_ANN": 0.013327196090516543
+    },
+    {
+      "model": "Random forest",
+      "MSE_mean": 469.7867420377273,
+      "MSE_std": 15.935238582634899,
+      "RMSE_mean": 21.67155091592659,
+      "RMSE_std": 0.3675964843488172,
+      "MAE_mean": 17.32929667227001,
+      "MAE_std": 0.3747317122045556,
+      "R2_mean": 0.25547652908860513,
+      "R2_std": 0.022596636783628277,
+      "seconds_mean": 1.281513524055481,
+      "seconds_std": 0.05260711206868695,
+      "t_vs_ANN": -1.3001685452051526,
+      "p_vs_ANN": 0.2037821825381874
+    },
+    {
+      "model": "Linear regression",
+      "MSE_mean": 471.7521550442869,
+      "MSE_std": 15.884185988986623,
+      "RMSE_mean": 21.71684713124155,
+      "RMSE_std": 0.3677129538842089,
+      "MAE_mean": 17.533898225280648,
+      "MAE_std": 0.3801098205225824,
+      "R2_mean": 0.2523418011370431,
+      "R2_std": 0.023342241464612862,
+      "seconds_mean": 0.01004166603088379,
+      "seconds_std": 0.007380804503599761,
+      "t_vs_ANN": -3.2185378066982855,
+      "p_vs_ANN": 0.003164814482066909
+    },
+    {
+      "model": "SVR (RBF)",
+      "MSE_mean": 477.96173741352686,
+      "MSE_std": 15.990321799400629,
+      "RMSE_mean": 21.85938409031016,
+      "RMSE_std": 0.36539719412020394,
+      "MAE_mean": 17.326720796386816,
+      "MAE_std": 0.34885697906423596,
+      "R2_mean": 0.2423777173544807,
+      "R2_std": 0.02702863195083959,
+      "seconds_mean": 5.089058057467143,
+      "seconds_std": 0.5914550446479891,
+      "t_vs_ANN": -5.483810780942018,
+      "p_vs_ANN": 6.617252092983658e-06
+    },
+    {
+      "model": "Fuzzy HFIS (calibrated)",
+      "MSE_mean": 533.5648494521166,
+      "MSE_std": 19.203542259313952,
+      "RMSE_mean": 23.09538909735086,
+      "RMSE_std": 0.41670120041964664,
+      "MAE_mean": 18.69654385936942,
+      "MAE_std": 0.39218513865723115,
+      "R2_mean": 0.15457723107925686,
+      "R2_std": 0.021291069514238037,
+      "seconds_mean": 0.003012728691101074,
+      "seconds_std": 0.0016937799589691145,
+      "t_vs_ANN": -16.375570124132942,
+      "p_vs_ANN": 3.4215188392017017e-16
+    }
+  ],
+  "ann_hyperparameters_mode": [
+    {
+      "mlpregressor__alpha": "0.01",
+      "mlpregressor__hidden_layer_sizes": "(64, 32)",
+      "count": 14
+    },
+    {
+      "mlpregressor__alpha": "0.0001",
+      "mlpregressor__hidden_layer_sizes": "(64, 32)",
+      "count": 7
+    },
+    {
+      "mlpregressor__alpha": "0.0001",
+      "mlpregressor__hidden_layer_sizes": "(32, 16)",
+      "count": 5
+    }
+  ],
+  "ann_surrogate_of_fis": {
+    "R2": 0.9548941185810471,
+    "RMSE": 4.194168321591553
+  },
+  "importance": [
+    {
+      "factor": "TE",
+      "name": "Teaching effectiveness",
+      "ann_perm_importance_R2_drop": 0.019713277335429522,
+      "ann_perm_importance_sd": 0.003300036874813187,
+      "fis_sensitivity_plus1SD": 0.5797801060777572,
+      "spearman_with_TSI": 0.19542296079871663,
+      "rank_ann": 5,
+      "rank_fis": 8
+    },
+    {
+      "factor": "SE",
+      "name": "Student engagement",
+      "ann_perm_importance_R2_drop": 0.04502031212096193,
+      "ann_perm_importance_sd": 0.005240966345775212,
+      "fis_sensitivity_plus1SD": 0.674959818238415,
+      "spearman_with_TSI": 0.3495237939681607,
+      "rank_ann": 3,
+      "rank_fis": 7
+    },
+    {
+      "factor": "P",
+      "name": "Personalization",
+      "ann_perm_importance_R2_drop": 0.044648153013944945,
+      "ann_perm_importance_sd": 0.008239731214683115,
+      "fis_sensitivity_plus1SD": 1.041567302598746,
+      "spearman_with_TSI": 0.3875721747096437,
+      "rank_ann": 4,
+      "rank_fis": 5
+    },
+    {
+      "factor": "AC",
+      "name": "Assessment capability",
+      "ann_perm_importance_R2_drop": 0.07450599824379053,
+      "ann_perm_importance_sd": 0.0064325175242187305,
+      "fis_sensitivity_plus1SD": 1.310252937836942,
+      "spearman_with_TSI": 0.4020259676406153,
+      "rank_ann": 2,
+      "rank_fis": 3
+    },
+    {
+      "factor": "C",
+      "name": "Communication",
+      "ann_perm_importance_R2_drop": 0.0031208553524469827,
+      "ann_perm_importance_sd": 0.001949708431540725,
+      "fis_sensitivity_plus1SD": 0.9811848977961973,
+      "spearman_with_TSI": 0.16488795331207542,
+      "rank_ann": 8,
+      "rank_fis": 6
+    },
+    {
+      "factor": "A",
+      "name": "Adaptability",
+      "ann_perm_importance_R2_drop": 0.01632694055700718,
+      "ann_perm_importance_sd": 0.0037400370371628426,
+      "fis_sensitivity_plus1SD": 1.200622050396261,
+      "spearman_with_TSI": 0.2759086653585469,
+      "rank_ann": 6,
+      "rank_fis": 4
+    },
+    {
+      "factor": "R",
+      "name": "Reliability",
+      "ann_perm_importance_R2_drop": 0.09387878079161042,
+      "ann_perm_importance_sd": 0.004472011034539659,
+      "fis_sensitivity_plus1SD": 6.455815251761901,
+      "spearman_with_TSI": 0.3571065328739546,
+      "rank_ann": 1,
+      "rank_fis": 1
+    },
+    {
+      "factor": "E",
+      "name": "Ethical suitability",
+      "ann_perm_importance_R2_drop": 0.00784672992486217,
+      "ann_perm_importance_sd": 0.001514448591866569,
+      "fis_sensitivity_plus1SD": 3.4852066597038327,
+      "spearman_with_TSI": 0.09428255454556134,
+      "rank_ann": 7,
+      "rank_fis": 2
+    }
+  ],
+  "importance_rank_agreement_tau": 0.21428571428571427,
+  "robustness": {
+    "draws": 500,
+    "tau_mean": 0.9530666666666666,
+    "tau_p5": 0.911111111111111,
+    "category_agreement_mean": 0.995,
+    "category_agreement_min": 0.8
+  },
+  "subgroups": [
+    {
+      "variable": "Q10",
+      "KW_H": 32.79698176593725,
+      "KW_p": 3.5543998354128725e-07,
+      "epsilon2": 0.002523457127874089
+    },
+    {
+      "variable": "Q11",
+      "KW_H": 13.848986839658988,
+      "KW_p": 0.0009834011635172241,
+      "epsilon2": 0.000999830127386633
+    },
+    {
+      "variable": "Q14",
+      "KW_H": 110.82793935692759,
+      "KW_p": 8.590506055166098e-25,
+      "epsilon2": 0.009153666360242878
+    },
+    {
+      "variable": "Q2",
+      "KW_H": 52.93751715929764,
+      "KW_p": 1.890467468140794e-11,
+      "epsilon2": 0.004198546927803737
+    },
+    {
+      "variable": "Q8",
+      "KW_H": 35.94896484437397,
+      "KW_p": 1.562361286059165e-08,
+      "epsilon2": 0.0028711912080830486
+    }
+  ]
+}
