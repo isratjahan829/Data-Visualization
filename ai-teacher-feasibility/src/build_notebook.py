@@ -89,6 +89,31 @@ hm.round(1)"""),
 for f in sorted(FIGURES.glob("fig*.png")):
     print(f.name); display(Image(filename=str(f), width=900))"""),
 ]
+cells += [
+    md("""## 9. Extended (deep) analyses
+Mathematical properties of the fuzzy systems (Propositions 1-3: thresholds, closed-form centroids, rule complexity,
+provably monotone weighted-average inference), exact Shapley decomposition of R², multilevel models (students in
+countries), quantile regression, effect sizes + TOST equivalence, measurement invariance (Tucker's congruence) and
+student typologies. Same code as `src/deep_analysis.py`."""),
+    code("""import deep_analysis as da, figures_deep
+d2 = pd.read_csv(PROCESSED_CSV)
+prop, comp = da.math_properties(d2)
+display(prop.round(3)); display(comp.round(2))"""),
+    code("""sh = da.dominance(d2, B=500)
+print("sum of Shapley values =", round(sh.shapley_R2.sum(), 4), "= R² of the full model")
+display(sh.round(4))
+fe = da.multilevel(d2)
+print({k: round(v, 3) for k, v in da.OUT["multilevel"].items() if isinstance(v, float)})
+display(fe.round(3))"""),
+    code("""q, ols = da.quantile_reg(d2)
+eff = da.activity_effects(d2)
+inv = da.invariance(d2)
+sel = da.typology(d2)
+display(q.round(2)); display(eff.round(3)); display(inv.round(3)); display(sel.round(3))"""),
+    code("""figures_deep.make_all(d2, prop, comp, sh, q, eff, da.OUT)
+for f in sorted(FIGURES.glob("fig1[1-7]*.png")):
+    print(f.name); display(Image(filename=str(f), width=900))"""),
+]
 nb = nbf.v4.new_notebook(cells=cells, metadata={
     "kernelspec": {"name": "python3", "display_name": "Python 3"},
     "colab": {"provenance": []}})

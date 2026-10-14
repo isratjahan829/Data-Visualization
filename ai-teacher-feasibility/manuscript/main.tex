@@ -4,7 +4,11 @@
 
 \usepackage[T1]{fontenc}
 \IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
-\usepackage{amsmath,amssymb}
+\usepackage{amsmath,amssymb,amsthm}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
 \usepackage{booktabs}
 \usepackage{multirow}
 \usepackage{graphicx}
@@ -18,7 +22,9 @@
 
 \graphicspath{{../results/figures/}}
 \input{generated/macros.tex}
+\input{generated/macros_deep.tex}
 
+\setlength{\emergencystretch}{2.5em}
 \journal{(target journal)}
 
 \begin{document}
@@ -33,7 +39,7 @@
 \address{Department of Computer Science and Engineering, [University name], [City], [Country]}
 
 \begin{abstract}
-Generative artificial intelligence (AI) can explain concepts, answer questions and comment on student work, reviving the question of whether AI could substitute for university teachers. We assess this feasibility \emph{task by task} rather than as a binary question. A hierarchical Mamdani fuzzy inference system combines eight evaluation factors (teaching effectiveness, student engagement, personalization, assessment capability, communication, adaptability, reliability and ethical suitability) into a 0--100 Teacher Replacement Feasibility Score (TRFS). An activity-level fuzzy system classifies ten teaching activities as suitable for full AI replacement, partial AI assistance or human involvement. The framework was applied to the open Global ChatGPT Student Survey ($N=\Nfinal$ ChatGPT users in \Ncountries{} countries). Confirmatory factor analysis supported the measurement model (CFI~$=\CFIval$, RMSEA~$=\RMSEAval$, SRMR~$=\SRMRval$). The TRFS (mean \TRFSmean) correlated with an independent teacher-substitution criterion ($\rho=\RhoTSI$) and with satisfaction ($\rho=\RhoSat$). No activity reached the full-replacement band. Content explanation (\act{A1}{score}) and question answering (\act{A2}{score}) scored highest; classroom communication, socio-emotional support and problem solving scored lowest (\act{A9}{score}--\act{A7}{score}). The ranking was stable across \RobDraws{} perturbed fuzzy designs (mean Kendall's $\tau=\RobTau$). An artificial neural network predicted the criterion best ($R^2=\AnnRsq$), on a par with gradient boosting and marginally above linear regression, while the untrained fuzzy score retained \FisShare\% of that explained variance with full interpretability. Reliability was the dominant driver. The results support human--AI collaboration, with AI handling routine explanatory work under teacher oversight, rather than teacher replacement.
+Generative artificial intelligence (AI) can explain concepts, answer questions and comment on student work, reviving the question of whether AI could substitute for university teachers. We assess this feasibility \emph{task by task} rather than as a binary question. A hierarchical Mamdani fuzzy inference system combines eight evaluation factors (teaching effectiveness, student engagement, personalization, assessment capability, communication, adaptability, reliability and ethical suitability) into a 0--100 Teacher Replacement Feasibility Score (TRFS). An activity-level fuzzy system classifies ten teaching activities as suitable for full AI replacement, partial AI assistance or human involvement. The framework was applied to the open Global ChatGPT Student Survey ($N=\Nfinal$ ChatGPT users in \Ncountries{} countries). Confirmatory factor analysis supported the measurement model (CFI~$=\CFIval$, RMSEA~$=\RMSEAval$, SRMR~$=\SRMRval$). The TRFS (mean \TRFSmean) correlated with an independent teacher-substitution criterion ($\rho=\RhoTSI$) and with satisfaction ($\rho=\RhoSat$). No activity reached the full-replacement band. Content explanation (\act{A1}{score}) and question answering (\act{A2}{score}) scored highest; classroom communication, socio-emotional support and problem solving scored lowest (\act{A9}{score}--\act{A7}{score}). The ranking was stable across \RobDraws{} perturbed fuzzy designs (mean Kendall's $\tau=\RobTau$). We prove that a weighted-average variant of the hierarchical system is bounded, continuous and monotone in every factor, which the Mamdani version is not, and show that both variants yield the same conclusions. Shapley decomposition, multilevel models (\MlCountries{} countries), quantile regression, equivalence tests and invariance analysis (Tucker's $\varphi\ge\InvCong$) confirm the findings and reveal an AI-enthusiastic third of students for whom AI already approaches the replacement threshold. An artificial neural network predicted the criterion best ($R^2=\AnnRsq$), on a par with gradient boosting and marginally above linear regression, while the untrained fuzzy score retained \FisShare\% of that explained variance with full interpretability. Reliability was the dominant driver. The results support human--AI collaboration, with AI handling routine explanatory work under teacher oversight, rather than teacher replacement.
 \end{abstract}
 
 \begin{keyword}
@@ -61,6 +67,8 @@ This study develops and empirically tests such a framework. We make four contrib
   \item We operationalise the framework on a large, open, multinational dataset (the Global ChatGPT Student Survey; \citealp{ravselj2025,ravselj2024data}). The eight-factor measurement model is validated by confirmatory factor analysis before any soft-computing step.
   \item We benchmark an ANN, a hybrid fuzzy--ANN and four standard learners against the fuzzy score under repeated cross-validation with corrected significance tests. We thereby quantify the trade-off between predictive accuracy and interpretability.
   \item We report extensive robustness checks: Monte Carlo perturbation of membership functions, inference operators and rule rounding, plus subgroup analyses. These show how much the substantive conclusions depend on the analyst's fuzzy design choices.
+  \item We derive formal properties of the framework (decision thresholds, closed-form consequent centroids and rule-base complexity) and \emph{prove} that a weighted-average variant is bounded, continuous, Lipschitz and monotone in every factor. Exhaustive grid verification shows that the conventional Mamdani system violates monotonicity.
+  \item We complement the soft-computing results with an exact Shapley decomposition of explained variance, multilevel models of country effects, quantile regression, equivalence testing, measurement-invariance analysis and a typology of students.
 \end{enumerate}
 
 The study addresses five research questions:
@@ -150,6 +158,78 @@ This decomposition reduces a flat rule base of $3^8=6561$ rules to $81+9+9+27=12
 \label{fig:framework}
 \end{figure}
 
+\subsection{Mathematical properties of the framework}
+\label{sec:math}
+Before applying the framework we establish its formal properties. Let $\mathcal{P}=\{\mu_L,\mu_M,\mu_H\}$ denote a three-term partition of a universe $U$.
+
+\begin{proposition}[Decision thresholds]
+\label{prop:thresholds}
+On the output universe $[0,100]$ the Low/Medium and Medium/High membership functions intersect at $y=35$ and $y=65$, and on the Likert universe at $x=2.5$ and $x=3.5$. These crossover points are the unique values at which a score is equally a member of two adjacent linguistic classes.
+\end{proposition}
+\begin{proof}
+On $[20,50]$, $\mu_L(y)=(50-y)/30$ and $\mu_M(y)=(y-20)/30$; equating gives $y^\ast=35$. On $[50,80]$, $\mu_M(y)=(80-y)/30=\mu_H(y)=(y-50)/30$ gives $y^\ast=65$. Outside these intervals at most one of each pair is positive. The Likert case is identical with knots $(2,3,4)$.
+\end{proof}
+
+\begin{proposition}[Rule-base complexity]
+\label{prop:complexity}
+A flat three-term rule base over $n$ inputs requires $3^n$ rules. A two-level hierarchy that partitions the inputs into groups of sizes $n_1,\dots,n_m$ and aggregates the $m$ group outputs requires $\sum_{i=1}^{m}3^{n_i}+3^{m}$ rules. For the present design ($n=8$; $n_i=4,2,2$; $m=3$) this is $3^4+3^2+3^2+3^3=\HierRules$ instead of $3^8=\FlatRules$, a reduction of \RuleReduction\%.
+\end{proposition}
+\begin{proof}
+Each complete sub-system with $k$ three-term inputs enumerates $3^k$ antecedent combinations; the total is the sum over the $m+1$ sub-systems.
+\end{proof}
+
+\paragraph{Consequent centroids} For a trapezoid $\mathrm{trap}(a,b,c,d)$ the centroid has the closed form
+\begin{equation}
+\bar y(a,b,c,d)=\frac{(c^2+cd+d^2)-(a^2+ab+b^2)}{3\,[(c+d)-(a+b)]},
+\label{eq:centroid-closed}
+\end{equation}
+obtained by integrating $y\,\mu(y)$ over the two linear flanks and the plateau. For the output terms this gives $c_L=\bar y(0,0,20,50)=3900/210=\cLval$, $c_M=50$ and, by symmetry, $c_H=100-c_L=\cHval$. Numerical integration on a $2\times10^5$-point grid reproduces $c_L$ to three decimals (\cLnum).
+
+\paragraph{A provably monotone inference variant} Policy use of a feasibility score requires that improving any input factor can never \emph{lower} the score. Mamdani min--max inference with centroid defuzzification does not guarantee this property. We therefore also define a weighted-average (WA) variant on the same partitions and rule tables, with product t-norm and consequent centroids $c_{\ell}$:
+\begin{equation}
+f(\mathbf{x})=\frac{\sum_{\boldsymbol{\ell}\in\{L,M,H\}^k}\big(\prod_{j=1}^{k}\mu_{\ell_j}(x_j)\big)\,c_{r(\boldsymbol{\ell})}}{\sum_{\boldsymbol{\ell}}\prod_{j=1}^{k}\mu_{\ell_j}(x_j)},
+\label{eq:wa}
+\end{equation}
+where $r(\boldsymbol{\ell})$ is the consequent of rule $\boldsymbol{\ell}$.
+
+\begin{lemma}
+\label{lem:ruspini}
+Both partitions are Ruspini partitions, i.e.\ $\sum_{\ell}\mu_\ell(x)=1$ for all $x\in U$. Consequently the denominator of Eq.~\eqref{eq:wa} equals one, and $f$ is the multilinear interpolation of the rule table on the knot grid.
+\end{lemma}
+\begin{proof}
+On $[2,3]$ only $\mu_L=3-x$ and $\mu_M=x-2$ are positive and they sum to one; on $[3,4]$, $\mu_M+\mu_H=(4-x)+(x-3)=1$; on $[1,2]$ and $[4,5]$ a single shoulder equals one. The output partition is analogous with slopes $1/30$. The denominator factorises as $\prod_j\sum_{\ell}\mu_\ell(x_j)=1$.
+\end{proof}
+
+\begin{lemma}
+\label{lem:monotone-table}
+All five rule tables of the framework are monotone: the consequent level is non-decreasing in every antecedent level.
+\end{lemma}
+\begin{proof}
+For the rounded-mean rules the consequent is $\lceil \mathbf{w}^\top\boldsymbol{\ell}/\mathbf{1}^\top\mathbf{w}-\tfrac12\rceil$ with $\mathbf{w}>0$, a composition of a non-decreasing linear form and the non-decreasing ceiling function. For the veto rules (FIS$_3$, FIS$_4$ and the activity FIS) the consequent is Low on the veto set and the rounded mean elsewhere; raising a vetoing input from Low either keeps the consequent at Low or moves it to a non-negative level, so monotonicity is preserved. Exhaustive enumeration of the 153 rules confirms this (Table~\ref{tab:math}).
+\end{proof}
+
+\begin{proposition}[Boundedness, continuity, monotonicity and Lipschitz continuity of the WA framework]
+\label{prop:monotone}
+Let each sub-system be evaluated by Eq.~\eqref{eq:wa}. Then (i) every sub-system output lies in $[c_L,c_H]=[\cLval,\cHval]$; (ii) every output is continuous; (iii) every output is non-decreasing in each of its inputs; (iv) the hierarchical TRFS is non-decreasing in each of the eight factors; and (v) on the Likert scale $|\partial f/\partial x_j|\le c_H-c_L$ wherever the derivative exists.
+\end{proposition}
+\begin{proof}
+(i) By Lemma~\ref{lem:ruspini}, $f$ is a convex combination of values in $\{c_L,c_M,c_H\}$. (ii) $f$ is a finite sum of products of continuous functions. (iii) Fix all inputs except $x_j$ and write $f=\sum_{\ell}\mu_\ell(x_j)\,g(\ell)$ with $g(\ell)=\sum_{\boldsymbol{\ell}_{-j}}\prod_{i\ne j}\mu_{\ell_i}(x_i)\,c_{r(\ell,\boldsymbol{\ell}_{-j})}$. By Lemma~\ref{lem:monotone-table} and $c_L<c_M<c_H$, $g$ is a non-negative combination of non-decreasing sequences and is therefore non-decreasing in $\ell$. On $[2,3]$, $f=(3-x_j)g(L)+(x_j-2)g(M)$, so $\partial f/\partial x_j=g(M)-g(L)\ge0$; on $[3,4]$, $\partial f/\partial x_j=g(H)-g(M)\ge0$; on $[1,2]$ and $[4,5]$, $f$ is constant in $x_j$. Being continuous and piecewise non-decreasing, $f$ is non-decreasing. (iv) The TRFS is the composition $f_4(f_1,f_2,f_3)$ of non-decreasing functions whose intermediate values lie in the domain $[0,100]$ of $f_4$ by (i); compositions of non-decreasing functions are non-decreasing. (v) $|g(\ell+1)-g(\ell)|\le c_H-c_L$ because $g$ is a convex combination of values in $[c_L,c_H]$.
+\end{proof}
+
+\begin{remark}
+\label{rem:mamdani}
+The Mamdani system shares property (i) only approximately: its range is $[18.44,81.56]$ on the 201-point grid, essentially $[c_L,c_H]$. It violates (iii). An exhaustive grid search (Table~\ref{tab:math}) found local decreases of up to \MamWorst{} TRFS points in up to \MamShare\% of grid steps, caused by the non-additive max aggregation and the centroid operator. Fig.~\ref{fig:surf3d} visualises these ripples. We retain Mamdani inference as the primary specification, because it matches the original proposal and is the standard in educational fuzzy evaluation, and report the provably monotone WA variant as a robustness check and as the recommended choice for operational decision support.
+\end{remark}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{fig16_surfaces_3d.pdf}
+\caption{Three-dimensional control surfaces of the activity FIS (ethical suitability fixed at 3): (a) Mamdani min--max inference with centroid defuzzification, showing local non-monotone ripples; (b) the weighted-average variant of Proposition~\ref{prop:monotone}, which is smooth and monotone by construction. Orange contours mark the 35 and 65 decision thresholds.}
+\label{fig:surf3d}
+\end{figure}
+
+\input{generated/tab_math.tex}
+
 %======================================================================
 \section{Materials and methods}
 \label{sec:methods}
@@ -230,6 +310,30 @@ RQ2 was examined from three complementary angles: (i) Spearman correlations of e
 
 \subsection{Robustness analysis}
 Every fuzzy system depends on design choices. To test how much the activity ranking and classification depend on them, we drew \RobDraws{} random configurations. Each draw shifted the input membership functions by $U(-0.25,0.25)$ Likert points and changed their spread by $U(-0.25,0.25)$; shifted the output sets by $U(-5,5)$ points and changed their spread by $U(-5,5)$; switched the tie-breaking rule (conservative vs.\ liberal rounding); and switched the t-norm (minimum vs.\ product). For each draw we recorded Kendall's $\tau$ between the perturbed and the baseline activity ranking and the share of activities that kept their category.
+
+\subsection{Extended statistical analyses}
+\label{sec:extended-methods}
+\paragraph{Shapley decomposition of explained variance} To apportion the explained variance of the TSI among correlated factors without the order dependence of sequential $R^2$, we computed the Shapley value of each factor in the cooperative game whose characteristic function is the OLS coefficient of determination \citep{lipovetsky2001}. This is equivalent to the general dominance weights of \citet{budescu1993}:
+\begin{equation}
+\phi_j=\sum_{S\subseteq P\setminus\{j\}}\frac{|S|!\,(p-|S|-1)!}{p!}\Big[R^2(S\cup\{j\})-R^2(S)\Big],\qquad R^2(S)=\mathbf{r}_S^{\top}\mathbf{R}_{SS}^{-1}\mathbf{r}_S,
+\label{eq:shapley}
+\end{equation}
+where $\mathbf{R}$ is the factor correlation matrix and $\mathbf{r}$ the vector of factor--TSI correlations. By the efficiency axiom, $\sum_j\phi_j=R^2(P)$ exactly. All $2^8=256$ subset models were evaluated, and 95\% CIs were obtained from \ShapB{} bootstrap resamples.
+
+\paragraph{Multilevel modelling} Students are nested in countries. We fitted random-intercept models $y_{ic}=\mathbf{x}_{ic}^{\top}\boldsymbol\beta+u_c+\varepsilon_{ic}$ with $u_c\sim\mathcal N(0,\tau^2)$ and $\varepsilon_{ic}\sim\mathcal N(0,\sigma^2)$ by REML \citep{raudenbush2002} for the \MlCountries{} countries with at least \MlMinN{} respondents ($n=\MlN$). We report the intraclass correlation $\mathrm{ICC}=\tau^2/(\tau^2+\sigma^2)$, the marginal and conditional $R^2$ of \citet{nakagawa2013}, $R^2_m=\sigma_f^2/(\sigma_f^2+\tau^2+\sigma^2)$ and $R^2_c=(\sigma_f^2+\tau^2)/(\sigma_f^2+\tau^2+\sigma^2)$, and a likelihood-ratio test of $\tau^2=0$. The test uses the boundary-corrected reference distribution $\tfrac12\chi^2_0+\tfrac12\chi^2_1$ \citep{self1987}. Country effects are shown as best linear unbiased predictors with conditional standard errors $\sqrt{\tau^2\sigma^2/(n_c\tau^2+\sigma^2)}$.
+
+\paragraph{Quantile regression} To test whether the TRFS--TSI relationship is homogeneous across the criterion distribution, we estimated $Q_{\tau}(\mathrm{TSI}\mid\mathrm{TRFS})=\beta_0(\tau)+\beta_1(\tau)\,\mathrm{TRFS}/10$ for $\tau=0.10,\dots,0.90$ by minimising $\sum_i\rho_\tau(y_i-\mathbf{x}_i^{\top}\boldsymbol\beta)$ with $\rho_\tau(u)=u\,(\tau-\mathbb 1\{u<0\})$ \citep{koenker1978}. The TSI takes only nine values, so we applied the jittering approach of \citet{machado2005}: we added $U(-6.25,6.25)$ noise (half the TSI step) and averaged the estimates over \QReps{} replications.
+
+\paragraph{Effect sizes and equivalence tests} For each activity we computed Cohen's $d_z=(\bar x-50)/s$ against the neutral centre of the partial-assistance band, with $\mathrm{SE}(d_z)\approx\sqrt{1/n+d_z^2/(2n)}$. Because the large sample makes almost every difference ``significant'', we also tested \emph{practical equivalence} to 50 with the two one-sided tests (TOST) procedure \citep{schuirmann1987,lakens2017}. The smallest effect size of interest was $\Delta=\pm\TostDelta$ TRFS points (2\% of the scale). Equivalence is declared when both $t_1=(\bar x-(50-\Delta))/\mathrm{SE}$ and $t_2=(\bar x-(50+\Delta))/\mathrm{SE}$ reject their one-sided nulls at $\alpha=0.05$.
+
+\paragraph{Measurement invariance} We fitted the eight-factor CFA separately by gender, level of study, field of study and questionnaire language (groups with $n\ge300$). For each factor we compared group loadings $\boldsymbol\lambda_g$ with pooled loadings $\boldsymbol\lambda_0$ using Tucker's congruence coefficient
+\begin{equation}
+\varphi(\boldsymbol\lambda_g,\boldsymbol\lambda_0)=\frac{\sum_i\lambda_{gi}\lambda_{0i}}{\sqrt{\sum_i\lambda_{gi}^2\sum_i\lambda_{0i}^2}},
+\label{eq:tucker}
+\end{equation}
+where $\varphi\ge0.95$ indicates that the factors can be considered equal \citep{lorenzo2006}.
+
+\paragraph{Student typologies} To identify groups of students with similar activity-capability profiles we applied $k$-means clustering \citep{lloyd1982} to the ten standardised activity capabilities for $k=2,\dots,6$. The number of clusters was fixed by a pre-declared rule: the highest mean silhouette $s(i)=(b_i-a_i)/\max(a_i,b_i)$ \citep{rousseeuw1987} among solutions whose bootstrap stability, the mean adjusted Rand index \citep{hubert1985} over 20 resamples, was at least 0.90. Distributions of all activity scores are visualised as raincloud plots \citep{allen2019}.
 
 \subsection{Subgroup analysis and software}
 Differences in TRFS by gender, level of study, field of study, mode of study and ChatGPT version were tested with Kruskal--Wallis tests, with $\varepsilon^2$ as effect size. All analyses were run in Python~3.13 with NumPy, pandas, SciPy and scikit-learn \citep{pedregosa2011}. The CFA was estimated with a purpose-written maximum-likelihood routine (SciPy L-BFGS-B). A fixed random seed (2024) was used throughout. The complete pipeline, which regenerates every table and figure, is available in the replication package (see Data and code availability).
@@ -326,6 +430,71 @@ Subgroup differences in the overall TRFS were statistically significant but negl
 \label{fig:field}
 \end{figure}
 
+\subsection{Mathematical verification}
+The exhaustive grid checks in Table~\ref{tab:math} confirm Propositions~\ref{prop:thresholds}--\ref{prop:monotone} numerically. All rule tables are monotone, and the WA variant attains exactly $[\cLval,\cHval]$ without a single decreasing step. The Mamdani system shows the ripples described in Remark~\ref{rem:mamdani}. On the real data the two inference variants agreed closely: the overall scores correlated at $r=\RMamWa$ (Spearman $\rho=\RhoMamWa$), the WA score had a mean of \WaMean{} (SD~\WaSD), and its validity against the TSI was practically unchanged ($\rho=\RhoWaTSI$ vs.\ \RhoTSI). The activity ranking was almost identical (Kendall's $\tau=\WaTau$; Fig.~\ref{fig:effects}b). Under WA inference all ten activities again fell in the partial-assistance band (\WaMin--\WaMax). The substantive conclusions therefore do not depend on the choice between the conventional and the provably monotone inference scheme.
+
+\subsection{Exact decomposition of explained variance}
+The eight factors jointly explained $R^2=\ShapRsq$ of the TSI in OLS, and the Shapley values sum exactly to this total (Table~\ref{tab:shapley}, Fig.~\ref{fig:shapley}). Assessment capability carried the largest share (\ShapPctAC\%), followed by reliability (\ShapPctR\%), personalization (\ShapPctP\%) and student engagement (\ShapPctSE\%). Together these four account for more than 85\% of the explained variance. Ethical suitability contributed only \ShapPctE\%. The Shapley ranking differs from the ANN permutation ranking mainly in the order of the top two factors (AC vs.\ R): permutation importance measures \emph{unique} information, whereas Shapley values share overlapping variance fairly among correlated predictors.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.75\textwidth]{fig12_shapley_r2.pdf}
+\caption{Shapley decomposition of the explained variance of the TSI (Eq.~\ref{eq:shapley}); bars show $\phi_j$ with 95\% bootstrap CIs and labels the share of the total $R^2$.}
+\label{fig:shapley}
+\end{figure}
+
+\input{generated/tab_shapley_mixed.tex}
+
+\subsection{Country-level variation}
+Country membership accounted for \IccTRFS{} of the variance of the TRFS and \IccTSI{} of the variance of the TSI (null-model ICCs). This variance is small but highly significant (LR~$=\LRval$, $p<0.001$). After the eight factors were controlled, the residual country ICC of the TSI fell to \IccCond. The fixed effects were very close to the single-level estimates (Fig.~\ref{fig:multilevel}b). Assessment capability ($\beta=\BetaAC$ TSI points per SD), reliability (\BetaR), student engagement (\BetaSE) and personalization (\BetaP) had the largest positive effects. Teaching effectiveness ($\beta=\BetaTE$) and communication (\BetaC) had small \emph{negative} conditional effects, a classic suppression pattern. Holding perceived learning benefits constant, students who mainly value ChatGPT for summarising and explaining are slightly \emph{less} inclined to see it as a substitute for their professors. Ethical suitability had no effect (\BetaE). The marginal and conditional $R^2$ were \RsqMarg{} and \RsqCond. Country mean TRFS ranged from about 40 to 71 (Fig.~\ref{fig:multilevel}a): it was highest in Estonia and in several African and Asian countries (e.g.\ Egypt, Ghana, Bangladesh and Tanzania) and lowest in, for example, Japan and Austria. National context therefore shifts the \emph{level} of perceived feasibility, but not the pattern of its determinants.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{fig13_multilevel.pdf}
+\caption{Multilevel results. (a) Country random intercepts for the TRFS (countries with $n\ge100$; BLUP $\pm$ 95\% CI; dashed line: grand mean). (b) Fixed effects of the eight standardised factors on the TSI from the random-intercept model, compared with single-level OLS.}
+\label{fig:multilevel}
+\end{figure}
+
+\subsection{Heterogeneity across the criterion distribution and across students}
+Quantile regression showed a positive TRFS effect at every quantile (Fig.~\ref{fig:quantile}). The effect was largest around the median ($\beta_{0.5}=\QbetaFifty$ TSI points per 10 TRFS points) and smaller in the tails ($\beta_{0.1}=\QbetaTen$, $\beta_{0.9}=\QbetaNinety$; OLS \QolsBeta). Perceived feasibility therefore discriminates best among students with moderate substitution attitudes. At the extremes, attitudes appear anchored by factors outside the framework.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.75\textwidth]{fig14_quantile_regression.pdf}
+\caption{Quantile-regression coefficients of the TSI on the TRFS (per 10 points) with 95\% CIs, averaged over \QReps{} jittered replications; the horizontal line and band show the OLS estimate and its CI.}
+\label{fig:quantile}
+\end{figure}
+
+The selection rule retained $k=\TyK$ clusters (silhouette \SilTwo, bootstrap ARI \AriTwo). These separated an \emph{AI-sceptical} group (\TyPctScepTwo\%; mean TRFS \TyTrfsScepTwo) from an \emph{AI-receptive} group (\TyPctRecTwo\%; mean TRFS \TyTrfsRecTwo). The first principal component of the ten activity capabilities explained \TyPC\% of their variance. Students therefore differ mainly in their \emph{overall} level of confidence in AI and much less in the \emph{shape} of their profiles. The finer three-cluster solution (silhouette \SilThree, ARI \AriThree; Fig.~\ref{fig:typology}) is informative for policy. It distinguishes \emph{AI-sceptical} (\TyPctScepThree\%, TRFS \TyTrfsScepThree), \emph{ambivalent} (\TyPctAmbThree\%, TRFS \TyTrfsAmbThree) and \emph{AI-enthusiastic} students (\TyPctEnthThree\%, TRFS \TyTrfsEnthThree). For the enthusiastic third of students the mean overall score lies \emph{above} the full-replacement threshold. Two activities exceed 65 in this group (content explanation 66.0 and personalised learning 65.2), and most others lie just below it (Fig.~\ref{fig:typology}b). For the sceptical sixth, eight of the ten activities fall into the human-involvement band; only content explanation and question answering (both about 39) remain in the partial band. Content explanation is among the two highest-rated activities in every group, and problem solving is among the three lowest. The middle of the ranking differs between groups: sceptics, for example, place emotional and social support third, whereas enthusiasts place it last. This activity partly reflects concerns about reduced human contact (reverse-coded), which vary less with general AI confidence than the capability items do. Typology was only weakly associated with field of study (Cram\'er's $V=\TyVThree$), but it was clearly associated with the TSI ($\varepsilon^2=\TyEpsThree$).
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{fig15_typology.pdf}
+\caption{Student typologies ($k$-means, three-cluster solution). (a) Mean perceived capability per activity (1--5). (b) Mean activity feasibility scores per typology; shaded bands mark the human-involvement and full-replacement regions.}
+\label{fig:typology}
+\end{figure}
+
+\subsection{Effect sizes, practical equivalence and measurement invariance}
+Fig.~\ref{fig:raincloud} shows the full distribution of every activity score. The effect sizes against the neutral centre were small (Cohen's $d_z$ from \Dmin{} to \Dmax; Fig.~\ref{fig:effects}a). TOST established practical equivalence to 50 ($\pm\TostDelta$ points) for \TostN{} activities: personalised learning, assignment feedback, assessment, motivation and academic guidance. Their mean scores are thus statistically indistinguishable from a perfectly balanced human--AI split. Content explanation and question answering lay reliably above this band, and problem solving, classroom communication and socio-emotional support lay below it. Every activity mean was significantly below the 65-point replacement threshold (one-sided $p<0.001$).
+
+The eight-factor model fitted acceptably in all \InvGroups{} subgroups (CFI~$\ge\InvCFI$, RMSEA~$\le\InvRMSEA$; Table~\ref{tab:invariance}). Tucker's congruence between group-specific and pooled loadings was at least \InvCong{} for every factor and group, well above the 0.95 criterion for factorial equality. The largest loading difference (\InvDiff) occurred in the smallest language groups. The factor scores therefore measure the same constructs across genders, levels, disciplines and questionnaire languages, and subgroup comparisons of the TRFS are meaningful.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{fig11_activity_raincloud.pdf}
+\caption{Raincloud plots of the ten activity feasibility scores: kernel density (cloud), interquartile range (bar), mean (circle) and a random subsample of 400 individual scores per activity (rain). Shaded regions mark the three decision categories.}
+\label{fig:raincloud}
+\end{figure}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{fig17_effects_and_variants.pdf}
+\caption{(a) Cohen's $d_z$ of each activity score against the neutral value 50 with 95\% CIs; the grey band is the TOST equivalence region ($\pm\TostDelta$ points). (b) Mean activity scores under Mamdani and provably monotone weighted-average inference.}
+\label{fig:effects}
+\end{figure}
+
+\input{generated/tab_invariance.tex}
+
 %======================================================================
 \section{Discussion}
 \label{sec:discussion}
@@ -339,6 +508,11 @@ Subgroup differences in the overall TRFS were statistically significant but negl
 \textbf{RQ3: can soft computing quantify feasibility?} Yes, with caveats. The hierarchical fuzzy system produced a score that was reliable to compute and convergently and discriminantly valid, robust to its design choices, and fully transparent: each of the 126 rules can be inspected and debated. The ANN matched the best tree ensemble and beat linear regression only by a small margin, and fusing it with the fuzzy outputs did not help. Data-driven models are therefore best used to \emph{validate and calibrate} the interpretable expert system rather than to replace it. The trade-off is clear: the ANN explains about \AnnFisRatio{} times more criterion variance than the untrained fuzzy score, while the fuzzy score explains \emph{why} a given activity is or is not feasible. For policy decisions about delegating teaching work, interpretability is arguably the more important property.
 
 \textbf{RQ5: what are AI's limitations relative to teachers?} The results point to four limitations: (i) unreliable information, the lowest-rated capability factor and the strongest determinant; (ii) weak support for higher-order skill development; (iii) limited capacity for socio-emotional support and classroom interaction, where students fear reduced human contact and social isolation; and (iv) persistent ethical concerns about cheating, plagiarism and privacy. Ethical suitability scored lowest of all factors.
+
+\subsection{Heterogeneity and the mathematical guarantees}
+The aggregate result (``partial assistance for every activity'') hides substantial heterogeneity between students. For the AI-enthusiastic third of the sample, AI already approaches or exceeds the full-replacement threshold for explanation, question answering and personalised learning. For the sceptical sixth it remains in the human-involvement band for most activities. Policies that treat students as a homogeneous group will therefore suit neither extreme. Universities may need to offer AI-led options to students who want them while protecting access to human teaching for those who do not. The activity ranking was almost identical across fields of study, and content explanation was rated near the top in every typology. A common core of delegable tasks can therefore guide institutional policy even though the \emph{level} of acceptance varies; the ordering of the remaining tasks depends more on students' general stance towards AI.
+
+The mathematical analysis has a practical corollary. A feasibility score used for decisions should never fall when an AI tool improves on any dimension. The widely used Mamdani scheme does not guarantee this, whereas the weighted-average variant does (Proposition~\ref{prop:monotone}). Because both schemes gave the same conclusions here, we recommend the monotone variant for operational deployment, where scores may be recomputed as tools evolve and must be defensible to stakeholders.
 
 \subsection{The normative--empirical gap on ethics}
 Ethical suitability was the second most influential input of the expert rule base but almost irrelevant to students' own substitution judgements. This gap matters for governance. Students' willingness to replace professors by AI is driven by convenience and perceived competence, not by ethical reservations, even though these reservations are widespread. Institutions therefore cannot rely on students' preferences alone to keep AI use within ethical bounds. Explicit policies on disclosure, integrity and data protection remain necessary \citep{unesco2023,cotton2024}. The fuzzy framework makes this normative choice explicit and adjustable: an institution can raise or lower the weight of ethics in FIS$_3$ and see the consequences immediately.
@@ -357,7 +531,7 @@ Because reliability is the binding constraint, investments in retrieval-grounded
 \label{sec:limitations}
 %======================================================================
 
-Several limitations qualify these conclusions. First, the data reflect \emph{students'} perceptions of one AI system (ChatGPT, mostly the free GPT-3.5 version) in late 2023 and early 2024. Perceived capability is not observed teaching performance, teachers' views are not represented, and capabilities are changing rapidly. Second, the survey was not designed for this framework. Some activities, notably student assessment and emotional support, are measured by proxies, and two items form the TSI criterion. Third, the learning-outcome factors (SE, P, AC) are highly correlated and fail the strict Fornell--Larcker criterion, although HTMT supports their distinctness. Fourth, convenience sampling and the over-representation of some countries limit generalisability, although the activity ranking was stable across subgroups. Fifth, the fuzzy rule base, although derived systematically from the proposal and stress-tested, embodies normative choices (e.g.\ the reliability veto and the double weight of pedagogical capability) that other stakeholders may weigh differently.
+Several limitations qualify these conclusions. First, the data reflect \emph{students'} perceptions of one AI system (ChatGPT, mostly the free GPT-3.5 version) in late 2023 and early 2024. Perceived capability is not observed teaching performance, teachers' views are not represented, and capabilities are changing rapidly. Second, the survey was not designed for this framework. Some activities, notably student assessment and emotional support, are measured by proxies, and two items form the TSI criterion. Third, the learning-outcome factors (SE, P, AC) are highly correlated and fail the strict Fornell--Larcker criterion, although HTMT supports their distinctness. Fourth, convenience sampling and the over-representation of some countries limit generalisability, although the activity ranking was stable across subgroups. The student typologies are dominated by overall response level (the first principal component explains \TyPC\% of the variance), so they should be read as levels of AI confidence rather than qualitatively distinct profiles. Fifth, the fuzzy rule base, although derived systematically from the proposal and stress-tested, embodies normative choices (e.g.\ the reliability veto and the double weight of pedagogical capability) that other stakeholders may weigh differently.
 
 Future work should (i) collect purpose-built data from both students and teachers, linking perceptions to observed AI performance on authentic teaching tasks; (ii) elicit rule bases from expert panels, for example via Delphi studies, and compare them with data-driven rule learning such as ANFIS \citep{jang1993} or genetic fuzzy systems; (iii) track changes over time with the follow-up waves of the global survey; and (iv) deploy the framework as an interactive decision-support tool for institutions.
 

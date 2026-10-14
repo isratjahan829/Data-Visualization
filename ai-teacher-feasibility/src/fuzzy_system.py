@@ -131,6 +131,51 @@ def mamdani(inputs, partitions, rules, out_part, t_norm="min", grid=201):
     return crisp, strength
 
 
+def trap_centroid(a, b, c, d):
+    """Closed-form centroid of trap(a,b,c,d) (Eq. 6 of the manuscript)."""
+    num = (d ** 2 + c * d + c ** 2) - (a ** 2 + a * b + b ** 2)
+    den = 3.0 * ((d + c) - (a + b))
+    return num / den
+
+
+def weighted_average(inputs, partitions, rules, centroids):
+    """Monotone-by-construction inference: product t-norm, additive rule
+    weights and weighted-average defuzzification over consequent centroids.
+    With Ruspini input partitions and a complete rule grid the weights sum to
+    one and the output is a multilinear interpolation of the rule table."""
+    mus = [p.memberships(x) for p, x in zip(partitions, inputs)]
+    n = mus[0].shape[0]
+    num = np.zeros(n)
+    den = np.zeros(n)
+    for ante, cons in rules:
+        w = np.ones(n)
+        for m, lvl in zip(mus, ante):
+            w = w * m[:, lvl]
+        num += w * centroids[cons]
+        den += w
+    return num / np.maximum(den, 1e-12)
+
+
+class MonotoneHFIS:
+    """Same partitions and rule tables as HierarchicalFIS, but inferred with
+    `weighted_average`, which is provably monotone and bounded (Proposition 3)."""
+
+    def __init__(self, rounding="half_down"):
+        base = HierarchicalFIS(rounding=rounding)
+        self.in_part, self.mid_part = base.in_part, base.mid_part
+        self.rules = base.rules
+        self.c = np.array([trap_centroid(*Partition.score().params["Low"]), 50.0,
+                           100.0 - trap_centroid(*Partition.score().params["Low"])])
+
+    def predict(self, F):
+        ip, mp, c = self.in_part, self.mid_part, self.c
+        pc = weighted_average([F["TE"], F["P"], F["AC"], F["A"]], [ip] * 4, self.rules["PC"], c)
+        iq = weighted_average([F["SE"], F["C"]], [ip] * 2, self.rules["IQ"], c)
+        tw = weighted_average([F["R"], F["E"]], [ip] * 2, self.rules["TW"], c)
+        trfs = weighted_average([pc, iq, tw], [mp] * 3, self.rules["TRFS"], c)
+        return {"PC": pc, "IQ": iq, "TW": tw, "TRFS": trfs}
+
+
 class HierarchicalFIS:
     def __init__(self, in_shift=0.0, in_spread=0.0, out_shift=0.0, out_spread=0.0,
                  rounding="half_down", t_norm="min"):
@@ -191,3 +236,29 @@ def rule_table(rules, names, out_name):
         row[out_name] = LEVELS[cons]
         rows.append(row)
     return rows
+
+
+class MonotoneActivityFIS:
+    """Weighted-average counterpart of ActivityFIS (same rule table)."""
+
+    def __init__(self, rounding="half_down"):
+        base = ActivityFIS(rounding=rounding)
+        self.in_part, self.rules = base.in_part, base.rules
+        cl = trap_centroid(*Partition.score().params["Low"])
+        self.c = np.array([cl, 50.0, 100.0 - cl])
+
+    def predict(self, cap, rel, eth):
+        return weighted_average([cap, rel, eth], [self.in_part] * 3, self.rules, self.c)
+
+
+def rule_table_is_monotone(rules, n_inputs):
+    """True if the consequent level is non-decreasing in every antecedent."""
+    table = {ante: cons for ante, cons in rules}
+    for ante, cons in rules:
+        for j in range(n_inputs):
+            if ante[j] < 2:
+                up = list(ante)
+                up[j] += 1
+                if table[tuple(up)] < cons:
+                    return False
+    return True

@@ -28,6 +28,9 @@ src/models.py             ANN (nested-tuned MLP), hybrid fuzzy-ANN, LR, SVR, RF,
 src/run_pipeline.py       full analysis → results/tables, results/figures, results/summary.json
 src/figures.py            publication figures (PDF + 300-dpi PNG)
 src/make_figures.py       rebuild figures from saved results
+src/deep_analysis.py      extended analyses: math properties, Shapley R², multilevel, quantile regression,
+                          TOST, measurement invariance, typologies  → results/deep_summary.json
+src/figures_deep.py       figures 11-17 (raincloud, Shapley, caterpillar, quantile, radar, 3-D surfaces)
 src/make_latex.py         results → manuscript/generated/*.tex (macros + tables)
 notebooks/TRFS_analysis.ipynb   Colab-ready walkthrough (executed)
 manuscript/main.tex       manuscript (Elsevier elsarticle), refs.bib, main.pdf
@@ -39,6 +42,7 @@ manuscript/main.tex       manuscript (Elsevier elsarticle), refs.bib, main.pdf
 pip install -r requirements.txt
 cd src
 python run_pipeline.py          # ~45 min on 4 cores (use --fast for a 7-min smoke test)
+python deep_analysis.py         # ~2 min, extended analyses
 python make_latex.py            # numbers/tables for the paper
 cd ../manuscript && latexmk -pdf main.tex
 ```
@@ -57,3 +61,5 @@ repository and installs the requirements.
 | Learning | ANN (nested grid search) vs hybrid fuzzy-ANN, LR, SVR, RF, GBM, calibrated FIS; 10×3 repeated CV; Nadeau–Bengio test |
 | Importance | ANN permutation importance, FIS ±1 SD sensitivity, Spearman ρ |
 | Robustness | 500 random MF / t-norm / rounding configurations; Kendall τ and category agreement |
+| Mathematics | Propositions 1-3: crossover thresholds, closed-form centroids, rule complexity (126 vs 6,561), proof that the weighted-average HFIS is bounded, continuous, Lipschitz and monotone; exhaustive grid verification |
+| Deep statistics | Shapley/dominance R² decomposition, random-intercept models (50 countries, ICC, Nakagawa R²), jittered quantile regression, Cohen's d + TOST, Tucker congruence invariance, k-means typologies |
