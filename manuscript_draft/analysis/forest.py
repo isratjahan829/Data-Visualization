@@ -15,7 +15,7 @@ for ax,ch,t in zip(axs,['62ch','6ch'],['a  62 electrodes','b  6 electrodes']):
     ax.axvline(0,color='#9a9993',lw=1,ls=':')
     ax.set_yticks(range(len(comps))); ax.set_yticklabels([lab.get(c,c) for c in comps[::-1]])
     ax.set_xlim(-5,30); ax.set_title(t,loc='left',fontweight='bold',fontsize=9); ax.grid(axis='x',color='#ecebe7',lw=0.6)
-fig.supxlabel('CLISA-EWU minus comparator, calibrated balanced accuracy (percentage points, 95% CI)',fontsize=8.5)
+fig.supxlabel('CLISA-EWU minus comparator, calibrated accuracy (percentage points, 95% CI)',fontsize=8.5)
 axs[0].scatter([],[],s=36,color='#2a78d6',label='Holm-adjusted p < 0.05'); axs[0].scatter([],[],s=36,color='white',ec='#2a78d6',lw=1.5,label='not significant')
 fig.legend(loc='upper center',ncol=2,frameon=False,fontsize=8,bbox_to_anchor=(0.55,1.0))
 fig.tight_layout(rect=(0,0,1,0.93)); fig.subplots_adjust(wspace=0.38); fig.savefig('fig/new_pairwise_wilcoxon.png',dpi=300); print('ok')

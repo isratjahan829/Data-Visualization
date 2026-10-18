@@ -25,7 +25,7 @@ for ax,ch,t in zip(axs,['62ch','6ch'],['a  62 electrodes','b  6 electrodes']):
 
 axs[0].plot([],[],'o',color=B,label='Zero-shot (no target data)'); axs[0].plot([],[],'o',color=O,label='After 20-window calibration')
 fig.legend(loc='upper center',ncol=2,frameon=False,bbox_to_anchor=(0.55,1.02))
-fig.supxlabel('Balanced accuracy (subject-level mean, 95% bootstrap CI)',fontsize=9); fig.tight_layout(rect=(0,0,1,0.95)); fig.savefig('fig/new_zeroshot_vs_calibrated.png',dpi=300)
+fig.supxlabel('Accuracy (participant-level mean, 95% bootstrap CI)',fontsize=9); fig.tight_layout(rect=(0,0,1,0.95)); fig.savefig('fig/new_zeroshot_vs_calibrated.png',dpi=300)
 # fig 3 per-subject
 c=d[d.model_id=='M20']
 s62=c[c.ch=='62ch'].groupby('test_sub')[['acc_a','acc_b']].mean(); s6=c[c.ch=='6ch'].groupby('test_sub')[['acc_a','acc_b']].mean()
@@ -38,6 +38,6 @@ for ax,met,t in zip(axs,['acc_a','acc_b'],['a  Zero-shot','b  Calibrated (20 win
     ax.axhline(0.25,color=G,ls=':',lw=1)
     ax.set_xticks([0,1]); ax.set_xticklabels(['62 electrodes','6 electrodes']); ax.set_xlim(-0.4,1.4)
     ax.set_title(t,loc='left',fontsize=9,fontweight='bold'); ax.grid(axis='y',color='#ecebe7',lw=0.6)
-axs[0].set_ylabel('CLISA-EWU balanced accuracy\n(per held-out participant, mean of 3 seeds)')
+axs[0].set_ylabel('CLISA-EWU accuracy\n(per held-out participant, mean of 3 seeds)')
 fig.tight_layout(); fig.savefig('fig/new_per_participant_montage.png',dpi=300)
 print('ok')

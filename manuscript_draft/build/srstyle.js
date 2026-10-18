@@ -35,7 +35,7 @@ function runs(text, base = {}) {
 }
 
 // ---------- Tables registry ----------
-const TABLES = {
+const TABLES0 = {
   lit: { title: 'Cross-participant EEG emotion recognition results reported in the literature. Values are as reported and are not directly comparable, because datasets, features, splitting, use of target-participant data and reporting unit differ [[verify every value against the original paper]].', header: ['Study', 'Dataset(s)', 'Approach', 'Reported accuracy'], rows: C.LIT_TABLE, widths: [2300, 2100, 3102, 2100] },
   protocol: { title: 'Dataset, feature and evaluation protocol summary.', header: ['Item', 'Setting'], rows: C.PROTOCOL_TABLE, widths: [2400, 7202] },
   models: { title: 'Model families evaluated in this study.', header: ['Family', 'Models', 'Role'], rows: C.MODEL_TABLE, widths: [2400, 4802, 2400] },
@@ -44,6 +44,8 @@ const TABLES = {
   cluster: { title: 'Clustering metrics for raw features and CLISA-EWU embeddings. Higher silhouette and Calinski–Harabasz and lower Davies–Bouldin values indicate tighter clusters. Embeddings were computed with the best-run model on all 15 participants (14 of whom were in its training set).', header: ['Feature space', 'Labels (clusters)', 'Silhouette', 'Davies–Bouldin', 'Calinski–Harabasz'], rows: C.CLUSTER_TABLE, widths: [2802, 2000, 1500, 1600, 1700] },
 };
 
+const TABLES = { ...TABLES0, ...C.TABLES_EXT };
+for (const t of Object.values(TABLES)) { const rel = t.rel || t.widths; const tot = rel.reduce((a, b) => a + b, 0); t.widths = rel.map((r) => Math.floor((r * TEXT_W) / tot)); t.widths[t.widths.length - 1] += TEXT_W - t.widths.reduce((a, b) => a + b, 0); }
 // ---------- Extra text specific to this layout ----------
 const CONTRIB_SR = [
   ['Controlled cross-participant benchmark', 'Ten classical and 16 deep models are evaluated on SEED-IV under the same repeated leave-one-participant-out protocol, giving 45 runs per model and electrode montage, with all per-fold outputs released.'],
@@ -92,16 +94,20 @@ H2('CLISA-EWU architecture'); C.M_CLISA.forEach(P);
 P(NTXENT_INTRO); EQ('ntxent'); P(NTXENT_AFTER);
 H3('Training configuration'); P(TRAINCFG);
 H3('Implementation'); P(IMPL);
-H2('Evaluation metrics'); P(METRICS_INTRO); EQ('recall'); P(METRICS_MID); EQ('bacc'); P(METRICS_F1); EQ('f1'); EQ('macrof1'); P(METRICS_RET); EQ('retention'); P(C.M_PROTOCOL[2].replace('The primary outcome was balanced accuracy (mean per-class recall; chance 0.25); the secondary outcome was macro-averaged F1. Retention was defined as six-electrode divided by 62-electrode performance for the same model.', 'Confusion matrices are row-normalised so that each row shows the recall of one true class.'));
-H2('Statistical analysis'); P(C.M_ANALYSIS[1]);
+H2('Evaluation metrics'); C.METRICS.forEach(([t, x]) => (t === 'eq' ? EQ(x) : P(x)));
+H2('Statistical analysis'); C.STATS.forEach(([t, x]) => (t === 'eq' ? EQ(x) : P(x)));
 H2('Representation and attribution analysis'); P(C.M_ANALYSIS[0]);
 H1('Results and discussion'); P(RD_INTRO);
 H2('Benchmark overview'); P(C.R_OVERVIEW.replace('The experimental workflow and the CLISA-EWU architecture are shown in Fig. {F:workflow} and Fig. {F:arch}. ', ''));
 H2('Zero-shot cross-participant decoding'); P(C.R_ZS);
 H2('Effect of few-shot calibration'); C.R_CAL.forEach(P);
+H2('Ranking across participants'); P(C.R_RANK);
+H2('Effect sizes'); P(C.R_EFFECT);
 H2('Electrode reduction'); P(C.R_MONTAGE);
-H2('Variability across participants'); P(C.R_VAR);
-H2('Class-level behaviour and electrode importance'); P(C.R_CLASS); P(C.R_SHAP);
+H2('Multi-metric evaluation'); P(C.R_MULTI);
+H2('Variability across participants and seeds'); P(C.R_VAR); P(C.R_VARDEC);
+H2('Who benefits from calibration'); P(C.R_CORR);
+H2('Class-level behaviour and electrode importance'); P(C.R_CLASS2); P(C.R_SHAP);
 H2('Representation geometry'); P(C.R_REPR);
 H2('Secondary analyses'); P(C.R_SECONDARY);
 H2('Comparison with published studies'); P(LIT_DISC);
@@ -153,7 +159,7 @@ const cb = { style: BorderStyle.SINGLE, size: 4, color: '000000' };
 const cellBorders = { top: cb, bottom: cb, left: cb, right: cb };
 function tabBlock(k) {
   const t = TABLES[k];
-  const mk = (txt, w, hdr, grp) => new TableCell({ borders: cellBorders, width: { size: w, type: WidthType.DXA }, shading: hdr ? { fill: 'BFBFBF', type: ShadingType.CLEAR, color: 'auto' } : grp ? { fill: 'E7E6E6', type: ShadingType.CLEAR, color: 'auto' } : undefined, margins: { top: 30, bottom: 30, left: 70, right: 70 }, children: [new Paragraph({ children: runs(render(String(txt)), { font: SERIF, size: 17, bold: hdr || grp || undefined }) })] });
+  const mk = (txt, w, hdr, grp) => new TableCell({ borders: cellBorders, width: { size: w, type: WidthType.DXA }, shading: hdr ? { fill: 'BFBFBF', type: ShadingType.CLEAR, color: 'auto' } : grp ? { fill: 'E7E6E6', type: ShadingType.CLEAR, color: 'auto' } : undefined, margins: { top: 25, bottom: 25, left: 50, right: 50 }, children: [new Paragraph({ children: runs(render(String(txt)), { font: SERIF, size: t.size || 17, bold: hdr || grp || undefined }) })] });
   const rows = [new TableRow({ tableHeader: true, children: t.header.map((h, i) => mk(h, t.widths[i], true)) }),
     ...t.rows.map((r) => { const grp = t.group && r[1] === ''; return new TableRow({ cantSplit: true, children: r.map((c, i) => mk(c, t.widths[i], false, grp)) }); })];
   return [new Paragraph({ spacing: { before: 200 }, children: [] }), new Table({ width: { size: TEXT_W, type: WidthType.DXA }, columnWidths: t.widths, rows }), caption(`Table ${tabOrder.indexOf(k) + 1}`, t.title)];

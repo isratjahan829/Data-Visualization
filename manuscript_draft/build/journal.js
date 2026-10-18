@@ -7,7 +7,7 @@ const [STYLE, OUT, FIGDIR] = process.argv.slice(2);
 const SR = STYLE === 'sr';
 
 // ---------- Tables registry ----------
-const TABLES = {
+const TABLES0 = {
   lit: { title: 'Reported cross-participant results in the literature.', note: 'Values are as reported by the original studies and are not directly comparable: datasets, features, splitting, use of target-participant data and reporting unit (participant mean or best fold) differ. [[Verify every value against the original paper.]]', header: ['Study', 'Dataset(s)', 'Approach', 'Reported accuracy'], rows: C.LIT_TABLE, widths: [2000, 2000, 3226, 1800] },
   protocol: { title: 'Dataset, features and evaluation protocol.', header: ['Item', 'Setting'], rows: C.PROTOCOL_TABLE, widths: [2200, 6826] },
   models: { title: 'Model families.', header: ['Family', 'Models', 'Role'], rows: C.MODEL_TABLE, widths: [2200, 4426, 2400] },
@@ -15,6 +15,8 @@ const TABLES = {
   paired: { title: 'Paired participant-level comparisons of calibrated CLISA-EWU with other models.', note: 'Differences are CLISA-EWU minus comparator in percentage points of balanced accuracy, with 95% bootstrap confidence intervals over participants. Two-sided Wilcoxon signed-rank tests; Holm adjustment over 14 comparisons.', header: ['Comparison', 'Difference (95% CI)', 'Participants favouring CLISA-EWU', 'Wilcoxon p', 'Holm p'], rows: C.PAIRED_TABLE, widths: [2426, 2300, 1600, 1350, 1350], group: true },
   cluster: { title: 'Clustering of raw features and CLISA-EWU embeddings.', note: 'Higher silhouette and Calinski–Harabasz and lower Davies–Bouldin values indicate tighter clusters. CLISA-EWU embeddings were computed with the best-run model on all 15 participants (14 of whom were in its training set). The thesis draft printed the participant silhouettes of the CLISA-EWU embeddings with the wrong sign; corrected values are shown.', header: ['Feature space', 'Labels (clusters)', 'Silhouette', 'Davies–Bouldin', 'Calinski–Harabasz'], rows: C.CLUSTER_TABLE, widths: [2626, 1900, 1400, 1600, 1500] },
 };
+const TABLES = { ...TABLES0, ...C.TABLES_EXT };
+for (const t of Object.values(TABLES)) { const W = 9026; const rel = t.rel || t.widths; const tot = rel.reduce((a, b) => a + b, 0); t.widths = rel.map((r) => Math.floor((r * W) / tot)); t.widths[t.widths.length - 1] += W - t.widths.reduce((a, b) => a + b, 0); }
 const SR_SUPP_FIGS = new Set(['dataset', 'split', 'classical', 'violin', 'conf', 'tsne', 'loss', 'abl', 'neuro']);
 const SR_SUPP_TABS = new Set(['lit', 'protocol', 'models', 'cluster']);
 const isSuppF = (k) => SR && SR_SUPP_FIGS.has(k);
@@ -25,6 +27,8 @@ const B = [];
 const h1 = (t) => B.push({ t: 'h1', text: t });
 const h2 = (t) => B.push({ t: 'h2', text: t });
 const p = (text) => B.push({ t: 'p', text });
+const eqb = (key) => B.push({ t: 'eq', key, text: '' });
+const mixed = (arr) => arr.forEach(([t, x]) => (t === 'eq' ? eqb(x) : p(x)));
 const bullets = (items) => items.forEach((text) => B.push({ t: 'b', text }));
 
 let s1 = 0, s2 = 0;
@@ -61,14 +65,20 @@ if (SR) {
   H2('Evaluation Protocol'); C.M_PROTOCOL.forEach(p);
   H2('Models'); C.M_MODELS.forEach(p);
   H2('CLISA-EWU'); C.M_CLISA.forEach(p);
-  H2('Representation, Attribution and Statistical Analysis'); C.M_ANALYSIS.forEach(p);
+  H2('Evaluation Metrics'); mixed(C.METRICS);
+  H2('Statistical Analysis'); mixed(C.STATS);
+  H2('Representation and Attribution Analysis'); p(C.M_ANALYSIS[0]);
   H1('Results');
   H2('Benchmark Overview'); p(C.R_OVERVIEW);
   H2('Zero-Shot Cross-Participant Decoding'); p(C.R_ZS);
   H2('Effect of Few-Shot Calibration'); C.R_CAL.forEach(p);
+  H2('Ranking Across Participants'); p(C.R_RANK);
+  H2('Effect Sizes'); p(C.R_EFFECT);
   H2('Electrode Reduction'); p(C.R_MONTAGE);
-  H2('Variability Across Participants'); p(C.R_VAR);
-  H2('Class-Level Behaviour and Electrode Importance'); p(C.R_CLASS); p(C.R_SHAP);
+  H2('Multi-Metric Evaluation'); p(C.R_MULTI);
+  H2('Variability Across Participants and Seeds'); p(C.R_VAR); p(C.R_VARDEC);
+  H2('Who Benefits From Calibration'); p(C.R_CORR);
+  H2('Class-Level Behaviour and Electrode Importance'); p(C.R_CLASS2); p(C.R_SHAP);
   H2('Representation Geometry'); p(C.R_REPR);
   H2('Secondary Analyses'); p(C.R_SECONDARY);
   H1('Discussion'); C.DISCUSSION.slice(0, 3).forEach(p); H2('Limitations'); p(C.DISCUSSION[3]);
@@ -124,20 +134,22 @@ function tabBlock(k) {
   const t = TABLES[k]; const lab = tabLabel(k);
   const cap = SR
     ? new Paragraph({ keepNext: true, spacing: { before: 200, after: 100 }, children: runs(`**${isSuppT(k) ? 'Supplementary Table' : 'Table'} ${lab}. ${t.title}**`, { size: 18 }) })
-    : new Paragraph({ keepNext: true, alignment: AlignmentType.CENTER, spacing: { before: 200, after: 100 }, children: [new TextRun({ text: `TABLE ${lab}`, size: 18 }), new TextRun({ text: '', break: 1 }), new TextRun({ text: t.title.replace(/\.$/, '').toUpperCase(), size: 16 })] });
+    : new Paragraph({ keepNext: true, alignment: AlignmentType.CENTER, spacing: { before: 200, after: 100 }, children: [new TextRun({ text: `TABLE ${lab}`, size: 18 }), new TextRun({ text: '', break: 1 }), ...runs(render(t.title), { size: 16 })] });
   const rows = t.rows.map((r) => r.map((c) => render(String(c))));
-  const out = [cap, table(t.header, rows, t.widths, { size: 17, highlightRow: t.group ? (r) => r[1] === '' : undefined })];
+  const out = [cap, table(t.header.map(render), rows, t.widths, { size: t.size || 17, highlightRow: t.group ? (r) => r[1] === '' : undefined })];
   if (t.note) out.push(new Paragraph({ children: runs(render(t.note), { size: 16 }), spacing: { before: 80, after: 240 } }));
   else out.push(new Paragraph({ spacing: { after: 200 }, children: [] }));
   return out;
 }
 
+let eqNo = 0; const EQSZ = JSON.parse(fs.readFileSync(`${FIGDIR}/equations/sizes.json`));
 const body = [];
 const placedF = new Set(), placedT = new Set();
 for (const b of B) {
   if (b.t === 'h1') body.push(new Paragraph({ heading: HeadingLevel.HEADING_1, children: [new TextRun(b.text)], spacing: { before: 320, after: 140 } }));
   else if (b.t === 'h2') body.push(new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun(b.text)], spacing: { before: 220, after: 100 } }));
   else if (b.t === 'b') body.push(new Paragraph({ children: runs(render(b.text), { size: SZ }), numbering: { reference: 'bul', level: 0 }, spacing: { after: 80, line: 300 } }));
+  else if (b.t === 'eq') { eqNo++; const [w, h] = EQSZ[b.key]; body.push(new Paragraph({ spacing: { before: 100, after: 100 }, tabStops: [{ type: d.TabStopType.CENTER, position: 4513 }, { type: d.TabStopType.RIGHT, position: 9026 }], children: [new TextRun('\t'), new ImageRun({ type: 'png', data: fs.readFileSync(`${FIGDIR}/equations/eq_${b.key}.png`), transformation: { width: Math.round(w * 0.3), height: Math.round(h * 0.3) } }), new TextRun({ text: `\t(${eqNo})`, size: SZ })] })); }
   else body.push(para(b.text));
   if (b.t === 'p' || b.t === 'b') {
     for (const m of b.text.matchAll(/\{T:(\w+)\}/g)) { const k = m[1]; if (!isSuppT(k) && !placedT.has(k)) { placedT.add(k); body.push(...tabBlock(k)); } }

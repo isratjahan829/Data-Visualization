@@ -5,7 +5,7 @@ const fs = require('fs');
 // Inline markup: **bold**, *italic*, [[placeholder]] (highlighted), ^sup^
 function runs(text, base = {}) {
   const out = [];
-  const re = /(\*\*[^*]+\*\*|\*[^*]+\*|\[\[[^\]]+\]\]|\^[^^]+\^)/g;
+  const re = /(\*\*[^*]+\*\*|\*[^*]+\*|\[\[[^\]]+\]\]|\^[^^]+\^|~[^~]+~)/g;
   let last = 0, m;
   while ((m = re.exec(text))) {
     if (m.index > last) out.push(new TextRun({ text: text.slice(last, m.index), ...base }));
@@ -13,6 +13,7 @@ function runs(text, base = {}) {
     if (t.startsWith('**')) out.push(new TextRun({ text: t.slice(2, -2), bold: true, ...base }));
     else if (t.startsWith('[[')) out.push(new TextRun({ text: '[' + t.slice(2, -2) + ']', highlight: 'yellow', bold: true, ...base }));
     else if (t.startsWith('^')) out.push(new TextRun({ text: t.slice(1, -1), superScript: true, ...base }));
+    else if (t.startsWith('~')) out.push(new TextRun({ text: t.slice(1, -1), subScript: true, ...base }));
     else out.push(new TextRun({ text: t.slice(1, -1), italics: true, ...base }));
     last = m.index + t.length;
   }
