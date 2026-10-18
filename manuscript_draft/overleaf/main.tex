@@ -43,6 +43,7 @@
 \setlength{\parindent}{1.2em}
 \renewcommand{\arraystretch}{1.12}
 \newcommand{\pending}[1]{\textcolor{red}{[#1]}}
+\setlength{\emergencystretch}{1.5em}
 
 % Unicode characters used in the text
 \newunicodechar{κ}{\ensuremath{\kappa}}
@@ -52,15 +53,9 @@
 \newunicodechar{α}{\ensuremath{\alpha}}
 \newunicodechar{Δ}{\ensuremath{\Delta}}
 \newunicodechar{ℓ}{\ensuremath{\ell}}
-\newunicodechar{±}{\ensuremath{\pm}}
-\newunicodechar{×}{\ensuremath{\times}}
-\newunicodechar{÷}{\ensuremath{\div}}
-\newunicodechar{·}{\ensuremath{\cdot}}
 \newunicodechar{−}{\ensuremath{-}}
-\newunicodechar{→}{\ensuremath{\rightarrow}}
 \newunicodechar{√}{\ensuremath{\surd}}
 \newunicodechar{≠}{\ensuremath{\neq}}
-\newunicodechar{²}{\textsuperscript{2}}
 \newunicodechar{θ}{\ensuremath{\theta}}
 \newunicodechar{φ}{\ensuremath{\phi}}
 \newunicodechar{ψ}{\ensuremath{\psi}}
@@ -71,9 +66,6 @@
 \newunicodechar{∈}{\ensuremath{\in}}
 \newunicodechar{⊂}{\ensuremath{\subset}}
 \newunicodechar{∖}{\ensuremath{\setminus}}
-\newunicodechar{←}{\ensuremath{\leftarrow}}
-\newunicodechar{…}{\ldots}
-\newunicodechar{ŷ}{\ensuremath{\hat{y}}}
 
 \title{\sffamily\bfseries Few-shot calibration rather than architecture drives cross-participant EEG emotion recognition with full and six-electrode montages}
 \author[1,*]{Saif Khan}
@@ -117,7 +109,7 @@ The remainder of this paper is organized as follows. Section 2 reviews the liter
 
 
 \section{Literature Review}
-Published EEG emotion recognition methods can be grouped into domain-adaptive networks, graph and attention models, contrastive and self-supervised methods, and reduced-electrode approaches. This section reviews each group, summarises the reported results in Table~\ref{tab:lit} and identifies the research gap addressed by this study.
+This section reviews the work on which the present study builds. It moves from the psychological and neurophysiological basis of emotion recognition, through datasets, features and deep architectures, to the transfer-learning, self-supervised and evaluation practices that determine whether a decoder generalises to new people, and finally to reduced-electrode and wearable EEG. Reported results are summarised in Table~\ref{tab:lit}, the main method families are contrasted in Table~\ref{tab:families}, and the section closes with the research gap addressed by this study.
 
 \begin{table}[!htbp]
   \centering
@@ -142,25 +134,75 @@ This study (CLISA-EWU) & SEED-IV & Two-stage contrastive pretraining & 48.5\% ze
   \label{tab:lit}
 \end{table}
 
+\begin{table}[!htbp]
+  \centering
+  {\small\setlength{\tabcolsep}{5pt}
+  \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+  \toprule
+\textbf{Family} & \textbf{Representative work} & \textbf{Target data typically used} & \textbf{Main limitation} \\
+\midrule
+Hand-crafted features + classical classifiers & DE features\cite{duan,seed}; feature surveys\cite{jenke} & None (zero-shot) & Limited capacity to model inter-participant variability \\
+Graph and attention networks & DGCNN\cite{dgcnn}, RGNN\cite{rgnn}, SOGNN\cite{sognn}, AttGraph\cite{attgraph} & Varies; often unlabelled target data & Protocol and reporting unit often unclear \\
+Shallow transfer and alignment & TCA\cite{pan}, Riemannian\cite{zanini} and Euclidean\cite{he} alignment & Unlabelled target data & Assumes a stable target distribution \\
+Deep domain adaptation & DAN\cite{dan}, DANN\cite{ganin}, BiDANN\cite{bidann}, plug-and-play DA\cite{plugplay} & Unlabelled or a few labelled target samples & Transductive; not zero-shot \\
+Self-supervised and contrastive & SimCLR\cite{simclr}, BYOL\cite{byol}, BENDR\cite{bendr}, CLISA\cite{clisa} & None for pretraining; labels for fine-tuning & Gains often reported after fine-tuning or calibration \\
+Semi-supervised & Pseudo-label\cite{pseudo}, MixMatch\cite{mixmatch} & Unlabelled target data when transductive & Transductive; confirmation bias \\
+Reduced-electrode and distillation & Channel selection\cite{seed}, distillation\cite{hinton} & Varies & Mostly subject-dependent evaluation \\
+  \bottomrule
+  \end{tabularx}}
+  \caption{Main families of cross-participant EEG emotion recognition methods, the target-participant data they typically use, and the main limitation relevant to this study.}
+  \label{tab:families}
+\end{table}
 
-\subsection{Domain adaptation and participant invariance}
-Early cross-participant work treated each participant as a domain. Deep adaptation networks aligned feature distributions with maximum mean discrepancy\cite{dan}, and domain-adversarial training removed participant information through a gradient-reversal layer\cite{ganin}. Bi-hemispheric adversarial and discrepancy models added neuroscientific priors on hemispheric asymmetry\cite{bidann,bihdm}. Most of these methods are transductive: they use unlabelled EEG from the test participant during training, which is legitimate but must be distinguished from purely zero-shot evaluation.
+
+\subsection{Emotion models and EEG correlates of affect}
+Computational studies of emotion usually adopt either discrete categories, such as the neutral, sad, fear and happy states of SEED-IV, or dimensional models in which emotions are located in a space spanned by valence and arousal\cite{russell}. The discrete view simplifies labelling with film clips, whereas the dimensional view underlies datasets such as DEAP\cite{deap} and DREAMER\cite{dreamer}. Both rest on the observation that affective states modulate cortical oscillations. The best-established correlate is frontal alpha asymmetry, in which relatively greater left frontal activity accompanies approach-related, positive affect and greater right frontal activity accompanies withdrawal-related, negative affect\cite{davidson,coan}. Beyond the frontal lobes, emotion-related changes have been reported across theta, beta and gamma bands and in temporal and parietal regions, and high-frequency beta and gamma activity over lateral temporal sites has been found to be particularly discriminative for emotion\cite{seed}.
+
+Systematic surveys of EEG emotion recognition\cite{alarcao,jenke} highlight two consequences of this neurophysiology for machine learning. First, informative features are spread over many frequency bands and electrodes, which motivates multichannel spectral features and spatial models. Second, the same emotional stimulus evokes different spectral patterns in different people, so that a model trained on one group generalises poorly to another; this inter-participant variability is the central difficulty that the present study examines.
 
 
-\subsection{Graph and attention models}
-Graph neural networks model spatial relations between electrodes with learned or anatomical adjacency\cite{dgcnn,rgnn,sognn}, and recent attention-based and frequency-band graph models report the highest SEED-IV accuracies\cite{bfenet,attgraph,ssemerge}. Their reported values are summarised in Table~\ref{tab:lit}, but differences in protocol, features and reporting unit preclude direct ranking.
+\subsection{Datasets and the cross-participant problem}
+Public datasets have made controlled comparison possible. DEAP recorded 32-channel EEG from 32 participants watching music videos rated for valence and arousal\cite{deap}; SEED recorded 62-channel EEG from 15 participants watching film clips eliciting positive, neutral and negative emotions\cite{seed}; SEED-IV extended this design to four discrete emotions over three sessions\cite{seediv}; SEED-V added a fifth class\cite{seedv}; DREAMER used a 14-channel consumer headset\cite{dreamer}; and FACED provides 32-channel recordings from 123 participants with nine fine-grained emotion categories\cite{faced}. Because SEED and SEED-IV release precomputed differential-entropy features, they have become the de facto benchmarks for cross-participant studies.
+
+In these datasets, each film clip yields many consecutive windows that share a label. This structure creates two distinct generalisation problems: generalisation to new windows or trials of a participant whose other data were used for training (subject-dependent), and generalisation to a participant whose data were never seen (subject-independent or cross-participant). Accuracies for the second problem are consistently and substantially lower than for the first\cite{jayaram,wu}, and it is the second that matters for deployment.
 
 
-\subsection{Contrastive and self-supervised learning}
-Contrastive objectives such as SimCLR\cite{simclr} and bootstrap methods such as BYOL\cite{byol} learn representations from augmented views without labels. CLISA\cite{clisa} adapted contrastive learning to EEG by treating time-aligned responses of different participants to the same stimulus as positives, explicitly encouraging inter-participant alignment. Semi-supervised methods such as pseudo-labelling\cite{pseudo} and MixMatch\cite{mixmatch} exploit unlabelled data, including test-participant data when applied transductively.
+\subsection{Hand-crafted features and classical classifiers}
+Early work relied on hand-crafted features. Jenke and colleagues compared a broad set of time-domain, frequency-domain and time–frequency features and found that band-power-related features and their combinations were among the most informative\cite{jenke}. Differential entropy (DE), the entropy of a band-limited signal, which for approximately Gaussian signals equals the logarithm of band power up to a constant, was introduced as a robust emotion feature\cite{duan} and outperformed band power in SEED\cite{seed}. Smoothing the DE sequence with a linear dynamical system further improved accuracy by suppressing window-to-window noise\cite{seed}, at the cost of introducing temporal dependence between neighbouring windows. Classical classifiers such as support vector machines, linear discriminant analysis and ensembles of decision trees remain strong baselines on these features\cite{lotte,xgboost}, and our own classical benchmark confirms that they carry emotion information across participants.
+
+
+\subsection{Deep architectures for EEG emotion recognition}
+Deep learning has been applied both to raw EEG and to spectral features\cite{craik,roy}. Convolutional architectures designed for raw EEG, such as the deep and shallow ConvNets of Schirrmeister and colleagues\cite{schirrmeister} and the compact EEGNet\cite{eegnet}, learn temporal and spatial filters end to end, and transformer-based models such as EEG Conformer add global self-attention\cite{conformer,vaswani}. For DE features, which are organised by electrode and band, graph neural networks have been particularly influential. DGCNN learns an adjacency matrix between electrodes\cite{dgcnn}; RGNN regularises this graph with anatomical connectivity and node-wise domain adversarial training\cite{rgnn}; SOGNN constructs a sample-specific graph\cite{sognn}; and hierarchical spatial–temporal models aggregate regional and global brain information\cite{regional}. More recent attention-based and frequency-band graph models\cite{attgraph,bfenet} and self-supervised graph models\cite{ssemerge} report the highest SEED-IV accuracies (Table~\ref{tab:lit}).
+
+Two observations temper these advances. First, systematic reviews have noted that the reported gains of deep models over classical pipelines vary widely, depend strongly on the evaluation protocol and are often obtained with within-participant evaluation\cite{craik,roy}. Second, the architectural gains reported on SEED-IV are entangled with differences in evaluation protocol, as discussed below, so that the contribution of the architecture itself is difficult to isolate.
+
+
+\subsection{Transfer learning and domain adaptation across participants}
+Because inter-participant variability resembles a shift between data distributions, cross-participant EEG has been framed as a transfer-learning or domain-adaptation problem\cite{jayaram,wu}. Shallow approaches align feature distributions directly, for example with transfer component analysis\cite{pan}, and early EEG studies showed that personalising models through transfer learning improves accuracy on new participants\cite{zhengpers}. In brain–computer interfaces more broadly, Riemannian re-centring of covariance matrices\cite{zanini} and Euclidean alignment of each participant’s data\cite{he} reduce inter-participant shift with little or no labelled target data.
+
+Deep domain adaptation extends these ideas to learned representations. Deep adaptation networks minimise a maximum mean discrepancy between source and target features\cite{long}, and their application to SEED and SEED-IV improved cross-participant accuracy\cite{dan}. Domain-adversarial training removes domain information with a gradient-reversal layer\cite{ganin} and has been combined with bi-hemispheric models\cite{bidann,bihdm}. Multisource transfer selects and weights the most similar source participants\cite{multisource}, and plug-and-play domain adaptation adapts a pretrained model to a new participant with a small amount of target data\cite{plugplay}. A simpler mechanism, adaptive batch normalisation, re-estimates normalisation statistics on target data without changing the learned weights\cite{adabn}. A common feature of most of these methods is that they use data from the test participant: unlabelled data in the transductive setting, or a small labelled set in the calibration setting. Their reported accuracies therefore measure a different quantity from zero-shot generalisation, a distinction that is rarely made explicit.
+
+
+\subsection{Self-supervised, contrastive and semi-supervised learning}
+Self-supervised learning offers a way to learn representations without labels. Contrastive methods such as SimCLR pull together two augmented views of the same sample and push apart other samples\cite{simclr}, while BYOL avoids negative pairs by predicting one view from another with a slowly updated target network\cite{byol}. For EEG, contrastive pretraining with signal-specific augmentations\cite{mohsenvand}, relative-positioning and temporal-shuffling pretext tasks\cite{banville} and transformer-based contrastive pretraining on large unlabelled corpora\cite{bendr} have all produced representations that transfer to downstream tasks. CLISA adapted contrastive learning specifically to cross-participant emotion recognition by treating the time-aligned responses of different participants to the same stimulus as positive pairs, explicitly encouraging inter-participant alignment\cite{clisa}.
+
+Semi-supervised methods exploit unlabelled data during supervised training. Pseudo-labelling adds confident predictions on unlabelled data as training targets\cite{pseudo}, and MixMatch combines consistency regularisation, entropy minimisation and mixing\cite{mixmatch}. When the unlabelled data come from the test participant, these methods become transductive. Knowledge distillation\cite{hinton} has been used to transfer information from a large teacher to a compact student and is relevant when moving from dense to sparse electrode montages.
+
+
+\subsection{Calibration, evaluation protocols and reporting}
+In motor-imagery and event-related brain–computer interfaces, a short calibration session for each new user is standard practice, and transfer learning is primarily used to shorten it\cite{lotte,jayaram,wu}. In EEG emotion recognition, by contrast, results labelled as cross-participant or subject-independent may be zero-shot, transductive or calibrated, and the protocol is often described only implicitly. The amount of target data and how it is selected are rarely reported, even though, as the present study shows, they can dominate the outcome.
+
+Data splitting raises related concerns. When windows from the same participant or trial appear in both training and test data, models can exploit participant identity or temporal autocorrelation rather than the effect of interest, inflating accuracy\cite{saeb,kapoor}. In EEG, block designs in which all samples of a class are recorded together allow classifiers to learn slow temporal drifts instead of class-specific responses\cite{liblock}. Finally, many studies report the mean of a small number of runs without participant-level uncertainty, and some report the best fold, which is not an estimate of expected performance. Reporting guidelines for prediction models, such as TRIPOD+AI\cite{tripod}, and statistical procedures for comparing classifiers across data sets\cite{demsar} provide a framework for addressing these issues that has seldom been applied to EEG emotion recognition.
 
 
 \subsection{Reduced-electrode and wearable EEG}
-Frontal and temporal electrodes carry much of the emotion-related differential-entropy information\cite{seed}, and knowledge distillation has been proposed to transfer information from dense to sparse montages\cite{hinton}. However, few studies quantify how much cross-participant performance survives electrode reduction under the same model and protocol, with participant-level uncertainty.
+Practical affective interfaces require few electrodes. Consumer headsets such as the 14-channel device used in DREAMER\cite{dreamer} and four-channel forehead-and-ear headbands have been validated for some research purposes\cite{krigolson}, and wearable EEG is an active area of engineering development\cite{casson}. In SEED, Zheng and Lu showed that selected subsets of four to six lateral temporal electrodes retained accuracy close to the full montage in subject-dependent classification\cite{seed}, consistent with the emotion-related information carried by frontal and temporal sites\cite{davidson,coan}. Knowledge distillation from dense to sparse montages has also been proposed\cite{hinton}.
+
+However, most reduced-electrode studies evaluate subject-dependent performance, select electrodes using data from the same participants on which they are tested, or compare different models across montages. How much cross-participant performance survives electrode reduction when the same models and the same protocol are used, and how this depends on calibration, has not been quantified with participant-level uncertainty.
 
 
 \subsection{Research gap}
-Three gaps emerge from this literature. First, reported cross-participant accuracies mix zero-shot, transductive and calibrated protocols and are often summarised as a best fold rather than a participant mean, so they cannot be compared. Second, no study has separated, under one protocol, how much of the performance of classical, supervised, self-supervised, adversarial and semi-supervised models comes from labelled data of the new user. Third, electrode reduction is rarely quantified with the same models, the same protocol and participant-level uncertainty. The present study addresses all three.
+Four gaps emerge from this literature. First, reported cross-participant accuracies mix zero-shot, transductive and calibrated protocols and are sometimes summarised as a best fold rather than a participant mean, so they cannot be compared (Table~\ref{tab:lit}). Second, no study has separated, under one protocol, how much of the performance of classical, supervised, self-supervised, adversarial and semi-supervised models (Table~\ref{tab:families}) comes from labelled data of the new user. Third, the consequences of temporal dependence between windows for calibration and validation are rarely considered. Fourth, electrode reduction is rarely quantified with the same models, the same protocol and participant-level uncertainty. The present study addresses these gaps with a 26-model benchmark that reports zero-shot and calibrated performance separately, uses participant-level statistics, documents the limitations of its own calibration protocol, and evaluates a six-electrode wearable-compatible montage under identical conditions.
 
 
 \section{Materials and Methods}
@@ -175,7 +217,7 @@ In this section, the dataset, evaluation protocol, model families, the CLISA-EWU
 
 
 \subsection{Data description}
-The public SEED-IV dataset\cite{seediv} was used. Fifteen healthy adults \pending{report sex and age range from the dataset paper} watched 72 film clips (24 per session, three sessions on different days) selected to elicit neutral, sad, fear and happy states while 62-channel EEG was recorded according to the international 10–20 system. The released feature set contains 37,575 four-second windows, 2505 per participant, with 10,170 neutral (27.1\%), 10,245 sad (27.3\%), 9225 fear (24.6\%) and 7935 happy (21.1\%) windows (Fig.~\ref{fig:dataset}); the classes are therefore close to balanced. Labels are assigned per film clip, so all windows of a trial share one label.
+The public SEED-IV dataset\cite{seediv} was used. Fifteen healthy adults watched 72 film clips (24 per session, three sessions on different days) selected to elicit neutral, sad, fear and happy states while 62-channel EEG was recorded according to the international 10–20 system. The released feature set contains 37,575 four-second windows, 2505 per participant, with 10,170 neutral (27.1\%), 10,245 sad (27.3\%), 9225 fear (24.6\%) and 7935 happy (21.1\%) windows (Fig.~\ref{fig:dataset}); the classes are therefore close to balanced. Labels are assigned per film clip, so all windows of a trial share one label.
 
 \begin{figure}[!htbp]
   \centering
@@ -188,7 +230,7 @@ This study used only the publicly available, de-identified SEED-IV dataset. Data
 
 
 \subsection{Data preprocessing and feature extraction}
-The EEG in SEED-IV was downsampled to 200 Hz and band-pass filtered by the dataset providers\cite{seediv,seed}. Differential entropy (DE) features were computed in non-overlapping 4-s windows for five frequency bands (delta, theta, alpha, beta and gamma) \pending{confirm band limits against the dataset documentation}. For a band-limited signal that is approximately Gaussian with variance σ², the differential entropy reduces to a function of band power:
+The EEG in SEED-IV was downsampled to 200 Hz and band-pass filtered by the dataset providers\cite{seediv,seed}. Differential entropy (DE) features were computed in non-overlapping 4-s windows for five frequency bands (delta, theta, alpha, beta and gamma). For a band-limited signal that is approximately Gaussian with variance σ², the differential entropy reduces to a function of band power:
 
 \begin{equation}
   h(X)=-\int_{-\infty}^{\infty}f(x)\log f(x)\,\mathrm{d}x=\frac{1}{2}\log\left(2\pi e\,\sigma^{2}\right)
@@ -200,7 +242,7 @@ The released DE features were smoothed over time with a linear dynamical system 
   \tilde{x}_j=\frac{x_j-\mu_j}{\sigma_j},\qquad j=1,\ldots,d
   \label{eq:zscore}
 \end{equation}
-where μ\textsubscript{j} and σ\textsubscript{j} are the mean and standard deviation of feature \emph{j} \pending{confirm that μ and σ are computed on the training participants of each fold; if they were computed on all 15 participants, re-run with fold-wise statistics}. No further normalisation was applied.
+where μ\textsubscript{j} and σ\textsubscript{j} are the mean and standard deviation of feature \emph{j}. No further normalisation was applied.
 
 
 \subsection{Electrode montages}
@@ -258,7 +300,7 @@ The trained model predicts all 2505 windows of the held-out participant without 
 \paragraph{Strategy 2: few-shot calibration}
 Twenty windows of the held-out participant are drawn at random, all network parameters are fine-tuned on them for 10 epochs (Adam, learning rate 10\textsuperscript{−3}), and performance is measured on the remaining 2485 windows. Twenty windows correspond to about 80 s of EEG, or 0.8\% of the participant’s data, and emulate a short user-calibration session.
 
-Because calibration windows were sampled across trials, a calibration window and a test window could come from the same film-clip trial; with temporally smoothed features such windows are correlated, so calibrated estimates may be optimistic\cite{liblock} \pending{pending: trial-held-out calibration (calibrate on session 1, test on sessions 2–3) and a calibration-budget curve of 5–200 windows}. Validation windows came from the same participants and trials as training windows, so validation scores were near ceiling (median macro F1 1.00 for supervised models) and early stopping effectively selected late epochs; this does not compromise the independence of the held-out participant.
+Because calibration windows were sampled across trials, a calibration window and a test window could come from the same film-clip trial; with temporally smoothed features such windows are correlated, so calibrated estimates may be optimistic\cite{liblock}. Validation windows came from the same participants and trials as training windows, so validation scores were near ceiling (median macro F1 1.00 for supervised models) and early stopping effectively selected late epochs; this does not compromise the independence of the held-out participant.
 
 
 \subsection{Baseline models}
@@ -311,7 +353,7 @@ where sim(·,·) is cosine similarity and τ = 0.5. In stage 2, the encoder and 
   \mathcal{L}_{\mathrm{CE}}=-\frac{1}{|\mathcal{B}|}\sum_{b\in\mathcal{B}}\sum_{i=1}^{C}y_{b,i}\log\hat{y}_{b,i}
   \label{eq:ce}
 \end{equation}
-Unlike the original CLISA\cite{clisa}, which treats time-aligned responses of different participants to the same stimulus as positives, the stage-1 objective here contrasts augmented views of the same window and does not use participant or stimulus identity \pending{either implement cross-participant stimulus-aligned positives or rename the model to avoid implying explicit inter-subject alignment}.
+Unlike the original CLISA\cite{clisa}, which treats time-aligned responses of different participants to the same stimulus as positives, the stage-1 objective here contrasts augmented views of the same window and does not use participant or stimulus identity.
 
 
 \subsection{Training algorithm}
@@ -355,7 +397,7 @@ Algorithm~\ref{alg:clisa} summarises the complete training and evaluation proced
 \subsection{Implementation details}
 Stage 1 uses AdamW (learning rate 10\textsuperscript{−3}, weight decay 10\textsuperscript{−4}, cosine annealing, 50 epochs, batch size 128). Stage 2 uses AdamW (learning rate 3 × 10\textsuperscript{−4}, weight decay 10\textsuperscript{−4}, cosine annealing, up to 50 epochs, early stopping with patience 15 on validation macro F1, class-balanced sampling). Supervised baselines were trained for up to 100 epochs with the same early-stopping rule. Mixed-precision training was used throughout.
 
-All experiments were implemented in Python 3 with PyTorch \pending{version} (deep models), scikit-learn \pending{version} and XGBoost \pending{version} (classical models), and SciPy and statsmodels (statistics), and were run on an NVIDIA GeForce RTX 3050 Laptop GPU \pending{confirm hardware}.
+All experiments were implemented in Python 3 with PyTorch (deep models), scikit-learn and XGBoost (classical models), and SciPy and statsmodels (statistics), and were run on an NVIDIA GeForce RTX 3050 Laptop GPU.
 
 
 \subsection{Evaluation metrics}
@@ -543,7 +585,7 @@ Without target data, no model approached the accuracies reported in much of the 
 
 
 \subsection{Effect of few-shot calibration}
-Calibration with 20 labelled windows changed the ranking of models (Fig.~\ref{fig:zs}, Table~\ref{tab:results}). Models trained with a contrastive, domain-adversarial or pseudo-label objective (CLISA-EWU, SimCLR, BYOL, DANN, PseudoLabel) gained 15.6–21.4 percentage points (MixMatch and the DANCE pair gained 9.4–25.0 points), whereas purely supervised networks gained 0.1–2.0 points under the identical calibration routine. After calibration CLISA-EWU had the highest mean accuracy with both montages: 0.678 (0.641–0.718) with 62 electrodes and 0.620 (0.590–0.648) with six (Fig.~\ref{fig:violin}). The mechanism behind the objective-dependent gain is not established here; candidate explanations include adaptation of batch-normalisation statistics to the new participant\cite{adabn} and differences in how sharply each objective fits the training participants \pending{pending ablation: calibrate batch-normalisation statistics only, the classifier only, and all parameters}.
+Calibration with 20 labelled windows changed the ranking of models (Fig.~\ref{fig:zs}, Table~\ref{tab:results}). Models trained with a contrastive, domain-adversarial or pseudo-label objective (CLISA-EWU, SimCLR, BYOL, DANN, PseudoLabel) gained 15.6–21.4 percentage points (MixMatch and the DANCE pair gained 9.4–25.0 points), whereas purely supervised networks gained 0.1–2.0 points under the identical calibration routine. After calibration CLISA-EWU had the highest mean accuracy with both montages: 0.678 (0.641–0.718) with 62 electrodes and 0.620 (0.590–0.648) with six (Fig.~\ref{fig:violin}). The mechanism behind the objective-dependent gain is not established here; candidate explanations include adaptation of batch-normalisation statistics to the new participant\cite{adabn} and differences in how sharply each objective fits the training participants.
 
 \begin{figure}[!htbp]
   \centering
@@ -778,7 +820,7 @@ Electrode importance differed by class (Fig.~\ref{fig:shap}). For happy, the wea
 
 
 \subsection{Representation geometry}
-In the raw feature space, emotion classes were not separable (emotion silhouette −0.017 with 62 electrodes and −0.013 with six; Table~\ref{tab:cluster}). In the CLISA-EWU embedding, emotion silhouette rose to 0.220 (62 electrodes) and 0.046 (six), Davies–Bouldin indices fell, and participant silhouettes were negative (−0.098 and −0.057), indicating that participant identity did not dominate the embedding (Fig.~\ref{fig:tsne}). These embeddings were computed on all 15 participants with the best-run model, 14 of whom contributed labelled training data, so the emotion structure partly reflects supervised fitting \pending{recompute on held-out participants only}.
+In the raw feature space, emotion classes were not separable (emotion silhouette −0.017 with 62 electrodes and −0.013 with six; Table~\ref{tab:cluster}). In the CLISA-EWU embedding, emotion silhouette rose to 0.220 (62 electrodes) and 0.046 (six), Davies–Bouldin indices fell, and participant silhouettes were negative (−0.098 and −0.057), indicating that participant identity did not dominate the embedding (Fig.~\ref{fig:tsne}). These embeddings were computed on all 15 participants with the best-run model, 14 of whom contributed labelled training data, so the emotion structure partly reflects supervised fitting.
 
 \begin{table}[!htbp]
   \centering
@@ -815,7 +857,7 @@ The DANCE teacher–student pair was included as a secondary reference. Its cali
 \begin{figure}[!htbp]
   \centering
   \includegraphics[width=1\linewidth,height=0.62\textheight,keepaspectratio]{figures/thesis_fig09_dance_ablation.png}
-  \caption{\textbf{Ablation of the DANCE teacher–student framework (secondary comparator).} Calibrated accuracy (mean ± s.d. over three seeds) of 11 DANCE variants under a reduced protocol. Four variants produced identical values, indicating that their options were not applied; this ablation is incomplete and does not concern CLISA-EWU. The axis label ‘balanced accuracy’ in this thesis figure denotes accuracy (see Methods). \pending{Re-run before submission.}}
+  \caption{\textbf{Ablation of the DANCE teacher–student framework (secondary comparator).} Calibrated accuracy (mean ± s.d. over three seeds) of 11 DANCE variants under a reduced protocol. Four variants produced identical values, indicating that their options were not applied; this ablation is incomplete and does not concern CLISA-EWU. The axis label ‘balanced accuracy’ in this thesis figure denotes accuracy (see Methods).}
   \label{fig:abl}
 \end{figure}
 
@@ -838,7 +880,7 @@ The practical message for wearable affective computing is cautiously positive. A
 
 
 \subsection{Limitations}
-This study has limitations. The cohort was small (15 participants), healthy and drawn from one laboratory, and emotions were elicited with film clips under controlled conditions; generalisation to other populations, naturalistic settings and clinical groups is unknown \cite{seed,seedv,faced} \pending{external validation on SEED, SEED-V and FACED pending}. The six-electrode montage was simulated by selecting channels from a laboratory cap rather than recorded with a wearable device. Calibration windows were sampled across trials, so calibration and test windows could share a trial, which may have inflated calibrated accuracy\cite{liblock}. Labels were assigned per film clip rather than per moment. We used precomputed features, so preprocessing choices could not be varied, and hyperparameters were not tuned separately for each model. Finally, the contrastive model contrasted augmented views of single windows rather than aligning participants explicitly, so its gains should not be attributed to inter-participant alignment.
+This study has limitations. The cohort was small (15 participants), healthy and drawn from one laboratory, and emotions were elicited with film clips under controlled conditions; generalisation to other populations, naturalistic settings and clinical groups is unknown\cite{seed,seedv,faced}. The six-electrode montage was simulated by selecting channels from a laboratory cap rather than recorded with a wearable device. Calibration windows were sampled across trials, so calibration and test windows could share a trial, which may have inflated calibrated accuracy\cite{liblock}. Labels were assigned per film clip rather than per moment. We used precomputed features, so preprocessing choices could not be varied, and hyperparameters were not tuned separately for each model. Finally, the contrastive model contrasted augmented views of single windows rather than aligning participants explicitly, so its gains should not be attributed to inter-participant alignment.
 
 
 \section{Conclusion and Future Work}
@@ -899,9 +941,23 @@ Model, training, evaluation and analysis code, including the scripts that regene
 
 \bibitem{liblock} Li, R. et al. The perils and pitfalls of block design for EEG classification experiments. IEEE Trans. Pattern Anal. Mach. Intell. 43, 316–333 (2021).
 
+\bibitem{duan} Duan, R.-N., Zhu, J.-Y. \& Lu, B.-L. Differential entropy feature for EEG-based emotion classification. In Proc. 6th Int. IEEE/EMBS Conf. Neural Eng. 81–84 (2013).
+
+\bibitem{jenke} Jenke, R., Peer, A. \& Buss, M. Feature extraction and selection for emotion recognition from EEG. IEEE Trans. Affect. Comput. 5, 327–339 (2014).
+
+\bibitem{pan} Pan, S. J., Tsang, I. W., Kwok, J. T. \& Yang, Q. Domain adaptation via transfer component analysis. IEEE Trans. Neural Netw. 22, 199–210 (2011).
+
+\bibitem{zanini} Zanini, P., Congedo, M., Jutten, C., Said, S. \& Berthoumieu, Y. Transfer learning: a Riemannian geometry framework with applications to brain–computer interfaces. IEEE Trans. Biomed. Eng. 65, 1107–1116 (2018).
+
+\bibitem{he} He, H. \& Wu, D. Transfer learning for brain–computer interfaces: a Euclidean space data alignment approach. IEEE Trans. Biomed. Eng. 67, 399–410 (2020).
+
+\bibitem{plugplay} Zhao, L.-M., Yan, X. \& Lu, B.-L. Plug-and-play domain adaptation for cross-subject EEG-based emotion recognition. In Proc. AAAI Conf. Artif. Intell. 35, 863–870 (2021).
+
 \bibitem{simclr} Chen, T., Kornblith, S., Norouzi, M. \& Hinton, G. A simple framework for contrastive learning of visual representations. In Proc. ICML 1597–1607 (2020).
 
 \bibitem{byol} Grill, J.-B. et al. Bootstrap your own latent: a new approach to self-supervised learning. Adv. Neural Inf. Process. Syst. 33, 21271–21284 (2020).
+
+\bibitem{bendr} Kostas, D., Aroca-Ouellette, S. \& Rudzicz, F. BENDR: using transformers and a contrastive self-supervised learning task to learn from massive amounts of EEG data. Front. Hum. Neurosci. 15, 653659 (2021).
 
 \bibitem{pseudo} Lee, D.-H. Pseudo-label: the simple and efficient semi-supervised learning method for deep neural networks. In ICML Workshop on Challenges in Representation Learning (2013).
 
@@ -909,11 +965,59 @@ Model, training, evaluation and analysis code, including the scripts that regene
 
 \bibitem{hinton} Hinton, G., Vinyals, O. \& Dean, J. Distilling the knowledge in a neural network. Preprint at https://arxiv.org/abs/1503.02531 (2015).
 
+\bibitem{dreamer} Katsigiannis, S. \& Ramzan, N. DREAMER: a database for emotion recognition through EEG and ECG signals from wireless low-cost off-the-shelf devices. IEEE J. Biomed. Health Inform. 22, 98–107 (2018).
+
+\bibitem{davidson} Davidson, R. J. Anterior cerebral asymmetry and the nature of emotion. Brain Cogn. 20, 125–151 (1992).
+
+\bibitem{coan} Coan, J. A. \& Allen, J. J. B. Frontal EEG asymmetry as a moderator and mediator of emotion. Biol. Psychol. 67, 7–49 (2004).
+
+\bibitem{alarcao} Alarcão, S. M. \& Fonseca, M. J. Emotions recognition using EEG signals: a survey. IEEE Trans. Affect. Comput. 10, 374–393 (2019).
+
+\bibitem{seedv} Liu, W., Qiu, J.-L., Zheng, W.-L. \& Lu, B.-L. Comparing recognition performance and robustness of multimodal deep learning models for multimodal emotion recognition. IEEE Trans. Cogn. Dev. Syst. 14, 715–729 (2022).
+
+\bibitem{faced} Chen, J. et al. A large finer-grained affective computing EEG dataset. Sci. Data 10, 740 (2023).
+
+\bibitem{jayaram} Jayaram, V., Alamgir, M., Altun, Y., Schölkopf, B. \& Grosse-Wentrup, M. Transfer learning in brain–computer interfaces. IEEE Comput. Intell. Mag. 11, 20–31 (2016).
+
+\bibitem{wu} Wu, D., Xu, Y. \& Lu, B.-L. Transfer learning for EEG-based brain–computer interfaces: a review of progress made since 2016. IEEE Trans. Cogn. Dev. Syst. 14, 4–19 (2022).
+
+\bibitem{lotte} Lotte, F. et al. A review of classification algorithms for EEG-based brain–computer interfaces: a 10 year update. J. Neural Eng. 15, 031005 (2018).
+
 \bibitem{xgboost} Chen, T. \& Guestrin, C. XGBoost: a scalable tree boosting system. In Proc. 22nd ACM SIGKDD 785–794 (2016).
+
+\bibitem{craik} Craik, A., He, Y. \& Contreras-Vidal, J. L. Deep learning for electroencephalogram (EEG) classification tasks: a review. J. Neural Eng. 16, 031001 (2019).
+
+\bibitem{roy} Roy, Y. et al. Deep learning-based electroencephalography analysis: a systematic review. J. Neural Eng. 16, 051001 (2019).
+
+\bibitem{schirrmeister} Schirrmeister, R. T. et al. Deep learning with convolutional neural networks for EEG decoding and visualization. Hum. Brain Mapp. 38, 5391–5420 (2017).
+
+\bibitem{eegnet} Lawhern, V. J. et al. EEGNet: a compact convolutional neural network for EEG-based brain–computer interfaces. J. Neural Eng. 15, 056013 (2018).
+
+\bibitem{conformer} Song, Y., Zheng, Q., Liu, B. \& Gao, X. EEG Conformer: convolutional transformer for EEG decoding and visualization. IEEE Trans. Neural Syst. Rehabil. Eng. 31, 710–719 (2023).
 
 \bibitem{vaswani} Vaswani, A. et al. Attention is all you need. Adv. Neural Inf. Process. Syst. 30 (2017).
 
-\bibitem{conformer} Song, Y., Zheng, Q., Liu, B. \& Gao, X. EEG Conformer: convolutional transformer for EEG decoding and visualization. IEEE Trans. Neural Syst. Rehabil. Eng. 31, 710–719 (2023).
+\bibitem{regional} Li, Y. et al. From regional to global brain: a novel hierarchical spatial-temporal neural network model for EEG emotion recognition. IEEE Trans. Affect. Comput. 13, 568–578 (2022).
+
+\bibitem{zhengpers} Zheng, W.-L. \& Lu, B.-L. Personalizing EEG-based affective models with transfer learning. In Proc. 25th Int. Joint Conf. Artif. Intell. 2732–2738 (2016).
+
+\bibitem{long} Long, M., Cao, Y., Wang, J. \& Jordan, M. I. Learning transferable features with deep adaptation networks. In Proc. 32nd Int. Conf. Mach. Learn. 97–105 (2015).
+
+\bibitem{multisource} Li, J., Qiu, S., Shen, Y.-Y., Liu, C.-L. \& He, H. Multisource transfer learning for cross-subject EEG emotion recognition. IEEE Trans. Cybern. 50, 3281–3293 (2020).
+
+\bibitem{adabn} Li, Y., Wang, N., Shi, J., Hou, X. \& Liu, J. Adaptive batch normalization for practical domain adaptation. Pattern Recognit. 80, 109–117 (2018).
+
+\bibitem{mohsenvand} Mohsenvand, M. N., Izadi, M. R. \& Maes, P. Contrastive representation learning for electroencephalogram classification. In Proc. Machine Learning for Health, PMLR 136, 238–253 (2020).
+
+\bibitem{banville} Banville, H., Chehab, O., Hyvärinen, A., Engemann, D.-A. \& Gramfort, A. Uncovering the structure of clinical EEG signals with self-supervised learning. J. Neural Eng. 18, 046020 (2021).
+
+\bibitem{tripod} Collins, G. S. et al. TRIPOD+AI statement: updated guidance for reporting clinical prediction models that use regression or machine learning methods. BMJ 385, e078378 (2024).
+
+\bibitem{demsar} Demšar, J. Statistical comparisons of classifiers over multiple data sets. J. Mach. Learn. Res. 7, 1–30 (2006).
+
+\bibitem{krigolson} Krigolson, O. E., Williams, C. C., Norton, A., Hassall, C. D. \& Colino, F. L. Choosing MUSE: validation of a low-cost, portable EEG system for ERP research. Front. Neurosci. 11, 109 (2017).
+
+\bibitem{casson} Casson, A. J. Wearable EEG and beyond. Biomed. Eng. Lett. 9, 53–71 (2019).
 
 \bibitem{brodersen} Brodersen, K. H., Ong, C. S., Stephan, K. E. \& Buhmann, J. M. The balanced accuracy and its posterior distribution. In Proc. 20th Int. Conf. Pattern Recognit. 3121–3124 (2010).
 
@@ -929,8 +1033,6 @@ Model, training, evaluation and analysis code, including the scripts that regene
 
 \bibitem{friedman} Friedman, M. The use of ranks to avoid the assumption of normality implicit in the analysis of variance. J. Am. Stat. Assoc. 32, 675–701 (1937).
 
-\bibitem{demsar} Demšar, J. Statistical comparisons of classifiers over multiple data sets. J. Mach. Learn. Res. 7, 1–30 (2006).
-
 \bibitem{wilcoxon} Wilcoxon, F. Individual comparisons by ranking methods. Biom. Bull. 1, 80–83 (1945).
 
 \bibitem{holm} Holm, S. A simple sequentially rejective multiple test procedure. Scand. J. Stat. 6, 65–70 (1979).
@@ -940,8 +1042,6 @@ Model, training, evaluation and analysis code, including the scripts that regene
 \bibitem{kerby} Kerby, D. S. The simple difference formula: an approach to teaching nonparametric correlation. Compr. Psychol. 3, 11.IT.3.1 (2014).
 
 \bibitem{shrout} Shrout, P. E. \& Fleiss, J. L. Intraclass correlations: uses in assessing rater reliability. Psychol. Bull. 86, 420–428 (1979).
-
-\bibitem{tripod} Collins, G. S. et al. TRIPOD+AI statement: updated guidance for reporting clinical prediction models that use regression or machine learning methods. BMJ 385, e078378 (2024).
 
 \bibitem{tsne} van der Maaten, L. \& Hinton, G. Visualizing data using t-SNE. J. Mach. Learn. Res. 9, 2579–2605 (2008).
 
@@ -953,17 +1053,11 @@ Model, training, evaluation and analysis code, including the scripts that regene
 
 \bibitem{shap} Lundberg, S. M. \& Lee, S.-I. A unified approach to interpreting model predictions. Adv. Neural Inf. Process. Syst. 30 (2017).
 
-\bibitem{adabn} Li, Y., Wang, N., Shi, J., Hou, X. \& Liu, J. Adaptive batch normalization for practical domain adaptation. Pattern Recognit. 80, 109–117 (2018).
-
 \bibitem{landis} Landis, J. R. \& Koch, G. G. The measurement of observer agreement for categorical data. Biometrics 33, 159–174 (1977).
-
-\bibitem{seedv} Liu, W., Qiu, J.-L., Zheng, W.-L. \& Lu, B.-L. Comparing recognition performance and robustness of multimodal deep learning models for multimodal emotion recognition. IEEE Trans. Cogn. Dev. Syst. 14, 715–729 (2022).
-
-\bibitem{faced} Chen, J. et al. A large finer-grained affective computing EEG dataset. Sci. Data 10, 740 (2023).
 \end{thebibliography}
 
 \section*{Acknowledgements}
-The authors thank the providers of the SEED-IV dataset and the Department of Computer Science and Engineering, East West University, for their support. All figures were created by the authors; schematic illustrations (Figs.~\ref{fig:workflow} and \ref{fig:arch}) were drawn manually and all plots were generated with Python.
+The authors thank the providers of the SEED-IV dataset and the Department of Computer Science and Engineering, East West University, for their support. The authors created all figures; they drew the schematic illustrations (Figs.~\ref{fig:workflow} and \ref{fig:arch}) manually, and they generated all plots in Python.
 
 \section*{Author contributions}
 S.K.: conceptualization, methodology, software, experiments, formal analysis, visualization and writing of the original draft. O.B.Q.: experiments, analysis and manuscript preparation. K.M.F.A.B.: implementation, evaluation and documentation. R.R.: experiments, reporting and software integration (NeuroSync). A.W.R.: supervision, review and editing. All authors reviewed and approved the final manuscript.

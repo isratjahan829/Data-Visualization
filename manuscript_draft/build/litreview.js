@@ -1,0 +1,10 @@
+S1('Literature Review'); P(LIT_INTRO2);
+S2('Emotion models and EEG correlates of affect'); LIT_AFFECT.forEach(P);
+S2('Datasets and the cross-participant problem'); LIT_DATA.forEach(P);
+S2('Hand-crafted features and classical classifiers'); LIT_FEAT.forEach(P);
+S2('Deep architectures for EEG emotion recognition'); LIT_DEEP.forEach(P);
+S2('Transfer learning and domain adaptation across participants'); LIT_DA.forEach(P);
+S2('Self-supervised, contrastive and semi-supervised learning'); LIT_SSL.forEach(P);
+S2('Calibration, evaluation protocols and reporting'); LIT_EVAL.forEach(P);
+S2('Reduced-electrode and wearable EEG'); LIT_WEAR.forEach(P);
+S2('Research gap'); P(GAP2);

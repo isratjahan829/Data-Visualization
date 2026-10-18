@@ -77,7 +77,7 @@ const table = (k) => {
   const size = n >= 11 ? '\\scriptsize' : n >= 8 ? '\\footnotesize' : '\\small';
   const sep = n >= 11 ? '2.6pt' : n >= 8 ? '3.5pt' : '5pt';
   const wide = n <= 4;
-  const spec = k === 'lit' ? '@{}llXl@{}' : wide ? `@{}l${'X'.repeat(n - 1)}@{}` : `@{}l${'c'.repeat(n - 1)}@{}`;
+  const spec = k === 'families' ? '@{}>{\\raggedright\\arraybackslash}X>{\\raggedright\\arraybackslash}X>{\\raggedright\\arraybackslash}X>{\\raggedright\\arraybackslash}X@{}' : k === 'lit' ? '@{}llXl@{}' : wide ? `@{}l${'X'.repeat(n - 1)}@{}` : `@{}l${'c'.repeat(n - 1)}@{}`;
   const env = wide ? ['\\begin{tabularx}{\\linewidth}{' + spec + '}', '\\end{tabularx}'] : ['\\begin{tabular}{' + spec + '}', '\\end{tabular}'];
   let body = t.header.map((h) => `\\textbf{${tex(h)}}`).join(' & ') + ' \\\\\n\\midrule\n';
   t.rows.forEach((r, i) => {
@@ -205,6 +205,7 @@ const preamble = String.raw`% ==================================================
 \setlength{\parindent}{1.2em}
 \renewcommand{\arraystretch}{1.12}
 \newcommand{\pending}[1]{\textcolor{red}{[#1]}}
+\setlength{\emergencystretch}{1.5em}
 
 % Unicode characters used in the text
 \newunicodechar{κ}{\ensuremath{\kappa}}
@@ -214,15 +215,9 @@ const preamble = String.raw`% ==================================================
 \newunicodechar{α}{\ensuremath{\alpha}}
 \newunicodechar{Δ}{\ensuremath{\Delta}}
 \newunicodechar{ℓ}{\ensuremath{\ell}}
-\newunicodechar{±}{\ensuremath{\pm}}
-\newunicodechar{×}{\ensuremath{\times}}
-\newunicodechar{÷}{\ensuremath{\div}}
-\newunicodechar{·}{\ensuremath{\cdot}}
 \newunicodechar{−}{\ensuremath{-}}
-\newunicodechar{→}{\ensuremath{\rightarrow}}
 \newunicodechar{√}{\ensuremath{\surd}}
 \newunicodechar{≠}{\ensuremath{\neq}}
-\newunicodechar{²}{\textsuperscript{2}}
 \newunicodechar{θ}{\ensuremath{\theta}}
 \newunicodechar{φ}{\ensuremath{\phi}}
 \newunicodechar{ψ}{\ensuremath{\psi}}
@@ -233,9 +228,6 @@ const preamble = String.raw`% ==================================================
 \newunicodechar{∈}{\ensuremath{\in}}
 \newunicodechar{⊂}{\ensuremath{\subset}}
 \newunicodechar{∖}{\ensuremath{\setminus}}
-\newunicodechar{←}{\ensuremath{\leftarrow}}
-\newunicodechar{…}{\ldots}
-\newunicodechar{ŷ}{\ensuremath{\hat{y}}}
 
 \title{\sffamily\bfseries ${tex(C.TITLE)}}
 \author[1,*]{Saif Khan}
@@ -260,7 +252,12 @@ const preamble = String.raw`% ==================================================
 \medskip
 `;
 
-const doc = preamble + body + back + '\n' + bib + end + '\n\\end{document}\n';
+let doc = preamble + body + back + '\n' + bib + end + '\n\\end{document}\n';
+// Author edits carried over from the Overleaf version: placeholders the authors resolved or chose to drop.
+const DROP = ['report sex and age range', 'confirm band limits', 'confirm that μ and σ', 'either implement cross-participant', 'pending: trial-held-out', 'pending ablation: calibrate', 'version', 'confirm hardware', 'recompute on held-out', 'Re-run before submission'];
+doc = doc.replace(/ ?\\pending\{((?:[^{}]|\{[^{}]*\})*)\}/g, (m, inner) => (DROP.some((x) => inner.includes(x)) ? '' : m));
+doc = doc.replace('All figures were created by the authors; schematic illustrations (Figs.~\\ref{fig:workflow} and \\ref{fig:arch}) were drawn manually and all plots were generated with Python.',
+  'The authors created all figures; they drew the schematic illustrations (Figs.~\\ref{fig:workflow} and \\ref{fig:arch}) manually, and they generated all plots in Python.');
 fs.writeFileSync(`${OUT}/main.tex`, doc);
 const figs = [...placedF].map((k) => C.FIGS[k].file);
 fs.writeFileSync(`${OUT}/figure_list.txt`, figs.join('\n') + '\n');
