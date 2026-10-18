@@ -7,7 +7,7 @@ const OUT = process.argv[2];
 // Reuse the section/table structure of the Word builder (srstyle.js) so both outputs stay identical.
 const src = fs.readFileSync(__dirname + '/srstyle.js', 'utf8');
 const slice = src.slice(src.indexOf('// ---------- Tables registry ----------'), src.indexOf('// ---------- Numbering by first mention ----------'));
-const { B, TABLES } = new Function('C', 'const TEXT_W = 1000;\n' + slice + '\nreturn { B, TABLES };')(C);
+const { B, TABLES, ALGO } = new Function('C', 'const TEXT_W = 1000;\n' + slice + '\nreturn { B, TABLES, ALGO };')(C);
 
 // ---------- Markup → LaTeX ----------
 const esc = (t) => t
@@ -16,7 +16,7 @@ const esc = (t) => t
   .replace(/R\u0304/g, '$\\bar{R}$')
   .replace(/\.\.\./g, '\\ldots{}');
 function tex(text) {
-  const re = /(\*\*[^*]+\*\*|\*[^*]+\*|\[\[[^\]]+\]\]|\^[^^]+\^|~[^~]+~|(?:Fig\.|Figure) \{F:\w+\}|Table \{T:\w+\}|\{[a-z_,]+\})/g;
+  const re = /(\*\*[^*]+\*\*|\*[^*]+\*|\[\[[^\]]+\]\]|\^[^^]+\^|~[^~]+~|(?:Fig\.|Figure) \{F:\w+\}|Eq\. \{E:\w+\}|Algorithm \{A:1\}|Table \{T:\w+\}|\{[a-z_,]+\})/g;
   let out = '', last = 0, m;
   while ((m = re.exec(text))) {
     out += esc(text.slice(last, m.index));
@@ -26,6 +26,8 @@ function tex(text) {
     else if (t.startsWith('*')) out += `\\emph{${tex(t.slice(1, -1))}}`;
     else if (t.startsWith('^')) out += `\\textsuperscript{${tex(t.slice(1, -1))}}`;
     else if (t.startsWith('~')) out += `\\textsubscript{${tex(t.slice(1, -1))}}`;
+    else if (t.includes('{E:')) out += `Eq.~\\eqref{eq:${t.match(/\{E:(\w+)\}/)[1]}}`;
+    else if (t.includes('{A:')) out += 'Algorithm~\\ref{alg:clisa}';
     else if (t.includes('{F:')) out += `Fig.~\\ref{fig:${t.match(/\{F:(\w+)\}/)[1]}}`;
     else if (t.includes('{T:')) out += `Table~\\ref{tab:${t.match(/\{T:(\w+)\}/)[1]}}`;
     else { const keys = t.slice(1, -1).split(','); keys.forEach((k) => { if (!C.REFS[k]) throw new Error('missing ref ' + k); if (!cited.includes(k)) cited.push(k); }); out += `\\cite{${keys.join(',')}}`; }
@@ -37,6 +39,11 @@ const cited = [];
 
 // ---------- Equations ----------
 const EQ = {
+  de: String.raw`h(X)=-\int_{-\infty}^{\infty}f(x)\log f(x)\,\mathrm{d}x=\frac{1}{2}\log\left(2\pi e\,\sigma^{2}\right)`,
+  zscore: String.raw`\tilde{x}_j=\frac{x_j-\mu_j}{\sigma_j},\qquad j=1,\ldots,d`,
+  aug: String.raw`v_1=x+\varepsilon,\quad \varepsilon\sim\mathcal{N}(0,\,0.1^{2}I);\qquad v_2=x\odot(m\otimes\mathbf{1}_5),\quad m_c\sim\mathrm{Bernoulli}(0.7)`,
+  encoder: String.raw`h=f_\theta(x)=\mathrm{ReLU}\Bigl(\mathrm{BN}\bigl(W_2\,\mathrm{Dropout}(\mathrm{ReLU}(\mathrm{BN}(W_1x)))\bigr)\Bigr),\qquad z=\frac{g_\phi(h)}{\lVert g_\phi(h)\rVert_2}`,
+  ce: String.raw`\mathcal{L}_{\mathrm{CE}}=-\frac{1}{|\mathcal{B}|}\sum_{b\in\mathcal{B}}\sum_{i=1}^{C}y_{b,i}\log\hat{y}_{b,i}`,
   ntxent: String.raw`\ell_{i,j} = -\log \frac{\exp\left(\mathrm{sim}(z_i,z_j)/\tau\right)}{\sum_{k=1,\,k\neq i}^{2N}\exp\left(\mathrm{sim}(z_i,z_k)/\tau\right)}`,
   acc: String.raw`\mathrm{Accuracy}=\frac{1}{N}\sum_{i=1}^{C}TP_i,\qquad \mathrm{Specificity}_i=\frac{TN_i}{TN_i+FP_i}`,
   recall: String.raw`\mathrm{Recall}_i=\frac{TP_i}{TP_i+FN_i},\qquad \mathrm{Precision}_i=\frac{TP_i}{TP_i+FP_i}`,
@@ -89,13 +96,32 @@ ${body}  \\bottomrule
 \\end{table}\n`;
 };
 
+// ---------- Algorithm ----------
+function algo() {
+  let o = `\\begin{algorithm}[!htbp]\n\\caption{${tex(ALGO.title)}}\n\\label{alg:clisa}\n\\small\n\\begin{algorithmic}[1]\n\\Require ${tex(ALGO.input)}\n\\Ensure ${tex(ALGO.output)}\n`;
+  for (const [t, text, cmt] of ALGO.steps) {
+    const c = cmt ? ` \\Comment{${tex(cmt)}}` : '';
+    if (t === 'for') o += `\\For{${tex(text)}}${c}\n`;
+    else if (t === 'if') o += `\\If{${tex(text)}}${c}\n`;
+    else if (t === 'endfor') o += '\\EndFor\n';
+    else if (t === 'endif') o += '\\EndIf\n';
+    else if (t === 'return') o += `\\State \\Return ${tex(text)}\n`;
+    else o += `\\State ${tex(text)}${c}\n`;
+  }
+  return o + '\\end{algorithmic}\n\\end{algorithm}\n\n';
+}
+
 // ---------- Body ----------
-let body = '', inList = false;
+let body = '', inList = false, inBul = false;
+const strip = (x) => x.replace(/^\d+(\.\d+)*\s+/, '');
 const placedF = new Set(), placedT = new Set();
 for (const b of B) {
   if (b.t !== 'num' && inList) { body += '\\end{enumerate}\n\n'; inList = false; }
-  if (b.t === 'h1') body += `\n\\section{${tex(b.text)}}\n`;
-  else if (b.t === 'h2') body += `\n\\subsection{${tex(b.text)}}\n`;
+  if (b.t !== 'bul' && inBul) { body += '\\end{itemize}\n\n'; inBul = false; }
+  if (b.t === 'h1') body += `\n\\section{${tex(strip(b.text))}}\n`;
+  else if (b.t === 'h2') body += `\n\\subsection{${tex(strip(b.text))}}\n`;
+  else if (b.t === 'bul') { if (!inBul) { body += '\\begin{itemize}\n'; inBul = true; } body += `  \\item ${tex(b.text)}\n`; }
+  else if (b.t === 'algo') body += algo();
   else if (b.t === 'h3') body += `\n\\paragraph{${tex(b.text)}}\n`;
   else if (b.t === 'eq') body += `\\begin{equation}\n  ${EQ[b.key]}\n  \\label{eq:${b.key}}\n\\end{equation}\n`;
   else if (b.t === 'num') { if (!inList) { body += '\\begin{enumerate}\n'; inList = true; } body += `  \\item ${tex(b.text)}\n`; }
@@ -105,12 +131,14 @@ for (const b of B) {
     for (const m of b.text.matchAll(/\{F:(\w+)\}/g)) if (!placedF.has(m[1])) { placedF.add(m[1]); body += figure(m[1]) + '\n'; }
   }
 }
+if (inList) body += '\\end{enumerate}\n\n';
+if (inBul) body += '\\end{itemize}\n\n';
 // Captions are rendered when their floats are placed; make sure citations inside them are registered in order.
 const back = String.raw`
-\section{Data availability}
+\section*{Data availability}
 The SEED-IV dataset is available from its providers under their licence at \url{https://bcmi.sjtu.edu.cn/home/seed/}. Data splits, per-fold predictions, confusion matrices and result tables are available at \url{https://github.com/saifkhancse/clisa-ewu-brain-informatics} \pending{archive a tagged release on Zenodo and cite its DOI}.
 
-\section{Code availability}
+\section*{Code availability}
 Model, training, evaluation and analysis code, including the scripts that regenerate every statistic and figure in this paper, is available at \url{https://github.com/saifkhancse/clisa-ewu-brain-informatics}.
 `;
 const bib = '\\begin{thebibliography}{99}\n' + cited.map((k) => `\\bibitem{${k}} ${tex(C.REFS[k])}`).join('\n\n') + '\n\\end{thebibliography}\n';
@@ -158,15 +186,17 @@ const preamble = String.raw`% ==================================================
 \usepackage{authblk}
 \usepackage{caption}
 \usepackage{lineno}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 \usepackage{titlesec}
 \usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
 \usepackage{url}
 
 % Scientific Reports style: unnumbered sans-serif headings, captions "Fig. 1." / "Table 1."
-\setcounter{secnumdepth}{0}
-\titleformat{\section}{\sffamily\bfseries\large}{}{0pt}{}
-\titleformat{\subsection}{\sffamily\bfseries\normalsize}{}{0pt}{}
+\setcounter{secnumdepth}{2}
+\titleformat{\section}{\sffamily\bfseries\large}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\sffamily\bfseries\normalsize}{\thesubsection}{0.6em}{}
 \titleformat{\paragraph}[hang]{\itshape}{}{0pt}{}
 \titlespacing*{\paragraph}{0pt}{6pt}{2pt}
 \captionsetup{font=small,labelfont=bf,labelsep=period,justification=justified,singlelinecheck=false}
@@ -193,6 +223,19 @@ const preamble = String.raw`% ==================================================
 \newunicodechar{√}{\ensuremath{\surd}}
 \newunicodechar{≠}{\ensuremath{\neq}}
 \newunicodechar{²}{\textsuperscript{2}}
+\newunicodechar{θ}{\ensuremath{\theta}}
+\newunicodechar{φ}{\ensuremath{\phi}}
+\newunicodechar{ψ}{\ensuremath{\psi}}
+\newunicodechar{σ}{\ensuremath{\sigma}}
+\newunicodechar{μ}{\ensuremath{\mu}}
+\newunicodechar{ε}{\ensuremath{\varepsilon}}
+\newunicodechar{ℝ}{\ensuremath{\mathbb{R}}}
+\newunicodechar{∈}{\ensuremath{\in}}
+\newunicodechar{⊂}{\ensuremath{\subset}}
+\newunicodechar{∖}{\ensuremath{\setminus}}
+\newunicodechar{←}{\ensuremath{\leftarrow}}
+\newunicodechar{…}{\ldots}
+\newunicodechar{ŷ}{\ensuremath{\hat{y}}}
 
 \title{\sffamily\bfseries ${tex(C.TITLE)}}
 \author[1,*]{Saif Khan}

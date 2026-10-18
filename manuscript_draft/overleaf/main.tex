@@ -24,15 +24,17 @@
 \usepackage{authblk}
 \usepackage{caption}
 \usepackage{lineno}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 \usepackage{titlesec}
 \usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
 \usepackage{url}
 
 % Scientific Reports style: unnumbered sans-serif headings, captions "Fig. 1." / "Table 1."
-\setcounter{secnumdepth}{0}
-\titleformat{\section}{\sffamily\bfseries\large}{}{0pt}{}
-\titleformat{\subsection}{\sffamily\bfseries\normalsize}{}{0pt}{}
+\setcounter{secnumdepth}{2}
+\titleformat{\section}{\sffamily\bfseries\large}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\sffamily\bfseries\normalsize}{\thesubsection}{0.6em}{}
 \titleformat{\paragraph}[hang]{\itshape}{}{0pt}{}
 \titlespacing*{\paragraph}{0pt}{6pt}{2pt}
 \captionsetup{font=small,labelfont=bf,labelsep=period,justification=justified,singlelinecheck=false}
@@ -59,6 +61,19 @@
 \newunicodechar{√}{\ensuremath{\surd}}
 \newunicodechar{≠}{\ensuremath{\neq}}
 \newunicodechar{²}{\textsuperscript{2}}
+\newunicodechar{θ}{\ensuremath{\theta}}
+\newunicodechar{φ}{\ensuremath{\phi}}
+\newunicodechar{ψ}{\ensuremath{\psi}}
+\newunicodechar{σ}{\ensuremath{\sigma}}
+\newunicodechar{μ}{\ensuremath{\mu}}
+\newunicodechar{ε}{\ensuremath{\varepsilon}}
+\newunicodechar{ℝ}{\ensuremath{\mathbb{R}}}
+\newunicodechar{∈}{\ensuremath{\in}}
+\newunicodechar{⊂}{\ensuremath{\subset}}
+\newunicodechar{∖}{\ensuremath{\setminus}}
+\newunicodechar{←}{\ensuremath{\leftarrow}}
+\newunicodechar{…}{\ldots}
+\newunicodechar{ŷ}{\ensuremath{\hat{y}}}
 
 \title{\sffamily\bfseries Few-shot calibration rather than architecture drives cross-participant EEG emotion recognition with full and six-electrode montages}
 \author[1,*]{Saif Khan}
@@ -81,6 +96,8 @@
 \noindent\textsf{\textbf{Keywords}}\quad EEG emotion recognition, cross-subject generalization, contrastive learning, few-shot calibration, wearable EEG, leave-one-subject-out validation
 
 \medskip
+
+\section{Introduction}
 Emotional states shape attention, decision making and mental health, and objective markers of emotion could support adaptive human–computer interaction, neurofeedback and digital mental-health monitoring\cite{russell,seediv}. Electroencephalography (EEG) is portable, inexpensive and has millisecond resolution, which makes it the most practical neural signal for everyday affect sensing\cite{seed,deap}. Two obstacles separate laboratory results from use. First, a deployed decoder must work for a person whose data were never used in training, but EEG responses to the same stimulus differ markedly between individuals because of anatomy, electrode contact, baseline rhythms and appraisal\cite{clisa,ganin,dan}. Second, research datasets are recorded with 32–64 electrodes, whereas wearable headsets carry far fewer.
 
 Many methods target the first obstacle, including domain-adversarial networks\cite{ganin,bidann}, hemispheric-asymmetry models\cite{bihdm}, graph neural networks\cite{dgcnn,rgnn,sognn} and contrastive learning designed to make representations participant-invariant\cite{clisa}. Reported cross-participant accuracies on SEED and SEED-IV range from about 53\% to above 80\%\cite{dgcnn,dan,bidann,bihdm,rgnn,sognn,bfenet,attgraph,ssemerge}. These values are rarely comparable. Studies differ in whether unlabelled EEG from the test participant is used during training (transductive adaptation), whether a few labelled test-participant samples are used to adapt the model (calibration), how windows are split, and whether the reported figure is a mean over participants or a best fold. Splitting matters because features from adjacent windows of the same trial are strongly correlated, so any overlap between fitting and testing data inflates accuracy\cite{saeb,kapoor,liblock}.
@@ -96,13 +113,11 @@ This work addresses these gaps through a controlled benchmark with a rigorous, p
   \item \emph{Rigorous statistics and interpretation}: Participant-level bootstrap confidence intervals and paired Wilcoxon tests with Holm correction are complemented by class-level, representation-geometry and attribution analyses and a software prototype for wearable use.
 \end{enumerate}
 
-The remainder of this paper is organized as follows. The next section reviews related work. The Methodology section describes the dataset, evaluation protocol, models, evaluation metrics and statistical analysis. The Results and discussion section presents the benchmark, the effect of calibration, electrode reduction, class-level and representation analyses, and the limitations of the study. The final section concludes the paper.
+The remainder of this paper is organized as follows. Section 2 reviews the literature on cross-participant and reduced-electrode EEG emotion recognition. Section 3 describes the materials and methods: the data, preprocessing and augmentation, the evaluation protocol, the baseline and proposed models, the training algorithm, the evaluation metrics and the statistical analysis. Section 4 presents and discusses the results, including their implications and limitations. Section 5 concludes the paper and outlines future work.
 
 
-\section{Related work}
-Early cross-participant work treated each participant as a domain. Deep adaptation networks aligned feature distributions with maximum mean discrepancy\cite{dan}, and domain-adversarial training removed participant information through a gradient-reversal layer\cite{ganin}. Bi-hemispheric adversarial and discrepancy models added neuroscientific priors on hemispheric asymmetry\cite{bidann,bihdm}. Most of these methods are transductive: they use unlabelled EEG from the test participant during training, which is legitimate but must be distinguished from purely zero-shot evaluation.
-
-Graph neural networks model spatial relations between electrodes with learned or anatomical adjacency\cite{dgcnn,rgnn,sognn}, and recent attention-based and frequency-band graph models report the highest SEED-IV accuracies\cite{bfenet,attgraph,ssemerge}. Their reported values are summarised in Table~\ref{tab:lit}, but differences in protocol, features and reporting unit preclude direct ranking.
+\section{Literature Review}
+Published EEG emotion recognition methods can be grouped into domain-adaptive networks, graph and attention models, contrastive and self-supervised methods, and reduced-electrode approaches. This section reviews each group, summarises the reported results in Table~\ref{tab:lit} and identifies the research gap addressed by this study.
 
 \begin{table}[!htbp]
   \centering
@@ -127,12 +142,28 @@ This study (CLISA-EWU) & SEED-IV & Two-stage contrastive pretraining & 48.5\% ze
   \label{tab:lit}
 \end{table}
 
+
+\subsection{Domain adaptation and participant invariance}
+Early cross-participant work treated each participant as a domain. Deep adaptation networks aligned feature distributions with maximum mean discrepancy\cite{dan}, and domain-adversarial training removed participant information through a gradient-reversal layer\cite{ganin}. Bi-hemispheric adversarial and discrepancy models added neuroscientific priors on hemispheric asymmetry\cite{bidann,bihdm}. Most of these methods are transductive: they use unlabelled EEG from the test participant during training, which is legitimate but must be distinguished from purely zero-shot evaluation.
+
+
+\subsection{Graph and attention models}
+Graph neural networks model spatial relations between electrodes with learned or anatomical adjacency\cite{dgcnn,rgnn,sognn}, and recent attention-based and frequency-band graph models report the highest SEED-IV accuracies\cite{bfenet,attgraph,ssemerge}. Their reported values are summarised in Table~\ref{tab:lit}, but differences in protocol, features and reporting unit preclude direct ranking.
+
+
+\subsection{Contrastive and self-supervised learning}
 Contrastive objectives such as SimCLR\cite{simclr} and bootstrap methods such as BYOL\cite{byol} learn representations from augmented views without labels. CLISA\cite{clisa} adapted contrastive learning to EEG by treating time-aligned responses of different participants to the same stimulus as positives, explicitly encouraging inter-participant alignment. Semi-supervised methods such as pseudo-labelling\cite{pseudo} and MixMatch\cite{mixmatch} exploit unlabelled data, including test-participant data when applied transductively.
 
+
+\subsection{Reduced-electrode and wearable EEG}
 Frontal and temporal electrodes carry much of the emotion-related differential-entropy information\cite{seed}, and knowledge distillation has been proposed to transfer information from dense to sparse montages\cite{hinton}. However, few studies quantify how much cross-participant performance survives electrode reduction under the same model and protocol, with participant-level uncertainty.
 
 
-\section{Methodology}
+\subsection{Research gap}
+Three gaps emerge from this literature. First, reported cross-participant accuracies mix zero-shot, transductive and calibrated protocols and are often summarised as a best fold rather than a participant mean, so they cannot be compared. Second, no study has separated, under one protocol, how much of the performance of classical, supervised, self-supervised, adversarial and semi-supervised models comes from labelled data of the new user. Third, electrode reduction is rarely quantified with the same models, the same protocol and participant-level uncertainty. The present study addresses all three.
+
+
+\section{Materials and Methods}
 In this section, the dataset, evaluation protocol, model families, the CLISA-EWU architecture, evaluation metrics and statistical analysis are described. The overall workflow of the study is shown in Fig.~\ref{fig:workflow}.
 
 \begin{figure}[!htbp]
@@ -143,10 +174,8 @@ In this section, the dataset, evaluation protocol, model families, the CLISA-EWU
 \end{figure}
 
 
-\subsection{Dataset and features}
-We analysed the public SEED-IV dataset\cite{seediv}. Fifteen healthy adults \pending{report sex and age range from the dataset paper} watched 72 film clips (24 per session, three sessions on different days) selected to elicit neutral, sad, fear and happy states while 62-channel EEG was recorded according to the international 10–20 system. The original study obtained ethics approval and informed consent; no new data were collected, and data access followed the dataset licence.
-
-We used the differential-entropy features released with SEED-IV, computed in non-overlapping 4-s windows in five bands (delta, theta, alpha, beta, gamma) and smoothed with a linear dynamical system (de\_LDS)\cite{seed,seediv}. This yielded 37,575 windows (2505 per participant; neutral 10,170, sad 10,245, fear 9225, happy 7935; Fig.~\ref{fig:dataset}). The full montage gave 310 features per window (62 electrodes × 5 bands). The wearable-compatible montage used six electrodes reachable by a forehead-and-temple band (FP1, FP2, F7, F8, T7, T8; 30 features). It is an exact subset of the full feature matrix, so montage comparisons are not confounded by preprocessing. Features were z-standardised before modelling \pending{confirm that standardisation statistics are computed within each training fold; re-run if they were computed on all 15 participants}.
+\subsection{Data description}
+The public SEED-IV dataset\cite{seediv} was used. Fifteen healthy adults \pending{report sex and age range from the dataset paper} watched 72 film clips (24 per session, three sessions on different days) selected to elicit neutral, sad, fear and happy states while 62-channel EEG was recorded according to the international 10–20 system. The released feature set contains 37,575 four-second windows, 2505 per participant, with 10,170 neutral (27.1\%), 10,245 sad (27.3\%), 9225 fear (24.6\%) and 7935 happy (21.1\%) windows (Fig.~\ref{fig:dataset}); the classes are therefore close to balanced. Labels are assigned per film clip, so all windows of a trial share one label.
 
 \begin{figure}[!htbp]
   \centering
@@ -158,7 +187,37 @@ We used the differential-entropy features released with SEED-IV, computed in non
 This study used only the publicly available, de-identified SEED-IV dataset. Data collection was approved by the providers’ institutional ethics committee and all participants gave informed consent; no new human data were collected. All methods were carried out in accordance with relevant guidelines and regulations.
 
 
-\subsection{Evaluation protocol}
+\subsection{Data preprocessing and feature extraction}
+The EEG in SEED-IV was downsampled to 200 Hz and band-pass filtered by the dataset providers\cite{seediv,seed}. Differential entropy (DE) features were computed in non-overlapping 4-s windows for five frequency bands (delta, theta, alpha, beta and gamma) \pending{confirm band limits against the dataset documentation}. For a band-limited signal that is approximately Gaussian with variance σ², the differential entropy reduces to a function of band power:
+
+\begin{equation}
+  h(X)=-\int_{-\infty}^{\infty}f(x)\log f(x)\,\mathrm{d}x=\frac{1}{2}\log\left(2\pi e\,\sigma^{2}\right)
+  \label{eq:de}
+\end{equation}
+The released DE features were smoothed over time with a linear dynamical system (de\_LDS)\cite{seed}, which reduces window-to-window noise but also increases the correlation between neighbouring windows of a trial. For each window the 62 × 5 DE matrix was flattened into a 310-dimensional vector. Each feature \emph{j} was z-standardised,
+
+\begin{equation}
+  \tilde{x}_j=\frac{x_j-\mu_j}{\sigma_j},\qquad j=1,\ldots,d
+  \label{eq:zscore}
+\end{equation}
+where μ\textsubscript{j} and σ\textsubscript{j} are the mean and standard deviation of feature \emph{j} \pending{confirm that μ and σ are computed on the training participants of each fold; if they were computed on all 15 participants, re-run with fold-wise statistics}. No further normalisation was applied.
+
+
+\subsection{Electrode montages}
+Two electrode configurations were compared. The full montage used all 62 electrodes (310 features). The wearable-compatible montage used six electrodes reachable by a forehead-and-temple band, FP1, FP2, F7, F8, T7 and T8, giving 30 features (6 electrodes × 5 bands). The six-electrode features are an exact column subset of the full feature matrix (indices 0, 2, 5, 13, 23 and 31 of the 62-channel ordering), so the two configurations differ only in electrode density and not in preprocessing.
+
+
+\subsection{Data augmentation and class balancing}
+Data augmentation was used to create the two views required by contrastive pretraining. For a standardised window \emph{x}, the first view adds isotropic Gaussian noise, and the second view masks whole electrodes across all five bands with a random binary mask \emph{m}, each electrode being kept with probability 0.7:
+
+\begin{equation}
+  v_1=x+\varepsilon,\quad \varepsilon\sim\mathcal{N}(0,\,0.1^{2}I);\qquad v_2=x\odot(m\otimes\mathbf{1}_5),\quad m_c\sim\mathrm{Bernoulli}(0.7)
+  \label{eq:aug}
+\end{equation}
+The noise view encourages invariance to small amplitude perturbations, and the masking view encourages invariance to missing or poorly contacting electrodes, a frequent problem with wearable headsets. Augmentation was applied on the fly to each mini-batch during stage 1 only; supervised fine-tuning and evaluation used unaugmented windows. To counter the mild class imbalance, training mini-batches were drawn with a class-balanced sampler whose sampling weight for a window of class \emph{i} is proportional to 1/\emph{n}\textsubscript{i}.
+
+
+\subsection{Data splitting and evaluation protocol}
 We used leave-one-participant-out (LOSO) cross-validation. In each of 15 folds one participant was held out entirely, and the windows of the remaining 14 were split at random into training (85\%, about 29,810 windows) and validation (15\%, about 5260 windows) sets (Fig.~\ref{fig:split}). The procedure was repeated with seeds 1, 7 and 21, giving 45 runs per model and montage (Table~\ref{tab:protocol}). The complete workflow is shown in Fig.~\ref{fig:workflow}.
 
 \begin{table}[!htbp]
@@ -202,7 +261,7 @@ Twenty windows of the held-out participant are drawn at random, all network para
 Because calibration windows were sampled across trials, a calibration window and a test window could come from the same film-clip trial; with temporally smoothed features such windows are correlated, so calibrated estimates may be optimistic\cite{liblock} \pending{pending: trial-held-out calibration (calibrate on session 1, test on sessions 2–3) and a calibration-budget curve of 5–200 windows}. Validation windows came from the same participants and trials as training windows, so validation scores were near ceiling (median macro F1 1.00 for supervised models) and early stopping effectively selected late epochs; this does not compromise the independence of the held-out participant.
 
 
-\subsection{Model families}
+\subsection{Baseline models}
 We evaluated ten classical classifiers (linear discriminant analysis, support vector machine with radial basis kernel, random forest, extra trees, gradient boosting, XGBoost\cite{xgboost}, k-nearest neighbours, logistic regression, naive Bayes and a scikit-learn multilayer perceptron) and 16 deep models in five families (Table~\ref{tab:models}): supervised networks (two-layer and deep perceptrons, LSTM, GRU, one-dimensional CNN, transformer\cite{vaswani}, EEG Conformer\cite{conformer} and a channel-dropout transformer); a domain-adversarial network (DANN)\cite{ganin} whose discriminator predicted training-participant identity through a gradient-reversal layer; self-supervised models (SimCLR\cite{simclr}, BYOL\cite{byol}); semi-supervised models (PseudoLabel\cite{pseudo}, which used confident predictions on the unlabelled held-out participant, and MixMatch\cite{mixmatch}); and a teacher–student distillation pair (DANCE)\cite{hinton}.
 
 \begin{table}[!htbp]
@@ -226,8 +285,8 @@ Model of interest & CLISA-EWU & Two-stage contrastive pretraining and supervised
 \end{table}
 
 
-\subsection{CLISA-EWU architecture}
-CLISA-EWU (Fig.~\ref{fig:arch}) has an encoder of two fully connected layers (256 and 128 units, batch normalisation, ReLU, dropout 0.3), a two-layer projection head (64 units) and a linear classifier. In stage 1 (50 epochs), the encoder and projector were trained with the normalised temperature-scaled cross-entropy (NT-Xent) loss (temperature 0.5) on two views of each window: one with additive Gaussian noise (s.d. 0.1) and one with 30\% of electrodes masked across all bands. In stage 2 (up to 50 epochs), the whole network was fine-tuned with cross-entropy (AdamW, learning rate 3 × 10\textsuperscript{−4}, weight decay 10\textsuperscript{−4}, cosine schedule, class-balanced sampling, early stopping with patience 15 on validation macro F1). Unlike the original CLISA\cite{clisa}, which aligns time-locked responses of different participants to the same stimulus, the stage-1 objective contrasts augmented views of the same window and does not use participant or stimulus identity \pending{either implement cross-participant stimulus-aligned positives or rename the model to avoid implying explicit inter-subject alignment}. Hyperparameters for all models are given in the project repository together with the code \pending{add them as a supplementary table}.
+\subsection{Proposed model: CLISA-EWU}
+CLISA-EWU (Fig.~\ref{fig:arch}) consists of an encoder \emph{f}\textsubscript{θ}, a projection head \emph{g}\textsubscript{φ} used only during pretraining, and a linear classifier. The encoder maps a window \emph{x} to a 128-dimensional representation \emph{h}, and the projection head maps \emph{h} to a 64-dimensional unit vector \emph{z}:
 
 \begin{figure}[!htbp]
   \centering
@@ -236,20 +295,66 @@ CLISA-EWU (Fig.~\ref{fig:arch}) has an encoder of two fully connected layers (25
   \label{fig:arch}
 \end{figure}
 
-For a batch of \emph{N} windows, the two augmented views give 2\emph{N} projections \emph{z}. For a positive pair (\emph{i}, \emph{j}), the NT-Xent loss is
+\begin{equation}
+  h=f_\theta(x)=\mathrm{ReLU}\Bigl(\mathrm{BN}\bigl(W_2\,\mathrm{Dropout}(\mathrm{ReLU}(\mathrm{BN}(W_1x)))\bigr)\Bigr),\qquad z=\frac{g_\phi(h)}{\lVert g_\phi(h)\rVert_2}
+  \label{eq:encoder}
+\end{equation}
+where \emph{W}\textsubscript{1} ∈ ℝ\textsuperscript{256×d} and \emph{W}\textsubscript{2} ∈ ℝ\textsuperscript{128×256} (\emph{d} = 310 or 30), BN denotes batch normalisation and dropout has rate 0.3. The classifier outputs class probabilities ŷ = softmax(\emph{W}\textsubscript{c}\emph{h} + \emph{b}\textsubscript{c}). Training has two stages. In stage 1, the encoder and projection head are trained with the NT-Xent contrastive loss\cite{simclr} on the two augmented views. For a batch of \emph{N} windows, the views give 2\emph{N} projections, and for a positive pair (\emph{i}, \emph{j}) the loss is
 
 \begin{equation}
   \ell_{i,j} = -\log \frac{\exp\left(\mathrm{sim}(z_i,z_j)/\tau\right)}{\sum_{k=1,\,k\neq i}^{2N}\exp\left(\mathrm{sim}(z_i,z_k)/\tau\right)}
   \label{eq:ntxent}
 \end{equation}
-where sim(·,·) is cosine similarity and τ = 0.5 is the temperature; the loss is averaged over all positive pairs in the batch.
+where sim(·,·) is cosine similarity and τ = 0.5. In stage 2, the encoder and classifier are fine-tuned with the cross-entropy loss over mini-batches B,
+
+\begin{equation}
+  \mathcal{L}_{\mathrm{CE}}=-\frac{1}{|\mathcal{B}|}\sum_{b\in\mathcal{B}}\sum_{i=1}^{C}y_{b,i}\log\hat{y}_{b,i}
+  \label{eq:ce}
+\end{equation}
+Unlike the original CLISA\cite{clisa}, which treats time-aligned responses of different participants to the same stimulus as positives, the stage-1 objective here contrasts augmented views of the same window and does not use participant or stimulus identity \pending{either implement cross-participant stimulus-aligned positives or rename the model to avoid implying explicit inter-subject alignment}.
 
 
-\paragraph{Training configuration}
+\subsection{Training algorithm}
+Algorithm~\ref{alg:clisa} summarises the complete training and evaluation procedure for one montage, including both evaluation protocols.
+
+\begin{algorithm}[!htbp]
+\caption{CLISA-EWU leave-one-participant-out training and evaluation}
+\label{alg:clisa}
+\small
+\begin{algorithmic}[1]
+\Require Standardised DE features \emph{X} ∈ ℝ\textsuperscript{N×d}, labels \emph{y}, participant identifiers \emph{s}, seeds \{1, 7, 21\}, calibration budget \emph{m} = 20
+\Ensure Zero-shot accuracy A\textsubscript{zs} and calibrated accuracy A\textsubscript{cal} for every seed and held-out participant
+\For{each seed \emph{r} ∈ (1, 7, 21)}
+\For{each participant \emph{p} = 1, …, 15}
+\State D\textsubscript{test} ← windows of participant \emph{p}; D\textsubscript{pool} ← windows of the other 14 participants
+\State Split D\textsubscript{pool} at random into D\textsubscript{train} (85\%) and D\textsubscript{val} (15\%)
+\State Initialise encoder \emph{f}\textsubscript{θ}, projection head \emph{g}\textsubscript{φ} and classifier \emph{c}\textsubscript{ψ}
+\For{epoch = 1, …, 50} \Comment{Stage 1: contrastive pretraining}
+\For{each class-balanced mini-batch \emph{x} ⊂ D\textsubscript{train}}
+\State \emph{v}\textsubscript{1}, \emph{v}\textsubscript{2} ← noise and electrode-masking views of \emph{x}, Eq.~\eqref{eq:aug}
+\State Update θ, φ by minimising the NT-Xent loss of the projections of \emph{v}\textsubscript{1} and \emph{v}\textsubscript{2}, Eq.~\eqref{eq:ntxent}
+\EndFor
+\EndFor
+\For{epoch = 1, …, 50} \Comment{Stage 2: supervised fine-tuning}
+\State Update θ, ψ by minimising the cross-entropy loss on D\textsubscript{train}, Eq.~\eqref{eq:ce}
+\If{validation macro F1 has not improved for 15 epochs}
+\State stop training
+\EndIf
+\EndFor
+\State Restore the best (θ, ψ); A\textsubscript{zs}(\emph{r}, \emph{p}) ← accuracy on D\textsubscript{test} \Comment{zero-shot}
+\State Draw \emph{m} windows D\textsubscript{cal} ⊂ D\textsubscript{test} at random; D\textsubscript{eval} ← D\textsubscript{test} ∖ D\textsubscript{cal}
+\State Fine-tune θ, ψ on D\textsubscript{cal} for 10 epochs (Adam, learning rate 10\textsuperscript{−3})
+\State A\textsubscript{cal}(\emph{r}, \emph{p}) ← accuracy on D\textsubscript{eval} \Comment{calibrated}
+\EndFor
+\EndFor
+\State \Return A\textsubscript{zs} and A\textsubscript{cal} for all seeds and participants
+\end{algorithmic}
+\end{algorithm}
+
+
+\subsection{Implementation details}
 Stage 1 uses AdamW (learning rate 10\textsuperscript{−3}, weight decay 10\textsuperscript{−4}, cosine annealing, 50 epochs, batch size 128). Stage 2 uses AdamW (learning rate 3 × 10\textsuperscript{−4}, weight decay 10\textsuperscript{−4}, cosine annealing, up to 50 epochs, early stopping with patience 15 on validation macro F1, class-balanced sampling). Supervised baselines were trained for up to 100 epochs with the same early-stopping rule. Mixed-precision training was used throughout.
 
-
-\paragraph{Implementation}
 All experiments were implemented in Python 3 with PyTorch \pending{version} (deep models), scikit-learn \pending{version} and XGBoost \pending{version} (classical models), and SciPy and statsmodels (statistics), and were run on an NVIDIA GeForce RTX 3050 Laptop GPU \pending{confirm hardware}.
 
 
@@ -351,7 +456,7 @@ Associations between zero-shot accuracy, calibration gain and montage were asses
 Representation geometry was examined with t-SNE\cite{tsne} and with silhouette\cite{silhouette}, Davies–Bouldin\cite{dbi} and Calinski–Harabasz\cite{chi} indices computed on PCA-reduced raw features and on CLISA-EWU encoder embeddings, using emotion and participant labels. Electrode importance was estimated with gradient-based SHAP\cite{shap} on the 62-electrode model of the best run, summing absolute attributions over the five bands of each electrode separately for each predicted class.
 
 
-\section{Results and discussion}
+\section{Results and Discussion}
 In this section, the results of the benchmark are presented. Zero-shot performance is reported first, followed by the effect of few-shot calibration, the paired statistical comparisons, electrode reduction, variability across participants, class-level behaviour, representation geometry and secondary analyses. The implications and limitations of the findings are discussed at the end of the section.
 
 
@@ -736,14 +841,25 @@ The practical message for wearable affective computing is cautiously positive. A
 This study has limitations. The cohort was small (15 participants), healthy and drawn from one laboratory, and emotions were elicited with film clips under controlled conditions; generalisation to other populations, naturalistic settings and clinical groups is unknown \cite{seed,seedv,faced} \pending{external validation on SEED, SEED-V and FACED pending}. The six-electrode montage was simulated by selecting channels from a laboratory cap rather than recorded with a wearable device. Calibration windows were sampled across trials, so calibration and test windows could share a trial, which may have inflated calibrated accuracy\cite{liblock}. Labels were assigned per film clip rather than per moment. We used precomputed features, so preprocessing choices could not be varied, and hyperparameters were not tuned separately for each model. Finally, the contrastive model contrasted augmented views of single windows rather than aligning participants explicitly, so its gains should not be attributed to inter-participant alignment.
 
 
-\section{Conclusion}
+\section{Conclusion and Future Work}
 In this benchmark of 26 models under one leave-one-participant-out protocol, three findings stand out. First, decoding four emotions in an unseen participant without any of their data was modest for every model, and the deep architectures, including the contrastive model of primary interest, did not clearly outperform a two-layer perceptron. Second, about 80 s of labelled calibration data raised accuracy by roughly 20 percentage points, but only for models trained with contrastive, domain-adversarial or pseudo-label objectives. Third, a six-electrode frontal–temporal montage retained about nine-tenths of calibrated full-montage performance. In a controlled participant-independent benchmark, brief labelled calibration rather than architecture accounted for most of the measurable gain in EEG emotion recognition, and a six-electrode wearable-compatible montage retained about 91\% of calibrated performance. Rigorous separation of zero-shot and calibrated evaluation, external validation and real wearable recordings are the next steps towards dependable EEG-based affect sensing.
 
+Future work will address the limitations identified above:
 
-\section{Data availability}
+\begin{itemize}
+  \item External validation on SEED, SEED-V and FACED, and training on SEED-IV with testing on these datasets without retraining\cite{seed,seedv,faced}.
+  \item A trial-held-out calibration protocol (calibrate on session 1, test on sessions 2–3) and a calibration-budget curve of 5–200 windows to remove the trial-overlap optimism of the present calibration.
+  \item An ablation that calibrates only batch-normalisation statistics, only the classifier, or all parameters, to identify the mechanism behind the objective-dependent calibration gain.
+  \item A true inter-participant contrastive objective with stimulus-aligned positives from different participants, to test whether zero-shot accuracy can be improved.
+  \item A seven- or eight-electrode montage that adds a parieto-occipital site, motivated by the attribution results for fear.
+  \item Recording a new cohort with a dry-electrode wearable headband and real-time deployment of the NeuroSync interface, followed by studies in clinically relevant populations.
+\end{itemize}
+
+
+\section*{Data availability}
 The SEED-IV dataset is available from its providers under their licence at \url{https://bcmi.sjtu.edu.cn/home/seed/}. Data splits, per-fold predictions, confusion matrices and result tables are available at \url{https://github.com/saifkhancse/clisa-ewu-brain-informatics} \pending{archive a tagged release on Zenodo and cite its DOI}.
 
-\section{Code availability}
+\section*{Code availability}
 Model, training, evaluation and analysis code, including the scripts that regenerate every statistic and figure in this paper, is available at \url{https://github.com/saifkhancse/clisa-ewu-brain-informatics}.
 
 \begin{thebibliography}{99}
