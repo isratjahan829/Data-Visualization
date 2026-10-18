@@ -77,6 +77,9 @@ const REFS = {
   bendr: 'Kostas, D., Aroca-Ouellette, S. & Rudzicz, F. BENDR: using transformers and a contrastive self-supervised learning task to learn from massive amounts of EEG data. Front. Hum. Neurosci. 15, 653659 (2021).',
   krigolson: 'Krigolson, O. E., Williams, C. C., Norton, A., Hassall, C. D. & Colino, F. L. Choosing MUSE: validation of a low-cost, portable EEG system for ERP research. Front. Neurosci. 11, 109 (2017).',
   casson: 'Casson, A. J. Wearable EEG and beyond. Biomed. Eng. Lett. 9, 53–71 (2019).',
+  laird: 'Laird, N. M. & Ware, J. H. Random-effects models for longitudinal data. Biometrics 38, 963–974 (1982).',
+  efron: 'Efron, B. & Tibshirani, R. J. An Introduction to the Bootstrap (Chapman & Hall, 1993).',
+  schuirmann: 'Schuirmann, D. J. A comparison of the two one-sided tests procedure and the power approach for assessing the equivalence of average bioavailability. J. Pharmacokinet. Biopharm. 15, 657–680 (1987).',
 };
 
 const TITLE = 'Few-shot calibration rather than architecture drives cross-participant EEG emotion recognition with full and six-electrode montages';

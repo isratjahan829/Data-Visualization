@@ -159,9 +159,69 @@ const FAMILIES = { title: 'Main families of cross-participant EEG emotion recogn
 
 TABLES.families = FAMILIES; { const tot = FAMILIES.rel.reduce((a, b) => a + b, 0); FAMILIES.widths = FAMILIES.rel.map((r) => Math.floor((r * TEXT_W) / tot)); FAMILIES.widths[FAMILIES.widths.length - 1] += TEXT_W - FAMILIES.widths.reduce((a, b) => a + b, 0); }
 
+// ---- Lancet-style depth: research-in-context panel, design, outcomes, power, sensitivity, structured discussion ----
+const PANEL = [
+  ['Evidence before this study', 'We reviewed studies of cross-participant (subject-independent) EEG emotion recognition indexed in IEEE Xplore, PubMed and Google Scholar, focusing on the SEED, SEED-IV, SEED-V, DEAP, DREAMER and FACED benchmarks and on domain-adaptation, contrastive and reduced-electrode methods [[document search dates, terms and the number of records screened]]. Reported four-class SEED-IV accuracies ranged from about 59% to above 80%, but studies differed in whether unlabelled or labelled data from the test participant were used, in how windows were split, and in whether a participant mean or a best fold was reported. We found no study that, under one protocol, separated zero-shot from calibrated performance across classical, supervised, self-supervised, adversarial and semi-supervised models, or that quantified the cost of reducing a research montage to a wearable-compatible electrode subset with participant-level uncertainty.'],
+  ['Added value of this study', 'In a benchmark of 26 models with 45 leave-one-participant-out runs each, zero-shot four-class accuracy was modest and no deep model was meaningfully better than a two-layer perceptron (equivalent within ±3 percentage points). Calibration with about 80 s of labelled data raised accuracy by 16–21 points for contrastive, adversarial and pseudo-label models but by at most 2 points for supervised networks, and made the ranking of models consistent across participants. A six-electrode frontal–temporal montage retained 91% of calibrated full-montage accuracy. These findings were robust in mixed-effects, jackknife, seed-wise, balanced-accuracy and equivalence analyses, and all per-fold outputs are openly available.'],
+  ['Implications of all the available evidence', 'Claims that a new architecture solves cross-participant EEG emotion recognition should be read alongside whether, and how much, labelled data from the new user were used. Brief user calibration appears to be the main lever for practical systems, and low-density headsets look viable under calibration. External validation in independent and more diverse cohorts, real wearable recordings and calibration protocols that keep calibration and test trials separate are needed before deployment in consumer or clinical settings.'],
+];
+const INTRO_BURDEN = 'Interest in objective affect sensing is driven by applications that range from adaptive human–computer interaction and neurofeedback to the continuous monitoring of mood in digital mental health, where self-report is intermittent and subject to recall bias. For such applications to be useful, a decoder must work reliably for a new user from the first session, with a headset that can be worn outside the laboratory and with minimal set-up. These practical requirements translate into two technical ones: generalisation across people and robustness to a reduced electrode montage.';
+const AIMS = 'We evaluated three hypotheses. First, that under strict zero-shot evaluation, representation-learning models would not substantially outperform simple supervised baselines. Second, that a short labelled calibration would benefit models trained with contrastive, adversarial or pseudo-label objectives more than purely supervised networks. Third, that a six-electrode frontal–temporal montage would retain most of the calibrated performance of the full 62-electrode montage.';
+const DESIGN = [
+  'This study is a retrospective secondary analysis of a public EEG dataset with a pre-defined evaluation design in which the participant is the unit of analysis. All models were trained and evaluated under the same leave-one-participant-out protocol, with the same features, splits and seeds, so that differences between models reflect the models rather than the protocol. The study is reported following the TRIPOD+AI guideline where applicable{tripod}. No new participants were recruited and no participant-level data beyond the released features were accessed.',
+];
+const OUTCOMES = [
+  'The primary outcome was the accuracy of four-class emotion recognition on the windows of the held-out participant, averaged over three seeds to give one value per participant, under both the zero-shot and the calibrated protocol. Key secondary outcomes were macro F1, the calibration gain (calibrated minus zero-shot accuracy) and electrode-reduction retention. Exploratory outcomes were balanced accuracy, precision, specificity, weighted F1, Cohen’s κ, the Matthews correlation coefficient, the geometric mean of recalls and the information transfer rate (available for CLISA-EWU and DANN), per-class metrics, representation-geometry indices and electrode attributions.',
+];
+const POWER = [
+  'The number of participants was fixed at 15 by the dataset, so a sensitivity power analysis was performed instead of an a priori sample-size calculation. With 15 paired participant-level observations, a two-sided paired test at α = 0.05 has 80% power to detect a standardised effect of *d*~z~ = 0.78, and 90% power for *d*~z~ = 0.90; at a Bonferroni-level α of 0.05/14, 80% power requires *d*~z~ = 1.15. Given the observed standard deviation of paired differences between CLISA-EWU and DANN after calibration, *d*~z~ = 0.78 corresponds to about 1.5 percentage points with 62 electrodes and 3.3 points with six electrodes. Smaller differences between the best models cannot be resolved reliably with this dataset, and non-significant comparisons should be read as inconclusive rather than as evidence of equality unless supported by the equivalence analysis.',
+];
+const SENS_METHODS = [
+  'Six pre-planned sensitivity analyses tested the robustness of the main comparisons. (i) Linear mixed-effects models{laird} fitted to run-level accuracy, with model and seed as fixed effects and a random intercept and random model effect for each participant, so that all 45 runs were used without treating them as independent. (ii) A leave-one-participant-out jackknife{efron}, recomputing each paired comparison and the retention ratio 15 times with one participant removed. (iii) Seed-wise analyses, repeating the ranking and the comparison with DANN separately for each seed. (iv) Re-analysis of the CLISA-EWU versus DANN comparison with balanced accuracy computed from the confusion matrices. (v) Two one-sided tests (TOST){schuirmann} of equivalence between zero-shot CLISA-EWU and the two perceptron baselines with margins of ±2 and ±3 percentage points. (vi) The probability that each model is the best, estimated as the proportion of 10,000 participant bootstrap resamples{efron} in which it had the highest mean accuracy.',
+  'All 2,250 runs (1,350 deep and 900 classical) completed, so there were no missing data and no imputation was required.',
+];
+const FUNDING_ROLE = 'There was no funding source for this study [[confirm]]. The authors had full access to all the data and were responsible for the decision to submit for publication.';
+const R_SENS = [
+  'The main conclusions were unchanged in all sensitivity analyses (Table {T:sens}). In mixed-effects models, the calibrated advantage of CLISA-EWU with 62 electrodes was 6.9 percentage points over BYOL (95% CI 4.8 to 9.0; p < 0.001) and 2.1 points over PseudoLabel (0.0 to 4.1; p = 0.049), whereas its 1.6-point advantage over DANN had a confidence interval including zero (−0.3 to 3.6; p = 0.10), consistent with the Holm-adjusted Wilcoxon result. Zero-shot, the mixed-model difference from the two-layer perceptron was 0.8 points (−0.5 to 2.2; p = 0.22).',
+  'In the jackknife, the calibrated advantage of CLISA-EWU with 62 electrodes ranged from 1.4 to 1.9 points over DANN and from 1.9 to 2.4 points over PseudoLabel across the 15 leave-one-out subsets, and unadjusted Wilcoxon p values remained below 0.05 in every subset; with six electrodes, the difference from BYOL ranged from 0.0 to 1.4 points and was never significant (p ≥ 0.39). Retention ranged narrowly from 90.7% to 92.3%, so no single participant drove the electrode-reduction result. CLISA-EWU had the highest calibrated mean accuracy with 62 electrodes for each of the three seeds and with six electrodes for two of three seeds (BYOL ranked first with seed 7), and its advantage over DANN varied between seeds (0.8–2.5 points with 62 electrodes). Using balanced accuracy instead of accuracy gave the same pattern for CLISA-EWU versus DANN (calibrated: +1.8 points with 62 electrodes, p = 0.007, and +2.9 points with six, p = 0.022).',
+  'The equivalence analysis supported the first hypothesis. The 90% confidence interval for the zero-shot difference between CLISA-EWU and the two-layer perceptron was −0.4 to 2.1 points with 62 electrodes, and the two models were statistically equivalent within a margin of ±3 points (TOST p = 0.004; six electrodes, p = 0.009) but not within ±2 points (p = 0.06). In the bootstrap, the probability that CLISA-EWU was the best calibrated model was above 99.9% with 62 electrodes but only 63% with six electrodes, where BYOL (26%) and PseudoLabel (9%) were credible alternatives; zero-shot, CLISA-EWU had a 72% probability of being best with 62 electrodes, whereas with six electrodes SimCLR (70%) and BYOL (27%) were the most likely best models. Finally, the calibration gain of CLISA-EWU exceeded 10 points for 13 of 15 participants with 62 electrodes and for all 15 with six electrodes (ranges 2.8–39.4 and 13.9–35.4 points).',
+];
+const D_PRINCIPAL = 'This study provides a controlled, participant-level comparison of 26 models for cross-participant EEG emotion recognition. Three principal findings emerged, each supporting one of the hypotheses. First, without any data from the new user, four-class accuracy was modest for every model, and the best deep model was statistically equivalent to a two-layer perceptron within ±3 percentage points. Second, about 80 s of labelled calibration data raised accuracy by roughly 20 points, but only for models trained with contrastive, adversarial or pseudo-label objectives; supervised networks barely changed. Third, a six-electrode frontal–temporal montage retained about 91% of calibrated full-montage accuracy, and participants who were decoded well with 62 electrodes were also decoded well with six. These findings were stable across mixed-effects, jackknife, seed-wise, balanced-accuracy and equivalence analyses.';
+const D_COMPARE = [
+  'Our calibrated accuracies (0.678 with 62 electrodes) fall within the range reported for cross-participant SEED-IV studies, whereas our zero-shot accuracies (0.485) fall below it (Table {T:lit}). Many of the higher published values were obtained with domain-adaptation methods that use unlabelled or labelled data from the test participant{dan,bidann,rgnn,plugplay}, which is consistent with our observation that target data, rather than architecture, accounts for most of the measurable gain. Our findings also agree with the brain–computer-interface literature, in which a short per-user calibration is standard and transfer learning mainly serves to shorten it{lotte,jayaram,wu}. The original CLISA reported strong cross-participant performance using inter-participant alignment of time-locked responses{clisa}; our two-stage model used single-window augmentations instead, and its zero-shot equivalence with a perceptron suggests that this form of contrastive pretraining alone does not produce participant-invariant representations.',
+  'The electrode-reduction results extend the subject-dependent findings of Zheng and Lu, who showed that small lateral temporal subsets retained most of the information in SEED{seed}, to the cross-participant setting. The attribution results, which placed the most informative electrodes for fear over parieto-occipital cortex, are consistent with reports that emotion-related activity is not confined to frontal sites{alarcao,jenke}, and they explain why fear recall dropped most when the montage was reduced.',
+];
+const D_MECH = 'Why calibration helped some models much more than others is not established by this study, but three mechanisms are plausible. First, calibration updates batch-normalisation statistics with data from the new participant, which is itself an effective form of domain adaptation{adabn}; all deep models had batch normalisation, so this alone cannot explain the difference. Second, the supervised networks reached near-perfect validation scores on windows from the training participants, suggesting sharp, overconfident decision boundaries that ten epochs at a small learning rate could not move, whereas contrastive and adversarial objectives produce smoother representations that a few labelled samples can re-align. Third, the pseudo-label and adversarial objectives explicitly reduce reliance on participant-specific features, which may leave more class information available for rapid re-weighting. Distinguishing these mechanisms requires the calibration ablation and the trial-held-out protocol described in the future work.';
+const D_STRENGTHS = 'The study has several strengths. All 26 models were evaluated under an identical protocol with the same splits, seeds and features, removing the protocol differences that confound comparisons between published studies. Every result was summarised at the participant level, the unit of generalisation, with bootstrap confidence intervals, paired non-parametric tests with multiplicity correction, effect sizes, rank-based omnibus tests and six sensitivity analyses, including an equivalence test that allows a positive conclusion of no meaningful difference. The evaluation reported both zero-shot and calibrated performance, a broad set of complementary metrics, variance decomposition and class-level behaviour. Errors found during the analysis, including a mislabelled metric and an invalid statistical test in the earlier thesis draft, were corrected and documented, and all per-fold outputs and analysis scripts are openly available.';
+const D_IMPLICATIONS = [
+  'For research, the results indicate that cross-participant EEG emotion recognition should be reported with five elements: zero-shot and calibrated results reported separately; the number, selection and timing of calibration samples; calibration and test data drawn from disjoint trials; participant-level summaries with confidence intervals and paired tests; and per-fold outputs made available. Without these, differences between published methods cannot be attributed to the methods themselves{tripod,kapoor,demsar}.',
+  'For practice, a short calibration session is acceptable in most consumer and research workflows, and a headband carrying frontal and temporal electrodes appears to retain most of the decodable signal under calibration. Because the seed-dependent choice of calibration windows accounted for up to 9% of the variance in accuracy, averaging over several calibration draws or selecting calibration trials systematically would make deployed systems more stable. Nevertheless, the absolute calibrated accuracy (about 62% for four classes with six electrodes) and the large between-participant spread mean that individual predictions remain unreliable, and the system is not suitable for clinical decision-making.',
+];
+const SENS_TABLE = { title: 'Sensitivity analyses. Differences are CLISA-EWU minus comparator in percentage points of accuracy unless stated otherwise; Cal = calibrated; ZS = zero-shot.', header: ['Analysis', 'Comparison', 'Estimate (95% CI or range)', 'p', 'Conclusion'], rows: [
+  ['Mixed-effects model', 'Cal, 62: vs DANN', '1.6 (−0.3 to 3.6)', '0.10', 'Not significant, as in main analysis'],
+  ['Mixed-effects model', 'Cal, 62: vs PseudoLabel', '2.1 (0.0 to 4.1)', '0.049', 'Small advantage'],
+  ['Mixed-effects model', 'Cal, 62: vs BYOL', '6.9 (4.8 to 9.0)', '<0.001', 'Clear advantage'],
+  ['Mixed-effects model', 'ZS, 62: vs two-layer perceptron', '0.8 (−0.5 to 2.2)', '0.22', 'No difference'],
+  ['Jackknife (15 subsets)', 'Cal, 62: vs DANN', '1.4 to 1.9', '0.004 to 0.025', 'Stable direction'],
+  ['Jackknife (15 subsets)', 'Cal, 6: vs BYOL', '0.0 to 1.4', '0.39 to 1.00', 'No difference'],
+  ['Jackknife (15 subsets)', 'Retention, CLISA-EWU', '90.7% to 92.3%', '–', 'Not driven by one participant'],
+  ['Seed-wise', 'Cal rank of CLISA-EWU, 62 / 6', '1, 1, 1 / 1, 2, 1', '–', 'Top rank in 5 of 6 seed–montage pairs'],
+  ['Balanced accuracy', 'Cal, 62: vs DANN', '1.8', '0.007', 'Same direction as accuracy'],
+  ['Balanced accuracy', 'Cal, 6: vs DANN', '2.9', '0.022', 'Same direction as accuracy'],
+  ['Equivalence (TOST)', 'ZS, 62: vs two-layer perceptron', '0.8 (90% CI −0.4 to 2.1)', '0.004 (±3); 0.06 (±2)', 'Equivalent within ±3 points'],
+  ['Equivalence (TOST)', 'ZS, 6: vs two-layer perceptron', '0.5 (90% CI −1.1 to 2.1)', '0.009 (±3); 0.06 (±2)', 'Equivalent within ±3 points'],
+  ['Bootstrap P(best)', 'Cal, 62 / Cal, 6', '>0.999 / 0.63', '–', 'Uncertain leader with six electrodes'],
+  ['Bootstrap P(best)', 'ZS, 62 / ZS, 6', '0.72 / 0.01', '–', 'SimCLR most likely best zero-shot with six'],
+], rel: [17, 24, 20, 15, 24] };
+
+TABLES.sens = SENS_TABLE; { const tot = SENS_TABLE.rel.reduce((a, b) => a + b, 0); SENS_TABLE.widths = SENS_TABLE.rel.map((r) => Math.floor((r * TEXT_W) / tot)); SENS_TABLE.widths[SENS_TABLE.widths.length - 1] += TEXT_W - SENS_TABLE.widths.reduce((a, b) => a + b, 0); }
+
 // ---- Blocks ----
+B.push({ t: 'panel' });
 S1('Introduction');
+P(INTRO_BURDEN);
 C.INTRO.forEach((x) => P(x.replace(' (Table {T:lit})', '')));
+P(AIMS);
 P('This work addresses these gaps through a controlled benchmark with a rigorous, participant-level evaluation. The main contributions of this research are:');
 CONTRIB_SR.forEach(([a, b]) => B.push({ t: 'num', text: `*${a}*: ${b}` }));
 P(ORG2);
@@ -178,6 +238,7 @@ S2('Reduced-electrode and wearable EEG'); LIT_WEAR.forEach(P);
 S2('Research gap'); P(GAP2);
 
 S1('Materials and Methods'); P(METH_INTRO);
+S2('Study design and reporting'); DESIGN.forEach(P);
 S2('Data description'); P(DATA_DESC); P(ETHICS);
 S2('Data preprocessing and feature extraction'); P(PREPROC[0]); EQ('de'); P(PREPROC[1]); EQ('zscore'); P(PREPROC[2]);
 S2('Electrode montages'); P(MONTAGE);
@@ -189,9 +250,13 @@ S2('Baseline models'); C.M_MODELS.forEach(P);
 S2('Proposed model: CLISA-EWU'); P(MODEL_INTRO); EQ('encoder'); P(MODEL_LAYERS); EQ('ntxent'); P(MODEL_STAGE2); EQ('ce'); P(MODEL_NOTE);
 S2('Training algorithm'); P(ALGO_INTRO); B.push({ t: 'algo' });
 S2('Implementation details'); P(TRAINCFG); P(IMPL);
+S2('Outcomes'); OUTCOMES.forEach(P);
 S2('Evaluation metrics'); MIX(C.METRICS);
 S2('Statistical analysis'); MIX(C.STATS);
+S2('Sample size and statistical power'); POWER.forEach(P);
+S2('Sensitivity analyses and missing data'); SENS_METHODS.forEach(P);
 S2('Representation and attribution analysis'); P(C.M_ANALYSIS[0]);
+S2('Role of the funding source'); P(FUNDING_ROLE);
 
 S1('Results and Discussion'); P(RD_INTRO);
 S2('Benchmark overview'); P(C.R_OVERVIEW.replace('The experimental workflow and the CLISA-EWU architecture are shown in Fig. {F:workflow} and Fig. {F:arch}. ', ''));
@@ -206,9 +271,12 @@ S2('Who benefits from calibration'); P(C.R_CORR);
 S2('Class-level behaviour and electrode importance'); P(C.R_CLASS2); P(C.R_SHAP);
 S2('Representation geometry'); P(C.R_REPR);
 S2('Secondary analyses'); P(C.R_SECONDARY);
-S2('Comparison with published studies'); P(LIT_DISC);
-S2('Implications'); P(C.DISCUSSION[1]); P(C.DISCUSSION[2]);
-S2('Limitations'); P(C.DISCUSSION[3]);
+S2('Sensitivity analyses'); R_SENS.forEach(P);
+S2('Principal findings'); P(D_PRINCIPAL);
+S2('Comparison with previous studies'); D_COMPARE.forEach(P); P(LIT_DISC);
+S2('Possible mechanisms'); P(D_MECH);
+S2('Strengths and limitations'); P(D_STRENGTHS); P(C.DISCUSSION[3]); P('The sample of 15 participants also limits statistical power: differences smaller than about 1.5 percentage points with 62 electrodes and 3.3 points with six electrodes between the leading models could not be resolved reliably, so non-significant comparisons among them are inconclusive. Finally, the confusion-matrix metrics could be computed only for the two models whose run logs stored confusion matrices.');
+S2('Implications for research and practice'); P(C.DISCUSSION[1]); D_IMPLICATIONS.forEach(P);
 
 S1('Conclusion and Future Work'); P(C.DISCUSSION[0] + ' ' + C.CONCLUSION);
 P('Future work will address the limitations identified above:');
@@ -317,6 +385,14 @@ let eqNo = 0;
 const EQSZ = JSON.parse(fs.readFileSync(`${FIGDIR}/equations/sizes.json`));
 const eqPara = (key) => { eqNo++; const [w, h] = EQSZ[key]; const sc = Math.min(0.30, 520 / w); return new Paragraph({ indent: { left: IND }, keepLines: true, spacing: { before: 120, after: 120 }, tabStops: [{ type: TabStopType.CENTER, position: Math.round(COL_W / 2) }, { type: TabStopType.RIGHT, position: COL_W }], children: [new TextRun({ text: '\t', font: SERIF }), new ImageRun({ type: 'png', data: fs.readFileSync(`${FIGDIR}/equations/eq_${key}.png`), transformation: { width: Math.round(w * sc), height: Math.round(h * sc) } }), new TextRun({ text: `\t(${eqNo})`, font: SERIF, size: BODY })] }); };
 
+// ---------- Research-in-context panel ----------
+function panelBlock() {
+  const bd = { style: BorderStyle.SINGLE, size: 6, color: '7F7F7F' };
+  const kids = [new Paragraph({ spacing: { after: 100 }, children: [new TextRun({ text: 'Research in context', bold: true, font: SANS, size: 22 })] })];
+  PANEL.forEach(([h, t]) => { kids.push(new Paragraph({ spacing: { before: 80, after: 40 }, children: [new TextRun({ text: h, bold: true, font: SANS, size: 19 })] })); kids.push(new Paragraph({ alignment: AlignmentType.JUSTIFIED, spacing: { after: 60, line: 240 }, children: runs(render(t), { font: SERIF, size: 18 }) })); });
+  return new Table({ width: { size: COL_W, type: WidthType.DXA }, columnWidths: [COL_W], indent: { size: IND, type: WidthType.DXA }, rows: [new TableRow({ children: [new TableCell({ width: { size: COL_W, type: WidthType.DXA }, borders: { top: bd, bottom: bd, left: bd, right: bd }, shading: { fill: 'F2F2F2', type: ShadingType.CLEAR, color: 'auto' }, margins: { top: 140, bottom: 140, left: 180, right: 180 }, children: kids })] })] });
+}
+
 // ---------- Algorithm box ----------
 function algoBlock() {
   const rule = (pos) => ({ [pos]: { style: BorderStyle.SINGLE, size: pos === 'top' ? 12 : 6, color: '000000', space: 2 } });
@@ -361,6 +437,7 @@ for (const b of B) {
   else if (b.t === 'eq') out.push(eqPara(b.key));
   else if (b.t === 'bul') out.push(new Paragraph({ numbering: { reference: 'future', level: 0 }, alignment: AlignmentType.JUSTIFIED, spacing: { before: 40, after: 40, line: 252 }, children: runs(render(b.text), { font: SERIF, size: BODY }) }));
   else if (b.t === 'algo') out.push(...algoBlock());
+  else if (b.t === 'panel') out.push(panelBlock());
   else if (b.t === 'num') out.push(new Paragraph({ numbering: { reference: 'contrib', level: 0 }, alignment: AlignmentType.JUSTIFIED, spacing: { before: 60, after: 60, line: 252 }, children: runs(render(b.text), { font: SERIF, size: BODY }) }));
   else out.push(body(b.text));
   if (b.text) {

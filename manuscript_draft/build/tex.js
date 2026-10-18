@@ -7,7 +7,7 @@ const OUT = process.argv[2];
 // Reuse the section/table structure of the Word builder (srstyle.js) so both outputs stay identical.
 const src = fs.readFileSync(__dirname + '/srstyle.js', 'utf8');
 const slice = src.slice(src.indexOf('// ---------- Tables registry ----------'), src.indexOf('// ---------- Numbering by first mention ----------'));
-const { B, TABLES, ALGO } = new Function('C', 'const TEXT_W = 1000;\n' + slice + '\nreturn { B, TABLES, ALGO };')(C);
+const { B, TABLES, ALGO, PANEL } = new Function('C', 'const TEXT_W = 1000;\n' + slice + '\nreturn { B, TABLES, ALGO, PANEL };')(C);
 
 // ---------- Markup → LaTeX ----------
 const esc = (t) => t
@@ -77,6 +77,8 @@ const table = (k) => {
   const size = n >= 11 ? '\\scriptsize' : n >= 8 ? '\\footnotesize' : '\\small';
   const sep = n >= 11 ? '2.6pt' : n >= 8 ? '3.5pt' : '5pt';
   const wide = n <= 4;
+  const RX = '>{\\raggedright\\arraybackslash}X';
+  if (k === 'sens') { const sp = '@{}' + RX.repeat(5) + '@{}'; return `\\begin{table}[!htbp]\n  \\centering\n  {\\footnotesize\\setlength{\\tabcolsep}{3.5pt}\n  \\begin{tabularx}{\\linewidth}{${sp}}\n  \\toprule\n` + t.header.map((h) => `\\textbf{${tex(h)}}`).join(' & ') + ' \\\\\n\\midrule\n' + t.rows.map((r) => r.map((c) => tex(String(c))).join(' & ') + ' \\\\\n').join('') + `  \\bottomrule\n  \\end{tabularx}}\n  \\caption{${tex(t.title)}}\n  \\label{tab:${k}}\n\\end{table}\n`; }
   const spec = k === 'families' ? '@{}>{\\raggedright\\arraybackslash}X>{\\raggedright\\arraybackslash}X>{\\raggedright\\arraybackslash}X>{\\raggedright\\arraybackslash}X@{}' : k === 'lit' ? '@{}llXl@{}' : wide ? `@{}l${'X'.repeat(n - 1)}@{}` : `@{}l${'c'.repeat(n - 1)}@{}`;
   const env = wide ? ['\\begin{tabularx}{\\linewidth}{' + spec + '}', '\\end{tabularx}'] : ['\\begin{tabular}{' + spec + '}', '\\end{tabular}'];
   let body = t.header.map((h) => `\\textbf{${tex(h)}}`).join(' & ') + ' \\\\\n\\midrule\n';
@@ -111,6 +113,11 @@ function algo() {
   return o + '\\end{algorithmic}\n\\end{algorithm}\n\n';
 }
 
+function panel() {
+  return '\\noindent\\fcolorbox{gray}{gray!8}{\\begin{minipage}{\\dimexpr\\linewidth-2\\fboxsep-2\\fboxrule\\relax}\\small\n\\textsf{\\textbf{Research in context}}\\par\\medskip\n' +
+    PANEL.map(([h, x]) => `\\textsf{\\textbf{${tex(h)}}}\\par ${tex(x)}\\par\\medskip`).join('\n') + '\n\\end{minipage}}\n\n';
+}
+
 // ---------- Body ----------
 let body = '', inList = false, inBul = false;
 const strip = (x) => x.replace(/^\d+(\.\d+)*\s+/, '');
@@ -122,6 +129,7 @@ for (const b of B) {
   else if (b.t === 'h2') body += `\n\\subsection{${tex(strip(b.text))}}\n`;
   else if (b.t === 'bul') { if (!inBul) { body += '\\begin{itemize}\n'; inBul = true; } body += `  \\item ${tex(b.text)}\n`; }
   else if (b.t === 'algo') body += algo();
+  else if (b.t === 'panel') body += panel();
   else if (b.t === 'h3') body += `\n\\paragraph{${tex(b.text)}}\n`;
   else if (b.t === 'eq') body += `\\begin{equation}\n  ${EQ[b.key]}\n  \\label{eq:${b.key}}\n\\end{equation}\n`;
   else if (b.t === 'num') { if (!inList) { body += '\\begin{enumerate}\n'; inList = true; } body += `  \\item ${tex(b.text)}\n`; }
@@ -217,6 +225,8 @@ const preamble = String.raw`% ==================================================
 \newunicodechar{ℓ}{\ensuremath{\ell}}
 \newunicodechar{−}{\ensuremath{-}}
 \newunicodechar{√}{\ensuremath{\surd}}
+\newunicodechar{≥}{\ensuremath{\geq}}
+\newunicodechar{≤}{\ensuremath{\leq}}
 \newunicodechar{≠}{\ensuremath{\neq}}
 \newunicodechar{θ}{\ensuremath{\theta}}
 \newunicodechar{φ}{\ensuremath{\phi}}
@@ -258,6 +268,10 @@ const DROP = ['report sex and age range', 'confirm band limits', 'confirm that �
 doc = doc.replace(/ ?\\pending\{((?:[^{}]|\{[^{}]*\})*)\}/g, (m, inner) => (DROP.some((x) => inner.includes(x)) ? '' : m));
 doc = doc.replace('All figures were created by the authors; schematic illustrations (Figs.~\\ref{fig:workflow} and \\ref{fig:arch}) were drawn manually and all plots were generated with Python.',
   'The authors created all figures; they drew the schematic illustrations (Figs.~\\ref{fig:workflow} and \\ref{fig:arch}) manually, and they generated all plots in Python.');
+const known = new Set([...doc.matchAll(/newunicodechar\{(.)\}/gu)].map((m) => m[1]));
+const native = new Set('±×÷·→²←…ŷ–—‘’“”éèäöüçñšńåøłóáíúãõàâêîôûëïüÿ'.split(''));
+const bad = [...new Set([...doc].filter((ch) => ch.charCodeAt(0) > 127 && !known.has(ch) && !native.has(ch)))];
+if (bad.length) throw new Error('unmapped characters: ' + bad.join(' '));
 fs.writeFileSync(`${OUT}/main.tex`, doc);
 const figs = [...placedF].map((k) => C.FIGS[k].file);
 fs.writeFileSync(`${OUT}/figure_list.txt`, figs.join('\n') + '\n');
