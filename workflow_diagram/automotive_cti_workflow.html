@@ -20,7 +20,7 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: #fff; font-family: Arial, "Liberation Sans", FreeSans, sans-serif; color: var(--ink); }
-  #canvas { position: relative; width: 1300px; height: 1830px; background: #fff; }
+  #canvas { position: relative; width: 2560px; height: 1130px; background: #fff; }
 
   .panel { position: absolute; border: 2.5px solid #222; border-radius: 2px; padding: 26px 12px 12px; }
   .tab { position: absolute; top: -16px; left: 50%; transform: translateX(-50%); background: var(--tab);
@@ -43,7 +43,7 @@
   .stat { font-size: 20px; font-weight: 800; color: #1a1a1a; }
   .lbl { font-size: 11px; color: #333; line-height: 1.25; }
   .chev { clip-path: polygon(0 0, 92% 0, 100% 50%, 92% 100%, 0 100%, 6% 50%); background: #FFF3C8;
-          height: 36px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px;
+          height: 52px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px;
           border: none; filter: drop-shadow(0 0 0 #000); }
   .chev-wrap { background: #1f4e6b; clip-path: polygon(0 0, 92% 0, 100% 50%, 92% 100%, 0 100%, 6% 50%); padding: 2px; }
   .pent { clip-path: polygon(0 0, 100% 0, 100% 72%, 50% 100%, 0 72%); padding: 6px 6px 16px; font-weight: 700;
@@ -92,7 +92,7 @@
   </div>
 
   <!-- B. Preprocessing -->
-  <div class="panel" style="left:460px; top:50px; width:400px; height:320px; background:var(--pink); border-color:var(--pink-b);">
+  <div class="panel" style="left:452px; top:50px; width:400px; height:320px; background:var(--pink); border-color:var(--pink-b);">
     <div class="tab">Data Normalisation</div>
     <div class="row" style="gap:4px; align-items:flex-start;">
       <div class="pent" style="flex:1; background:#CFE0F7;">Record<br>Filtering</div>
@@ -116,7 +116,7 @@
   </div>
 
   <!-- C. Reference labelling -->
-  <div class="panel" style="left:910px; top:50px; width:360px; height:320px; background:var(--mag); border-color:var(--mag-b);">
+  <div class="panel" style="left:894px; top:50px; width:360px; height:320px; background:var(--mag); border-color:var(--mag-b);">
     <div class="tab">Reference Labelling</div>
     <div class="small" style="text-align:center; font-weight:700; color:#111; margin-bottom:5px;">Rule set on structured vendor | product pairs</div>
     <div class="col" style="gap:9px;">
@@ -132,7 +132,7 @@
 
   <!-- ================= ROW 2 ================= -->
   <!-- D. Automotive slice profile (right) -->
-  <div class="panel" style="left:690px; top:430px; width:580px; height:300px; background:var(--lime); border-color:var(--lime-b);">
+  <div class="panel" style="left:1296px; top:50px; width:580px; height:320px; background:var(--lime); border-color:var(--lime-b);">
     <div class="tab">Automotive Slice Profile</div>
     <div class="row" style="gap:10px;">
       <div class="card" style="width:200px;">
@@ -176,7 +176,7 @@
   </div>
 
   <!-- E. Temporal split & tasks (left) -->
-  <div class="panel" style="left:30px; top:430px; width:610px; height:300px; background:var(--cream); border-color:var(--cream-b);">
+  <div class="panel" style="left:1918px; top:50px; width:610px; height:320px; background:var(--cream); border-color:var(--cream-b);">
     <div class="tab">Temporal Split and Benchmark Tasks</div>
     <div style="background:var(--lav); border:2px solid #9C7DC2; border-radius:14px; padding:10px;">
       <div class="row" style="gap:0; height:44px;">
@@ -200,9 +200,9 @@
   </div>
 
   <!-- ================= ROW 3 ================= -->
-  <div class="banner left" style="left:30px; top:800px; width:62px; height:340px;"><span>LLM-based CTI<br>Pipeline</span></div>
+  <div class="banner right" style="left:2466px; top:430px; width:62px; height:340px;"><span>LLM-based CTI<br>Pipeline</span></div>
 
-  <div class="panel" style="left:105px; top:800px; width:790px; height:340px; background:#fff; padding-top:14px;">
+  <div class="panel" style="left:1665px; top:430px; width:790px; height:340px; background:#fff; padding-top:14px;">
     <div class="tiny" style="position:absolute; right:10px; top:6px;">Algorithm 1 · per CVE batch</div>
     <div class="row" style="gap:6px; height:192px; margin-top:6px;">
       <div class="stage" style="border-color:#2F9E5B; background:#EAF7EF;">
@@ -251,7 +251,7 @@
     </div>
   </div>
 
-  <div class="panel" style="left:945px; top:800px; width:250px; height:340px; background:#fff; padding:14px 10px 10px;">
+  <div class="panel" style="left:1295px; top:430px; width:250px; height:340px; background:#fff; padding:14px 10px 10px;">
     <div class="small" style="font-weight:700; color:#111; text-align:center;">Hybrid fusion</div>
     <div class="row" style="gap:4px; margin-top:6px; align-items:center;">
       <div class="chip" style="flex:1; background:var(--blue); font-size:11px;">TF-IDF<br>prob.</div>
@@ -271,13 +271,13 @@
       <div class="chip" style="background:#FDF1D8; font-size:12px;">CVSS base score</div>
     </div>
   </div>
-  <div class="banner right" style="left:1205px; top:800px; width:65px; height:340px;"><span>Hybrid Fusion<br>&amp; Baselines</span></div>
+  <div class="banner right" style="left:1555px; top:430px; width:65px; height:340px;"><span>Hybrid Fusion<br>&amp; Baselines</span></div>
 
   <!-- ================= ROW 4: Evaluation ================= -->
-  <div class="panel" style="left:30px; top:1195px; width:760px; height:280px; padding:22px 14px 12px; border-color:#1f4e6b;
+  <div class="panel" style="left:30px; top:430px; width:1220px; height:340px; padding:30px 18px 12px; border-color:#1f4e6b;
        background:linear-gradient(110deg, #2EE6A8 0%, #7FD9C8 40%, #B39DF0 100%);">
     <div class="tab">Evaluation</div>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px 14px;">
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px 16px;">
       <div class="chev-wrap"><div class="chev">AUROC</div></div>
       <div class="chev-wrap"><div class="chev">AUPRC</div></div>
       <div class="chev-wrap"><div class="chev">Precision / Recall / F1</div></div>
@@ -288,12 +288,14 @@
       <div class="chev-wrap"><div class="chev">McNemar Test</div></div>
       <div class="chev-wrap"><div class="chev">Bootstrap 95% CI</div></div>
       <div class="chev-wrap"><div class="chev">Latency (s / CVE)</div></div>
+      <div class="chev-wrap"><div class="chev">Paired Bootstrap Test</div></div>
+      <div class="chev-wrap"><div class="chev">Throughput (CVEs / h)</div></div>
     </div>
     <div class="tiny" style="position:absolute; right:12px; bottom:5px; color:#1b1b1b;">4-vCPU VM · 15 GB RAM · no GPU · batch 16 · FP32</div>
   </div>
 
   <!-- ================= ROW 5: Results ================= -->
-  <div class="panel" style="left:30px; top:1540px; width:760px; height:260px; background:#fff; padding:24px 12px 10px;">
+  <div class="panel" style="left:30px; top:830px; width:900px; height:270px; background:#fff; padding:24px 12px 10px;">
     <div class="tab">Results and Error Analysis</div>
     <div class="row" style="gap:10px;">
       <div style="width:290px;">
@@ -346,59 +348,59 @@
     </div>
   </div>
 
-  <!-- ================= Deployment (right, rows 4–5) ================= -->
-  <div class="panel" style="left:840px; top:1310px; width:430px; height:490px; background:var(--webg); border-color:#6FA332; padding:26px 14px 12px;">
+  <!-- ================= Deployment (row 3, right) ================= -->
+  <div class="panel" style="left:975px; top:830px; width:1553px; height:270px; background:var(--webg); border-color:#6FA332; padding:30px 16px 12px;">
     <div class="tab">Real-Time Deployment</div>
-    <div class="row" style="gap:0; align-items:center;">
-      <div class="purple-btn" style="flex:1;">Best Design: Hybrid Pipeline</div>
-      <svg width="34" height="20" viewBox="0 0 34 20"><path d="M2 10H26" stroke="#111" stroke-width="3"/><path d="M24 3L33 10L24 17z" fill="#111"/></svg>
-      <div class="purple-btn" style="flex:1;">Local CPU Inference</div>
-    </div>
-    <svg width="400" height="30" viewBox="0 0 400 30"><path d="M95 0V12H305V0M200 12V26" fill="none" stroke="#111" stroke-width="2"/><path d="M194 22L200 30L206 22z" fill="#111"/></svg>
-    <div class="row" style="gap:8px;">
-      <div style="flex:1.25; background:#fff; border:2px solid #555; border-radius:6px; overflow:hidden;">
-        <div style="background:#2d3748; color:#fff; font-size:11px; font-weight:700; padding:5px 8px;">⚠ Ranked alert (example)</div>
-        <div style="padding:7px 8px;" class="col">
-          <div class="tiny"><b>Input:</b> new NVD CVE description</div>
-          <div class="tiny"><b>Relevance:</b> r &gt; 0 → automotive</div>
+    <div class="row" style="gap:14px; align-items:center; height:100%;">
+      <div class="col" style="width:240px; gap:0; align-items:stretch;">
+        <div class="purple-btn">Best Design: Hybrid Pipeline</div>
+        <svg width="240" height="30" viewBox="0 0 240 30"><path d="M120 0V22" stroke="#111" stroke-width="3"/><path d="M113 19L120 29L127 19z" fill="#111"/></svg>
+        <div class="purple-btn">Local CPU Inference</div>
+        <div class="tiny" style="text-align:center; margin-top:6px;">4 vCPU · 15 GB RAM · no GPU<br>no product data leaves the organisation</div>
+      </div>
+      <svg width="40" height="20" viewBox="0 0 40 20"><path d="M2 10H30" stroke="#111" stroke-width="4"/><path d="M28 2L39 10L28 18z" fill="#111"/></svg>
+      <div style="width:330px; background:#fff; border:2px solid #555; border-radius:6px; overflow:hidden;">
+        <div style="background:#2d3748; color:#fff; font-size:12px; font-weight:700; padding:6px 8px;">⚠ Ranked alert (example)</div>
+        <div style="padding:8px 9px;" class="col">
+          <div class="small"><b>Input:</b> new NVD CVE description</div>
+          <div class="small"><b>Relevance:</b> r &gt; 0 → automotive</div>
           <div class="row" style="gap:4px; flex-wrap:wrap;">
-            <span class="chip" style="background:var(--teal); font-size:10px; padding:2px 5px;">Layer: EVSE</span>
-            <span class="chip" style="background:var(--blue); font-size:10px; padding:2px 5px;">Vector: Adjacent</span>
-            <span class="chip" style="background:var(--rose); font-size:10px; padding:2px 5px;">CWE: Access/auth</span>
+            <span class="chip" style="background:var(--teal); font-size:10.5px; padding:2px 6px;">Layer: EVSE</span>
+            <span class="chip" style="background:var(--blue); font-size:10.5px; padding:2px 6px;">Vector: Adjacent</span>
+            <span class="chip" style="background:var(--rose); font-size:10.5px; padding:2px 6px;">CWE: Access/auth</span>
           </div>
-          <div class="tiny" style="margin-top:2px;"><b>Route:</b> analyst queue (P@100 = 1.00)</div>
+          <div class="small"><b>Route:</b> analyst queue (P@100 = 1.00)</div>
         </div>
       </div>
-      <div class="col" style="flex:1; gap:6px;">
-        <div class="card" style="text-align:center;"><div class="stat" style="font-size:17px;">1.14 s</div><div class="tiny">per CVE, FLAN-T5-large</div></div>
-        <div class="card" style="text-align:center;"><div class="stat" style="font-size:17px;">3,164 / h</div><div class="tiny">CVEs on 4 CPU cores</div></div>
-        <div class="card" style="text-align:center;"><div class="stat" style="font-size:17px;">9.2 min</div><div class="tiny">busiest day of 2025 (483 CVEs)</div></div>
+      <svg width="40" height="20" viewBox="0 0 40 20"><path d="M2 10H30" stroke="#111" stroke-width="4"/><path d="M28 2L39 10L28 18z" fill="#111"/></svg>
+      <div style="flex:1; display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+        <div class="card" style="text-align:center;"><div class="stat">1.14 s</div><div class="tiny">per CVE, FLAN-T5-large</div></div>
+        <div class="card" style="text-align:center;"><div class="stat">3,164 / h</div><div class="tiny">CVEs on 4 CPU cores</div></div>
+        <div class="card" style="text-align:center;"><div class="stat">9.2 min</div><div class="tiny">busiest day of 2025 (483 CVEs)</div></div>
+        <div class="card" style="text-align:center;"><div class="stat">57% fewer</div><div class="tiny">LLM calls with top-43% pre-filter<br>(F1 0.79, P 0.83, R 0.75)</div></div>
+      </div>
+      <svg width="40" height="20" viewBox="0 0 40 20"><path d="M2 10H30" stroke="#111" stroke-width="4"/><path d="M28 2L39 10L28 18z" fill="#111"/></svg>
+      <div class="col" style="width:240px; gap:10px;">
+        <div class="purple-btn" style="background:#2B6CB0; border-color:#1a4a80;">Vehicle SOC / PSIRT</div>
+        <div class="purple-btn" style="background:#2B6CB0; border-color:#1a4a80;">Affected Supplier</div>
+        <div class="tiny" style="text-align:center;">Supports UN R155 / ISO/SAE 21434<br>lifetime threat monitoring</div>
       </div>
     </div>
-    <div class="card" style="margin-top:9px; background:#F5FBEA; border-color:#6FA332;">
-      <div class="tiny"><b>Pre-filter forwarding top 43%:</b> F1 0.79 (P 0.83, R 0.75) with <b>57% fewer</b> LLM calls</div>
-    </div>
-    <svg width="400" height="26" viewBox="0 0 400 26"><path d="M200 0V10M95 10H305M95 10V24M305 10V24" fill="none" stroke="#111" stroke-width="2"/></svg>
-    <div class="row" style="gap:12px;">
-      <div class="purple-btn" style="flex:1; background:#2B6CB0; border-color:#1a4a80;">Vehicle SOC / PSIRT</div>
-      <div class="purple-btn" style="flex:1; background:#2B6CB0; border-color:#1a4a80;">Affected Supplier</div>
-    </div>
-    <div class="tiny" style="text-align:center; margin-top:8px;">Supports UN R155 / ISO/SAE 21434 lifetime threat monitoring</div>
   </div>
 
   <!-- ================= Flow arrows ================= -->
-  <svg width="1300" height="1830" style="position:absolute; left:0; top:0; pointer-events:none;">
+  <svg width="2560" height="1130" style="position:absolute; left:0; top:0; pointer-events:none;">
     <defs><marker id="big" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0L10 5L0 10z" fill="#000"/></marker></defs>
     <g fill="none" stroke="#000" stroke-width="5" marker-end="url(#big)">
-      <path d="M411 210 H452"/>
-      <path d="M861 210 H902"/>
-      <path d="M1090 371 V420"/>
-      <path d="M689 580 H648"/>
-      <path d="M335 731 V790"/>
-      <path d="M896 970 H937"/>
-      <path d="M1070 1141 V1255 H800"/>
-      <path d="M410 1476 V1528"/>
-      <path d="M791 1700 H830"/>
+      <path d="M411 210 H444"/>
+      <path d="M853 210 H886"/>
+      <path d="M1255 210 H1288"/>
+      <path d="M1877 210 H1910"/>
+      <path d="M2223 371 V422"/>
+      <path d="M1664 600 H1628"/>
+      <path d="M1294 600 H1258"/>
+      <path d="M640 771 V822"/>
+      <path d="M931 965 H967"/>
     </g>
   </svg>
 </div>
