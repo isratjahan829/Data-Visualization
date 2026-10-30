@@ -299,8 +299,8 @@
   \bibinfo{volume}{28}, \bibinfo{pages}{129--137}.
 \newblock \DOIprefix\doi{10.1109/TIT.1982.1056489}.
 %Type = Article
-\bibitem[{Lorenzo-Seva and ten Berge(2006)}]{lorenzo2006}
-\bibinfo{author}{Lorenzo-Seva, U.}, \bibinfo{author}{ten Berge, J.M.F.},
+\bibitem[{Lorenzo-Seva and {ten Berge}(2006)}]{lorenzo2006}
+\bibinfo{author}{Lorenzo-Seva, U.}, \bibinfo{author}{{ten Berge}, J.M.F.},
   \bibinfo{year}{2006}.
 \newblock \bibinfo{title}{Tucker's congruence coefficient as a meaningful index
   of factor similarity}.
