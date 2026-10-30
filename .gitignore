@@ -1,0 +1,3 @@
+# Unpublished manuscript files (kept local; repo is public)
+AIPS_submission/*
+!AIPS_submission/ml_pipeline.py
