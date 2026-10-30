@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+manuscript/*.aux
+manuscript/*.log
+manuscript/*.fls
+manuscript/*.fdb_latexmk
+manuscript/*.blg
+manuscript/*.out
+manuscript/*.spl

@@ -1,0 +1,42 @@
+% sn-compat.tex -- used only when sn-jnl.cls is not available.
+% Provides the Springer Nature front-matter commands on top of article.cls so that
+% the manuscript compiles unchanged; the layout approximates a single-column
+% Springer submission. Remove nothing: with sn-jnl.cls present this file is ignored.
+\usepackage[T1]{fontenc}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage[authoryear,round]{natbib}
+\bibliographystyle{plainnat}
+\usepackage[hidelinks]{hyperref}
+\usepackage{setspace}
+\onehalfspacing
+\makeatletter
+\newcommand{\fnm}[1]{#1}
+\newcommand{\sur}[1]{#1}
+\newcommand{\orgdiv}[1]{#1}
+\newcommand{\orgname}[1]{#1}
+\newcommand{\orgaddress}[1]{#1}
+\newcommand{\city}[1]{#1}
+\newcommand{\country}[1]{#1}
+\newcommand{\email}[1]{\gdef\sn@email{#1}}
+\gdef\sn@email{}
+\gdef\sn@affil{}
+\def\author{\@ifstar{\sn@author}{\sn@author}}
+\def\sn@author[#1]#2{\gdef\@author{#2}}
+\newcommand{\affil}{\@ifstar{\sn@affilcmd}{\sn@affilcmd}}
+\def\sn@affilcmd[#1]#2{\gdef\sn@affil{#2}}
+\renewcommand{\title}[2][]{\gdef\@title{#2}}
+\renewcommand{\abstract}[1]{\gdef\sn@abstract{#1}}
+\newcommand{\keywords}[1]{\gdef\sn@keywords{#1}}
+\renewcommand{\maketitle}{%
+  \begin{center}
+    {\Large\bfseries\@title\par}\vspace{1em}
+    {\large\@author\textsuperscript{*}\par}\vspace{0.4em}
+    {\small\sn@affil\par
+     \textsuperscript{*}Corresponding author. E-mail: \texttt{\sn@email}\par}
+  \end{center}
+  \vspace{1em}
+  \noindent\textbf{Abstract.} \sn@abstract\par\medskip
+  \noindent\textbf{Keywords:} \sn@keywords\par\bigskip}
+\newcommand{\backmatter}{}
+\newcommand{\bmhead}[1]{\paragraph*{#1}}
+\makeatother
